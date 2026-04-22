@@ -1,0 +1,18 @@
+{
+  "name": "delabie-tech",
+  "version": "0.0.1",
+  "private": true,
+  "description": "delabie.tech v2 — Chirpy migration (parallel test site)",
+  "scripts": {
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve --livereload",
+    "test": "npm run build && npm run test:structural && npm run test:e2e:local",
+    "test:structural": "bundle exec rspec tests/structural",
+    "test:e2e:local": "bundle exec jekyll build && playwright test --config=tests/playwright/playwright.config.ts",
+    "test:e2e:preview": "TEST_ENV=preview playwright test --config=tests/playwright/playwright.config.ts"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.48.0",
+    "@types/node": "^20.14.0"
+  }
+}

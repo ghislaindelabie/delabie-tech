@@ -1,0 +1,180 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build-and-check:
+    name: Build + structural + links + Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        # Phase 0 ships chromium only; webkit/iPad matrix added in later phases.
+        run: npx playwright install --with-deps chromium
+
+      - name: Jekyll build
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+
+      - name: Structural tests (RSpec)
+        run: bundle exec rspec tests/structural --format documentation
+
+      - name: Link check (lychee)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          # --root-dir resolves root-relative URLs like "/about/" to local files under _site.
+          # --offline skips HTTP requests (fast, deterministic).
+          args: --no-progress --offline --root-dir ${{ github.workspace }}/_site _site/
+          fail: true
+
+      - name: Playwright E2E (against built site)
+        run: npm run test:e2e:local
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  claude-review:
+    name: Claude Review (Opus 4.7)
+    runs-on: ubuntu-latest
+    needs: build-and-check
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Claude code review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --model claude-opus-4-7
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Perform a code review of this PR for the delabie-tech site (see CLAUDE.md for conventions).
+            Focus on:
+            - Bugs, regressions, anti-patterns
+            - Unclear names, brittle tests, overly content-specific assertions (tests must be template-level per CLAUDE.md)
+            - Violations of the plan conventions in CHIRPY_MIGRATION_PLAN.md (look for it in the parent repo or referenced sections)
+            - Security-adjacent issues that would normally be caught by the dedicated Security Review
+
+            **Tag every finding** you want tracked with a unique ID like [REVIEW-1], [REVIEW-2], ...
+            Ghislain's review-gate CI check parses these tags; every tag must be answered (in a later commit that quotes the tag, or in a reply comment).
+
+            Post top-level feedback with `gh pr comment`; use inline comments for code-specific issues.
+            Do not submit review text as chat messages — only GitHub comments count.
+
+  claude-security-review:
+    name: Claude Security Review (Opus 4.7)
+    runs-on: ubuntu-latest
+    needs: build-and-check
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+      id-token: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 1
+
+      - name: Claude security review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: |
+            --model claude-opus-4-7
+            --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
+          prompt: |
+            REPO: ${{ github.repository }}
+            PR NUMBER: ${{ github.event.pull_request.number }}
+
+            Perform a security review of this PR. This is a Jekyll static-site migration
+            (Chirpy theme). No server-side code, no user data, no auth. Focus on:
+
+            ## Static-site-relevant checks
+            - Secret leakage in committed files (`.env`, tokens, API keys in frontmatter or scripts)
+            - Workflow permission scopes (should be minimal; any `write` on critical resources must be justified)
+            - Third-party script risks from Chirpy or added includes (CDN pinning, SRI, integrity)
+            - Content Security Policy / Subresource Integrity considerations
+            - Supply-chain: Gemfile and package.json pinning, unknown dependencies
+            - Hook bypass paths in `scripts/hooks/` or `.claude/settings.json`
+            - Any path where the `robots_noindex` preview precaution could leak
+
+            ## OWASP top-10 checks that apply
+            - A05 Security Misconfiguration
+            - A06 Vulnerable and Outdated Components
+            - A08 Software and Data Integrity Failures
+
+            Rate severity: CRITICAL | HIGH | MEDIUM | LOW | NONE.
+            Tag every finding with [SEC-1], [SEC-2], ... Ghislain's review-gate parses these.
+            Post findings via `gh pr comment` and inline comments.
+
+            At the end, post a single summary comment titled "## Security Review Summary"
+            with: (1) what was reviewed, (2) security-relevant decisions, (3) risks accepted
+            with rationale, (4) recommended follow-ups. This summary comment IS the security
+            decision document for this PR (no separate file needed).
+
+  review-gate:
+    name: Review gate (findings answered)
+    runs-on: ubuntu-latest
+    needs: [claude-review, claude-security-review]
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check findings are answered
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: bash scripts/ci/review-gate.sh
