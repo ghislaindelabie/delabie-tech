@@ -77,6 +77,7 @@ jobs:
       contents: read
       pull-requests: write
       issues: write
+      id-token: write  # Required by claude-code-action for OIDC auth
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -100,6 +101,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
+      id-token: write  # Required by claude-code-action for OIDC auth
     steps:
       - name: Checkout
         uses: actions/checkout@v4
