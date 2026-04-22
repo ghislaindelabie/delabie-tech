@@ -1,0 +1,128 @@
+# ----------------------------------------------------------
+# delabie.tech — Chirpy migration (v2 test site)
+# ----------------------------------------------------------
+
+theme: jekyll-theme-chirpy
+
+lang: en
+timezone: Europe/Paris
+
+title: Ghislain Delabie
+tagline: AI engineer building data infrastructure for mobility, science, media and energy
+description: >-
+  Personal site of Ghislain Delabie — AI Solutions lead at Alien Intelligence,
+  connecting AI agents to premium knowledge sources.
+
+url: "https://v2.delabie.tech"
+baseurl: ""
+
+github:
+  username: ghislaindelabie
+
+social:
+  name: Ghislain Delabie
+  email: ghislain@alien.club
+  links:
+    - https://github.com/ghislaindelabie
+    - https://www.linkedin.com/in/ghislaindelabie
+
+# ---- Appearance ----
+theme_mode: # left blank for user toggle
+img_cdn: ""
+avatar: ""
+toc: true
+
+# ---- Comments (OFF in v1 per §9.3.c) ----
+comments:
+  provider: ""
+
+# ---- Analytics (picked in Phase 5 per §9.3.a) ----
+analytics:
+  plausible:
+    domain:
+
+# ---- Pageviews ----
+pageviews:
+  provider: ""
+
+# ---- Preview-site SEO precaution — §3.8.5 ----
+robots_noindex: true
+
+# ---- Paginate ----
+paginate: 10
+
+# ---- Pages ----
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: false
+      toc: true
+      lang: en
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+      lang: en
+
+# ---- Build ----
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+  - "*.config.js"
+  - package*.json
+  - node_modules
+  - tests
+  - scripts
+  - playwright-report
+  - playwright-results
+  - .github
+  - .claude
+  - CLAUDE.md
+  - CHIRPY_MIGRATION_PLAN.md
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

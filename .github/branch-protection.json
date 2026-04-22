@@ -1,0 +1,37 @@
+{
+  "_comment": "Snapshot of the branch-protection rules applied to 'main'. Authoritative configuration lives on GitHub; this file is a reviewable record. Any change here must match a gh api call in a dedicated PR.",
+  "branch": "main",
+  "applied_at": "2026-04-22",
+  "rules": {
+    "required_status_checks": {
+      "strict": true,
+      "contexts": [
+        "Build + structural + links + Playwright",
+        "Claude Review (Opus 4.7)",
+        "Claude Security Review (Opus 4.7)",
+        "Review gate (findings answered)"
+      ]
+    },
+    "enforce_admins": true,
+    "required_pull_request_reviews": {
+      "required_approving_review_count": 0,
+      "dismiss_stale_reviews": true,
+      "require_code_owner_reviews": false
+    },
+    "restrictions": null,
+    "required_linear_history": true,
+    "allow_force_pushes": false,
+    "allow_deletions": false,
+    "required_conversation_resolution": true,
+    "block_creations": false,
+    "lock_branch": false,
+    "allow_fork_syncing": false
+  },
+  "notes": [
+    "enforce_admins=true means even the repo admin (Ghislain) is subject to these rules — bypass requires deliberate toggle-off.",
+    "required_approving_review_count=0 because Ghislain is sole admin; the integrity gate is Ghislain manually clicking Merge, not a GH review count.",
+    "allow_force_pushes=false on main; feature branches can be force-pushed.",
+    "Pre-cutover: Ghislain merges PRs manually after green CI (Option A per plan §5.0).",
+    "Post-cutover: same rule — no change needed."
+  ]
+}

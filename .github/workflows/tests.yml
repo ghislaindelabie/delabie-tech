@@ -1,0 +1,152 @@
+name: Tests
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build-and-check:
+    name: Build + structural + links + Playwright
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.4"
+          bundler-cache: true
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install Node deps
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Jekyll build
+        env:
+          JEKYLL_ENV: production
+        run: bundle exec jekyll build --trace
+
+      - name: Structural tests (RSpec)
+        run: bundle exec rspec tests/structural --format documentation
+
+      - name: Link check (lychee)
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --offline _site/
+          fail: true
+
+      - name: Playwright E2E (against built site)
+        run: npm run test:e2e:local
+
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  claude-review:
+    name: Claude Review (Opus 4.7)
+    runs-on: ubuntu-latest
+    needs: build-and-check
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: write
+      issues: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Claude code review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: '--model claude-opus-4-7'
+          prompt: |
+            Review this pull request. Flag bugs, regressions, anti-patterns,
+            unclear names, brittle tests. Tag each finding as [REVIEW-1], [REVIEW-2], etc.
+            The repo's CLAUDE.md defines the conventions that apply here.
+            Be specific; reference files and line numbers.
+
+  claude-security-review:
+    name: Claude Security Review (Opus 4.7)
+    runs-on: ubuntu-latest
+    needs: build-and-check
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Claude security review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: '--model claude-opus-4-7'
+          prompt: |
+            Perform a security review of this PR. Check for: secret leakage,
+            CSP/headers misconfiguration, third-party script risks, dependency
+            vulnerabilities, data leakage via build artifacts. Tag findings as
+            [SEC-1], [SEC-2], etc. Then produce a markdown document summarizing:
+            (1) changes reviewed, (2) security-relevant decisions, (3) risks
+            accepted, (4) recommended follow-ups. Write the document to
+            docs/security/PR-${{ github.event.pull_request.number }}.md.
+
+      - name: Commit security document
+        run: |
+          if [[ -f "docs/security/PR-${{ github.event.pull_request.number }}.md" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add "docs/security/PR-${{ github.event.pull_request.number }}.md"
+            if ! git diff --cached --quiet; then
+              git commit -m "security: PR-${{ github.event.pull_request.number }} review doc"
+              git push origin HEAD:${{ github.head_ref }}
+            fi
+          else
+            echo "Security review document not produced" >&2
+            exit 1
+          fi
+
+  review-gate:
+    name: Review gate (findings answered)
+    runs-on: ubuntu-latest
+    needs: [claude-review, claude-security-review]
+    timeout-minutes: 5
+    permissions:
+      pull-requests: read
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check findings are answered
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: bash scripts/ci/review-gate.sh

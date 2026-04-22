@@ -1,0 +1,32 @@
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+Gemfile.lock.local
+.bundle/
+
+# Node / Playwright
+node_modules/
+playwright-report/
+playwright-results/
+test-results/
+.cache/
+
+# macOS
+.DS_Store
+._*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Local test artifacts
+tmp/
+*.log
