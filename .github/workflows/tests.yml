@@ -51,7 +51,9 @@ jobs:
       - name: Link check (lychee)
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --no-progress --offline _site/
+          # --root-dir resolves root-relative URLs like "/about/" to local files under _site.
+          # --offline skips HTTP requests (fast, deterministic).
+          args: --no-progress --offline --root-dir ${{ github.workspace }}/_site _site/
           fail: true
 
       - name: Playwright E2E (against built site)
