@@ -43,11 +43,11 @@ export default defineConfig({
     video: "retain-on-failure",
   },
 
+  // Phase 0 ships chromium only. The richer matrix (chromium-fr, webkit-en,
+  // iPad-en) comes in later phases once the i18n layer and layout-level tests
+  // need real browser coverage. This keeps CI under 5 min for the scaffolding.
   projects: [
     { name: "chromium-en", use: { ...devices["Desktop Chrome"] } },
-    { name: "chromium-fr", use: { ...devices["Desktop Chrome"], locale: "fr-FR" } },
-    { name: "webkit-en", use: { ...devices["Desktop Safari"] } },
-    { name: "iPad-en", use: { ...devices["iPad Pro 11"] } },
   ],
 
   // When running against the local build, serve the static _site/ directory.

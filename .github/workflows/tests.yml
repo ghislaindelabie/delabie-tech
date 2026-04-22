@@ -38,7 +38,8 @@ jobs:
         run: npm ci
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps chromium webkit
+        # Phase 0 ships chromium only; webkit/iPad matrix added in later phases.
+        run: npx playwright install --with-deps chromium
 
       - name: Jekyll build
         env:
