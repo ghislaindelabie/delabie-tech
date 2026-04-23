@@ -112,7 +112,7 @@ jobs:
           echo "Using: $(grep model= "$GITHUB_OUTPUT" | cut -d= -f2)"
 
       - name: Claude code review (${{ steps.model.outputs.label }})
-        uses: anthropics/claude-code-action@59e5b24f8332f1feda2f9d9a52aaa464b048644e # v1
+        uses: anthropics/claude-code-action@b4d67413279fc18c6e5de930ae307c4f108714eb # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
@@ -177,7 +177,7 @@ jobs:
           fi
 
       - name: Claude security review (${{ steps.model.outputs.label }})
-        uses: anthropics/claude-code-action@59e5b24f8332f1feda2f9d9a52aaa464b048644e # v1
+        uses: anthropics/claude-code-action@b4d67413279fc18c6e5de930ae307c4f108714eb # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
