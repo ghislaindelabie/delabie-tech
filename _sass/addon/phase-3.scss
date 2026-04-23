@@ -1,0 +1,169 @@
+/* Phase 3 — homepage sections + writing index + repositories. */
+
+/* Home sections --------------------------------------------------------- */
+
+.home-section {
+  margin: 1.5rem 0 2rem;
+
+  &__heading {
+    font-size: 1.375rem;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+}
+
+/* Recent Activity ------------------------------------------------------- */
+
+.home-activity__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.activity-item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.75rem;
+  padding: 0.625rem 0;
+  border-bottom: 1px solid var(--main-border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__date {
+    color: var(--text-muted-color);
+    font-size: 0.8125rem;
+    padding-top: 0.1rem;
+    white-space: nowrap;
+  }
+
+  &__title {
+    font-weight: 600;
+    color: var(--text-color);
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: var(--link-color);
+    }
+  }
+
+  &__content {
+    margin-top: 0.25rem;
+    font-size: 0.9rem;
+    color: var(--text-muted-color);
+
+    p {
+      margin: 0.25rem 0;
+    }
+  }
+
+  @media (max-width: 576px) {
+    grid-template-columns: 1fr;
+    gap: 0.125rem;
+  }
+}
+
+/* Writing index --------------------------------------------------------- */
+
+.writing-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.writing-list__item {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  gap: 0.75rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--main-border-color);
+
+  time {
+    color: var(--text-muted-color);
+    font-size: 0.8125rem;
+    white-space: nowrap;
+  }
+
+  a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover,
+    &:focus {
+      color: var(--link-color);
+    }
+  }
+}
+
+.writing-list__desc {
+  grid-column: 2;
+  margin: 0.25rem 0 0;
+  font-size: 0.875rem;
+  color: var(--text-muted-color);
+}
+
+/* Repositories ---------------------------------------------------------- */
+
+.repos-section {
+  margin: 1.5rem 0 2rem;
+
+  h2 {
+    font-size: 1.375rem;
+    margin: 0 0 0.375rem;
+    padding-bottom: 0.375rem;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+
+  &__blurb {
+    color: var(--text-muted-color);
+    font-size: 0.9rem;
+    margin: 0 0 0.75rem;
+  }
+}
+
+.repo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 22rem), 1fr));
+  gap: 0.75rem;
+}
+
+.repo-card {
+  display: flex;
+  flex-direction: column;
+  padding: 0.875rem 1rem;
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.375rem;
+  background: var(--card-bg);
+  transition: border-color 0.15s ease, transform 0.15s ease;
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--link-color);
+    transform: translateY(-1px);
+  }
+
+  &__link {
+    text-decoration: none;
+    color: var(--link-color);
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+
+  &__name {
+    font-family: var(--bs-font-monospace, monospace);
+    word-break: break-all;
+  }
+
+  &__description {
+    margin: 0.25rem 0 0;
+    font-size: 0.875rem;
+    color: var(--text-muted-color);
+  }
+}

@@ -1,0 +1,13 @@
+{%- comment -%}
+  Shared repo-card partial, used by the /repositories/ tab.
+  Expects `include.repo` = one entry from _data/repositories.yml.
+  All repo URLs are external (GitHub), so open in a new tab with
+  `rel="noopener noreferrer"`. [REVIEW-6 addressed.]
+{%- endcomment -%}
+
+<li class="repo-card" data-test="repo-card">
+  <a class="repo-card__link" href="{{ include.repo.url }}" target="_blank" rel="noopener noreferrer">
+    <span class="repo-card__name">{{ include.repo.name }}</span>
+  </a>
+  <p class="repo-card__description">{{ include.repo.description }}</p>
+</li>

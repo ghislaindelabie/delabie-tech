@@ -4,10 +4,23 @@ layout: default
 
 {%- comment -%}
   Forked from jekyll-theme-chirpy v7.5.0 _layouts/home.html.
-  Local modification (search for "delabie-tech"): filters post lists by
-  page.lang so the FR home page doesn't list EN posts once real content
-  lands. Addresses [REVIEW-2 @ 07:01].
-  When bumping the Chirpy gem, re-diff against upstream.
+  Local modifications (search for "delabie-tech"):
+    1. Post lists filtered by page.lang so the FR home doesn't list EN
+       posts once content lands.
+    2. Recent Activity section (Phase 3) rendered above the post list
+       when _activity/ has entries in the current language.
+    3. Featured Case Studies section (Phase 3) rendered when case_studies
+       collection has ≥ 1 entry in the current language.
+
+  KNOWN LIMITATION (REVIEW-1): the post-pagination math below
+  (paginator.posts | size) uses Jekyll's unfiltered `site.posts`, while
+  the filtered `lang_posts` drives actual rendering. Harmless today
+  (no posts), but once the blog-migration project lands posts, this
+  needs rework: either switch to `lang_posts | slice` + drop the
+  pinned/normal pagination dance, or set paginate_path per lang.
+  Tracking: re-surface in the blog-migration project's first PR.
+
+  When bumping the Chirpy gem, re-diff against upstream and re-apply these markers.
 {%- endcomment -%}
 
 {% include lang.html %}
@@ -15,6 +28,36 @@ layout: default
 {%- comment -%} delabie-tech: filter posts by page lang. {%- endcomment -%}
 {%- assign page_lang = page.lang | default: site.lang -%}
 {%- assign lang_posts = site.posts | where: 'lang', page_lang -%}
+
+{%- comment -%}
+  delabie-tech: Phase 3 sections. Activity + Featured case studies.
+  Rendered BEFORE the posts list so they dominate the empty-state hero.
+  Both degrade gracefully if their source collection is empty.
+{%- endcomment -%}
+{%- assign i18n = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+{%- assign activity_items = site.activity | where: 'lang', page_lang | sort: 'date' | reverse -%}
+{%- if activity_items.size > 0 -%}
+<section class="home-section home-activity" data-test="home-activity">
+  <h2 class="home-section__heading">{{ i18n.home_recent_activity | default: 'Recent activity' }}</h2>
+  <ul class="home-activity__list">
+    {%- for entry in activity_items limit: 5 -%}
+      {% include activity-item.html entry=entry %}
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}
+
+{%- assign featured_cs = site.case_studies | where: 'lang', page_lang | sort: 'date_start' | reverse -%}
+{%- if featured_cs.size > 0 -%}
+<section class="home-section home-featured-case-studies" data-test="home-featured-case-studies">
+  <h2 class="home-section__heading">{{ i18n.home_featured_case_studies | default: 'Featured case studies' }}</h2>
+  <ul class="case-studies-grid">
+    {%- for cs in featured_cs limit: 3 -%}
+      {% include case-study-card.html cs=cs heading_level='h3' %}
+    {%- endfor -%}
+  </ul>
+</section>
+{%- endif -%}
 
 {% assign all_pinned = lang_posts | where: 'pin', 'true' %}
 {% assign all_normal = lang_posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
