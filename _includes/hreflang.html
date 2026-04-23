@@ -1,0 +1,45 @@
+{%- comment -%}
+  Emits hreflang alternates + x-default for the current page.
+  Consumed by the overridden metadata-hook.html which is pulled by Chirpy's head.html.
+
+  Canonical itself is emitted by jekyll-seo-tag (shipped with Chirpy), which
+  already sets <link rel="canonical"> from page.url. We only add alternates.
+
+  Skipped for pages without a `ref` (e.g. jekyll-archives generated
+  tag/category/archives pages). Those have no cross-language pair; emitting
+  hreflang alternates — including self-as-x-default — would only create SEO
+  noise. Addresses [REVIEW-22]. Canonical still fires via jekyll-seo-tag.
+{%- endcomment -%}
+
+{%- if page.ref and page.ref != empty -%}
+{%- assign current_lang = page.lang | default: site.lang -%}
+{%- for lang in site.data.i18n.languages -%}
+  {%- if lang.code == current_lang -%}
+    <link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ page.url | absolute_url }}">
+  {%- else -%}
+    {%- assign alt = page | translation_of: lang.code -%}
+    {%- if alt -%}
+      <link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ alt.url | absolute_url }}">
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- comment -%}
+  x-default identifies the default (unlocalized) version of this page,
+  not the current URL. Resolves to the translation tagged `default: true`
+  in _data/i18n.yml. Fallback to current URL if no default lang is known
+  or no translation exists. Addresses [REVIEW-3].
+{%- endcomment -%}
+{%- assign default_lang = site.data.i18n.languages | where: "default", true | first -%}
+{%- if default_lang and default_lang.code == current_lang -%}
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- elsif default_lang -%}
+  {%- assign default_alt = page | translation_of: default_lang.code -%}
+  {%- if default_alt -%}
+    <link rel="alternate" hreflang="x-default" href="{{ default_alt.url | absolute_url }}">
+  {%- else -%}
+    <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+  {%- endif -%}
+{%- else -%}
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- endif -%}
+{%- endif -%}

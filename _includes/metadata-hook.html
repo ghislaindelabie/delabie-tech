@@ -1,0 +1,15 @@
+{%- comment -%}
+  Override of Chirpy's _includes/metadata-hook.html.
+
+  Chirpy injects this placeholder from head.html so users can add custom
+  <head> metadata without patching head.html itself. We use it to emit
+  hreflang alternates for the custom bilingual setup.
+
+  See CHIRPY_MIGRATION_PLAN.md §2.
+{%- endcomment -%}
+
+{%- include hreflang.html -%}
+
+{%- if site.robots_noindex -%}
+<meta name="robots" content="noindex, nofollow">
+{%- endif -%}

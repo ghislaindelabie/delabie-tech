@@ -8,9 +8,19 @@ import { defineConfig, devices } from "@playwright/test";
  *  - preview: https://v2.delabie.tech
  *  - prod: https://www.delabie.tech  (only after cutover)
  *
- * Projects: chromium-en, chromium-fr, webkit-en, iPad-en
- *   - English + French on chromium to catch language-specific issues
- *   - WebKit + iPad on English only for browser/viewport coverage
+ * Projects (current):
+ *  - chromium-en only.
+ *
+ * The plan's full matrix (chromium-en/fr, webkit-en, iPad-en) lands in a
+ * later phase once real content is in place — browser/viewport differences
+ * matter most on rendered layouts, not on Phase 1 i18n scaffolding.
+ * Addresses [REVIEW-23]: previous comment advertised the full matrix while
+ * the array only had chromium-en.
+ *
+ * Note on FR coverage: the Playwright browser's Accept-Language header is
+ * not used by our Jekyll static site (no server-side content negotiation);
+ * language is selected by URL path (/ vs /fr/). So chromium-en is sufficient
+ * to exercise both locales' rendered output.
  */
 
 type Env = "local" | "preview" | "prod";

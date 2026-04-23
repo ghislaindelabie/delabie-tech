@@ -1,0 +1,12 @@
+---
+---
+
+/* prettier-ignore */
+@use 'main
+{%- if jekyll.environment == 'production' -%}
+  .bundle
+{%- endif -%}
+';
+
+/* delabie-tech custom styles appended below */
+@use 'addon/lang-switcher';

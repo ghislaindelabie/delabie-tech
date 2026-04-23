@@ -1,0 +1,57 @@
+/* Language switcher — positioned inside Chirpy's sidebar between nav and bottom row. */
+
+.lang-switcher {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.5rem 1rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  font-size: 0.8125rem;
+  line-height: 1;
+
+  .nav-item {
+    margin: 0;
+  }
+
+  &__link,
+  &__active,
+  &__unavailable {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    text-decoration: none;
+  }
+
+  &__link {
+    color: var(--sidebar-muted-color);
+    opacity: 0.75;
+    transition: opacity 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      opacity: 1;
+      color: var(--sidebar-active-color);
+      text-decoration: none;
+    }
+  }
+
+  &__active {
+    color: var(--sidebar-active-color);
+    font-weight: 600;
+    cursor: default;
+  }
+
+  &__unavailable {
+    color: var(--sidebar-muted-color);
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+
+  &__label {
+    letter-spacing: 0.04em;
+  }
+}

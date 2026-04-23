@@ -1,9 +1,9 @@
 ---
-title: Categories
+title: Catégories
 icon: fas fa-stream
 order: 2
 layout: categories
-lang: en
+lang: fr
 ref: categories
-permalink: /categories/
+permalink: /fr/categories/
 ---

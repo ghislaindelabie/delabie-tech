@@ -1,9 +1,9 @@
 ---
-title: Tags
+title: Étiquettes
 icon: fas fa-tags
 order: 3
 layout: tags
-lang: en
+lang: fr
 ref: tags
-permalink: /tags/
+permalink: /fr/tags/
 ---

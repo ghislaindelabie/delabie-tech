@@ -223,11 +223,11 @@ PLATFORMS
 DEPENDENCIES
   html-proofer (~> 5.0)
   jekyll (~> 4.3)
-  jekyll-paginate
-  jekyll-redirect-from
-  jekyll-seo-tag
-  jekyll-sitemap
-  jekyll-theme-chirpy (~> 7.1)
+  jekyll-paginate (~> 1.1)
+  jekyll-redirect-from (~> 0.16)
+  jekyll-seo-tag (~> 2.8)
+  jekyll-sitemap (~> 1.4)
+  jekyll-theme-chirpy (~> 7.5.0)
   rspec (~> 3.13)
   tzinfo-data
   wdm (~> 0.1.1)
