@@ -9,27 +9,33 @@ concurrency:
   group: tests-${{ github.ref }}
   cancel-in-progress: true
 
+# [SEC-8] Workflow-level default is read-only; each job that needs write
+# permissions (PR comments, deploy-pages, OIDC) declares them explicitly.
+# Least-privilege default for the build-and-check job.
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   build-and-check:
     name: Build + structural + links + Playwright
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Inherits the read-only workflow-level permissions.
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # [SEC-7] Third-party actions pinned by commit SHA (not tag).
+        # Tag-to-commit resolution is mutable; SHA is immutable. Dependabot
+        # will open PRs to bump these via the github-actions ecosystem.
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735 # v1
         with:
           ruby-version: "3.4"
           bundler-cache: true
 
       - name: Set up Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version: "20"
           cache: "npm"
@@ -50,7 +56,7 @@ jobs:
         run: bundle exec rspec tests/structural --format documentation
 
       - name: Link check (lychee)
-        uses: lycheeverse/lychee-action@v2
+        uses: lycheeverse/lychee-action@8646ba30535128ac92d33dfc9133794bfdd9b411 # v2
         with:
           # --root-dir resolves root-relative URLs like "/about/" to local files under _site.
           # --offline skips HTTP requests (fast, deterministic).
@@ -62,7 +68,7 @@ jobs:
 
       - name: Upload Playwright report on failure
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: playwright-report
           path: playwright-report/
@@ -85,7 +91,7 @@ jobs:
       id-token: write
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 1
 
@@ -103,10 +109,10 @@ jobs:
             echo "model=claude-opus-4-7" >> "$GITHUB_OUTPUT"
             echo "label=Opus 4.7" >> "$GITHUB_OUTPUT"
           fi
-          echo "Using ${{ '' }}: $(grep model= "$GITHUB_OUTPUT" | cut -d= -f2)"
+          echo "Using: $(grep model= "$GITHUB_OUTPUT" | cut -d= -f2)"
 
       - name: Claude code review (${{ steps.model.outputs.label }})
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@59e5b24f8332f1feda2f9d9a52aaa464b048644e # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
@@ -155,7 +161,7 @@ jobs:
         run: sleep 90
 
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
         with:
           fetch-depth: 1
 
@@ -171,7 +177,7 @@ jobs:
           fi
 
       - name: Claude security review (${{ steps.model.outputs.label }})
-        uses: anthropics/claude-code-action@v1
+        uses: anthropics/claude-code-action@59e5b24f8332f1feda2f9d9a52aaa464b048644e # v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
@@ -221,7 +227,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Check findings are answered
         env:

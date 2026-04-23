@@ -5,10 +5,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Workflow-level default is read-only. Pages-writing permissions are declared
+# per-job (only `deploy` actually needs them). [SEC-8].
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
   group: pages
@@ -18,19 +18,21 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    # Inherits read-only permissions; only reads source to build the site.
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        # [SEC-7] SHA-pinned; Dependabot manages bumps.
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735 # v1
         with:
           ruby-version: "3.4"
           bundler-cache: true
 
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@983d7736d9b0ae728b81ab479565c72886d7745b # v5
 
       - name: Jekyll build
         env:
@@ -38,27 +40,32 @@ jobs:
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"
 
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@56afc609e74202658d3ffba0e8f6dda462b719fa # v3
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # The one job that actually writes to Pages + needs OIDC.
+    permissions:
+      pages: write
+      id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
 
   smoke-test:
     needs: deploy
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    # Read-only smoke test against the deployed URL.
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Smoke test live site
         run: bash scripts/verify-deploy.sh https://v2.delabie.tech
