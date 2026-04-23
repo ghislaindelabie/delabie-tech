@@ -10,18 +10,24 @@ describe "rendered HTML invariants" do
     raise "Run `bundle exec jekyll build` first; _site/ missing." unless SITE.exist?
   end
 
-  # Addresses [REVIEW-12]: robots noindex emission must be single-source.
-  it "emits <meta name=\"robots\" content=\"noindex...\"> at most once per page" do
+  # [REVIEW-12] + [SEC-5]: when `robots_noindex: true`, every page must
+  # emit the noindex meta EXACTLY once. Previously only checked "> 1";
+  # tightened to "== 1" so a missing tag also fails (the preview could
+  # otherwise leak to crawlers without any signal).
+  it "emits <meta name=\"robots\" content=\"noindex\"> exactly once per page when robots_noindex is true" do
+    config = YAML.safe_load_file(ROOT / "_config.yml", permitted_classes: [Date])
+    skip "robots_noindex not enabled (post-cutover build)" unless config["robots_noindex"]
+
     violations = []
     Dir.glob(SITE / "**" / "index.html").each do |file|
       html = File.read(file)
       count = html.scan(/<meta\s+name=["']robots["']\s+content=["']noindex/i).size
-      if count > 1
+      unless count == 1
         rel = Pathname.new(file).relative_path_from(SITE).to_s
-        violations << "#{rel}: robots noindex meta appears #{count} times"
+        violations << "#{rel}: robots noindex meta count = #{count} (expected 1)"
       end
     end
-    expect(violations).to be_empty, "Duplicate robots noindex:\n#{violations.join("\n")}"
+    expect(violations).to be_empty, "robots noindex count violations:\n#{violations.join("\n")}"
   end
 
   # Addresses [REVIEW-3]: x-default must point at the default (EN) version.
