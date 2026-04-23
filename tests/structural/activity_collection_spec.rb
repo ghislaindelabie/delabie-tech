@@ -5,7 +5,7 @@ require_relative "spec_helper"
 
 describe "activity collection invariants" do
   ACTIVITY_DIR = I18nPairs::ROOT / "_activity"
-  REQUIRED = %w[date title lang ref].freeze
+  ACTIVITY_REQUIRED = %w[date title lang ref].freeze
 
   it "directory exists with ≥ 1 entry" do
     expect(ACTIVITY_DIR.exist?).to be(true), "_activity/ directory missing"
@@ -18,7 +18,7 @@ describe "activity collection invariants" do
     Dir.glob(ACTIVITY_DIR / "*.md").each do |file|
       fm = I18nPairs.frontmatter(file)
       rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
-      REQUIRED.each do |k|
+      ACTIVITY_REQUIRED.each do |k|
         missing << "#{rel}: missing `#{k}`" if fm[k].nil? || fm[k].to_s.strip.empty?
       end
     end
