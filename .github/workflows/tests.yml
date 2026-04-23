@@ -68,6 +68,11 @@ jobs:
           path: playwright-report/
           retention-days: 14
 
+  # ---------------------------------------------------------------------------
+  # Claude Review — code-quality review (conventions, bugs, test quality).
+  # Runs in PARALLEL with Claude Security Review (see that job's comment for
+  # the coordination mechanism).
+  # ---------------------------------------------------------------------------
   claude-review:
     name: Claude Review (Opus 4.7)
     runs-on: ubuntu-latest
@@ -84,12 +89,29 @@ jobs:
         with:
           fetch-depth: 1
 
-      - name: Claude code review
+      - name: Pick review model (Opus by default, Sonnet if label present)
+        id: model
+        # Fast-track opt-down: add the label `review:sonnet` to a PR to run
+        # both Claude jobs on Sonnet 4.6 instead of Opus 4.7. Useful for
+        # docs-only / typo / frontmatter PRs where Opus depth is overkill.
+        # Default stays Opus for substantive PRs.
+        run: |
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'review:sonnet') }}" == "true" ]]; then
+            echo "model=claude-sonnet-4-6" >> "$GITHUB_OUTPUT"
+            echo "label=Sonnet 4.6" >> "$GITHUB_OUTPUT"
+          else
+            echo "model=claude-opus-4-7" >> "$GITHUB_OUTPUT"
+            echo "label=Opus 4.7" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Using ${{ '' }}: $(grep model= "$GITHUB_OUTPUT" | cut -d= -f2)"
+
+      - name: Claude code review (${{ steps.model.outputs.label }})
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
-            --model claude-opus-4-7
+            --model ${{ steps.model.outputs.model }}
+            --max-turns 10
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
           prompt: |
             REPO: ${{ github.repository }}
@@ -108,63 +130,86 @@ jobs:
             Post top-level feedback with `gh pr comment`; use inline comments for code-specific issues.
             Do not submit review text as chat messages — only GitHub comments count.
 
+  # ---------------------------------------------------------------------------
+  # Claude Security Review — runs in PARALLEL with claude-review, with a 90s
+  # stagger to offset the token-heavy phase. Rationale: the Anthropic org-level
+  # 30k input-tokens-per-minute rate limit on Opus is shared across concurrent
+  # jobs. Observed in PR #2's first run: two simultaneously-started Opus reviews
+  # 429'd. Staggering ~90s shifts the peak-token window of this job into a
+  # different minute bucket from claude-review's peak-token window, so they
+  # coexist under the rate limit while still finishing in ~max(review_time)
+  # wall-clock instead of review_time + security_time sequential.
+  # ---------------------------------------------------------------------------
   claude-security-review:
     name: Claude Security Review (Opus 4.7)
     runs-on: ubuntu-latest
-    # Sequence AFTER claude-review (not parallel) to avoid hitting the
-    # Anthropic org-level 30k input-tokens-per-minute rate limit on Opus.
-    # Two concurrent Opus reviews on the same PR have been observed to 429.
-    # Sequential execution adds ~10 min wall-clock but keeps CI deterministic.
-    # If throughput becomes a bottleneck, downgrade this job to Sonnet (higher limit).
-    needs: [build-and-check, claude-review]
-    timeout-minutes: 15
+    needs: build-and-check
+    timeout-minutes: 18
     permissions:
       contents: read
       pull-requests: write
       security-events: write
       id-token: write
     steps:
+      - name: Offset peak-token window (90s stagger — see job comment)
+        run: sleep 90
+
       - name: Checkout
         uses: actions/checkout@v6
         with:
           fetch-depth: 1
 
-      - name: Claude security review
+      - name: Pick review model (Opus by default, Sonnet if label present)
+        id: model
+        run: |
+          if [[ "${{ contains(github.event.pull_request.labels.*.name, 'review:sonnet') }}" == "true" ]]; then
+            echo "model=claude-sonnet-4-6" >> "$GITHUB_OUTPUT"
+            echo "label=Sonnet 4.6" >> "$GITHUB_OUTPUT"
+          else
+            echo "model=claude-opus-4-7" >> "$GITHUB_OUTPUT"
+            echo "label=Opus 4.7" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Claude security review (${{ steps.model.outputs.label }})
         uses: anthropics/claude-code-action@v1
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
-            --model claude-opus-4-7
+            --model ${{ steps.model.outputs.model }}
+            --max-turns 10
             --allowedTools "mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*)"
           prompt: |
             REPO: ${{ github.repository }}
             PR NUMBER: ${{ github.event.pull_request.number }}
 
-            Perform a security review of this PR. This is a Jekyll static-site migration
-            (Chirpy theme). No server-side code, no user data, no auth. Focus on:
+            Security review of this PR. Tight scope: review the DIFF only,
+            plus its direct dependencies (files imported/included/required by
+            the changed files). Do not re-scan the full repo. This is a Jekyll
+            static site (Chirpy theme): no server-side code, no user auth, no
+            user data.
 
-            ## Static-site-relevant checks
-            - Secret leakage in committed files (`.env`, tokens, API keys in frontmatter or scripts)
-            - Workflow permission scopes (should be minimal; any `write` on critical resources must be justified)
-            - Third-party script risks from Chirpy or added includes (CDN pinning, SRI, integrity)
-            - Content Security Policy / Subresource Integrity considerations
-            - Supply-chain: Gemfile and package.json pinning, unknown dependencies
-            - Hook bypass paths in `scripts/hooks/` or `.claude/settings.json`
-            - Any path where the `robots_noindex` preview precaution could leak
+            ## Check-list (apply only those relevant to the diff)
+            - Secrets in committed files (`.env`, tokens, API keys, GA tokens)
+            - New workflow permissions — flag any `write` scope added
+            - New dependencies (Gemfile / package.json) — supply-chain risk, pinning
+            - New third-party scripts / CDN refs — SRI, integrity
+            - Hook-bypass paths in any `scripts/hooks/*` or `.claude/settings.json` change
+            - New Liquid template attribute interpolation without `| escape` / `| xml_escape`
+            - New user-input surfaces (forms, query params, postMessage)
 
-            ## OWASP top-10 checks that apply
+            ## OWASP top-10 items that apply to a static site
             - A05 Security Misconfiguration
             - A06 Vulnerable and Outdated Components
             - A08 Software and Data Integrity Failures
 
             Rate severity: CRITICAL | HIGH | MEDIUM | LOW | NONE.
-            Tag every finding with [SEC-1], [SEC-2], ... Ghislain's review-gate parses these.
-            Post findings via `gh pr comment` and inline comments.
+            Tag every finding with [SEC-1], [SEC-2], ... — the review-gate parses these.
+            Post findings via `gh pr comment` (top-level) and inline comments.
 
             At the end, post a single summary comment titled "## Security Review Summary"
-            with: (1) what was reviewed, (2) security-relevant decisions, (3) risks accepted
-            with rationale, (4) recommended follow-ups. This summary comment IS the security
-            decision document for this PR (no separate file needed).
+            with: (1) what was reviewed, (2) security-relevant decisions, (3) risks
+            accepted with rationale, (4) recommended follow-ups. This summary comment
+            IS the security decision document for this PR (no separate file needed).
 
   review-gate:
     name: Review gate (findings answered)
