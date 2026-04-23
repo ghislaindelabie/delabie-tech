@@ -1,0 +1,37 @@
+{%- comment -%}
+  Single activity entry, rendered inside the homepage Recent Activity list.
+  Expects `include.entry` = one _activity/*.md document.
+
+  External-URL detection: if `link` contains `://` it's absolute; open in a
+  new tab with `rel="noopener noreferrer"`. Internal links navigate in-place.
+  [REVIEW-4 addressed.]
+{%- endcomment -%}
+
+{%- assign has_link = include.entry.link | default: '' -%}
+{%- assign is_external = false -%}
+{%- if has_link != '' and has_link contains '://' -%}{%- assign is_external = true -%}{%- endif -%}
+
+<li class="activity-item" data-test="activity-item">
+  <time class="activity-item__date" datetime="{{ include.entry.date | date: '%Y-%m-%d' }}">
+    {{ include.entry.date | date: '%Y-%m-%d' }}
+  </time>
+  <div class="activity-item__body">
+    {%- if has_link != '' -%}
+      {%- if is_external -%}
+        <a class="activity-item__title" href="{{ include.entry.link }}" target="_blank" rel="noopener noreferrer">{{ include.entry.title }}</a>
+      {%- else -%}
+        <a class="activity-item__title" href="{{ include.entry.link | relative_url }}">{{ include.entry.title }}</a>
+      {%- endif -%}
+    {%- else -%}
+      <span class="activity-item__title">{{ include.entry.title }}</span>
+    {%- endif -%}
+    {%- comment -%}
+      [REVIEW-13] Render once, guard on the markdownified output so
+      whitespace-only bodies produce no empty div.
+    {%- endcomment -%}
+    {%- assign body_html = include.entry.content | markdownify | strip -%}
+    {%- if body_html != '' -%}
+      <div class="activity-item__content">{{ body_html }}</div>
+    {%- endif -%}
+  </div>
+</li>

@@ -1,0 +1,25 @@
+{%- comment -%}
+  Shared case-study card partial. Used by:
+    - _tabs/case-studies.md + .fr.md (the grid index)
+    - _layouts/home.html ("Featured case studies" block)
+  Single source of truth for the card markup; evolve here, not in two
+  places. [REVIEW-7 addressed.]
+  Expects `include.cs` = one _case_studies/*.md document.
+{%- endcomment -%}
+
+<li class="case-study-card" data-test="case-study-card" data-category="{{ include.cs.category }}">
+  <div class="case-study-card__meta">
+    {%- if include.cs.category -%}<span class="case-study-card__category">{{ include.cs.category }}</span>{%- endif -%}
+    {%- if include.cs.date_start -%}
+      <span class="case-study-card__dates">
+        {{ include.cs.date_start }}{% if include.cs.date_end %}–{{ include.cs.date_end }}{% elsif include.cs.ongoing %} →{% endif %}
+      </span>
+    {%- endif -%}
+  </div>
+  {%- if include.heading_level == 'h3' -%}
+    <h3 class="case-study-card__title"><a href="{{ include.cs.url | relative_url }}">{{ include.cs.title }}</a></h3>
+  {%- else -%}
+    <h2 class="case-study-card__title"><a href="{{ include.cs.url | relative_url }}">{{ include.cs.title }}</a></h2>
+  {%- endif -%}
+  {%- if include.cs.summary -%}<p class="case-study-card__summary">{{ include.cs.summary }}</p>{%- endif -%}
+</li>

@@ -15,17 +15,6 @@ permalink: /case-studies/
 
 <ul class="case-studies-grid" data-test="case-studies-grid">
 {%- for cs in items -%}
-  <li class="case-study-card" data-test="case-study-card" data-category="{{ cs.category }}">
-    <div class="case-study-card__meta">
-      {%- if cs.category -%}<span class="case-study-card__category">{{ cs.category }}</span>{%- endif -%}
-      {%- if cs.date_start -%}
-        <span class="case-study-card__dates">
-          {{ cs.date_start }}{% if cs.date_end %}–{{ cs.date_end }}{% elsif cs.ongoing %} →{% endif %}
-        </span>
-      {%- endif -%}
-    </div>
-    <h2 class="case-study-card__title"><a href="{{ cs.url | relative_url }}">{{ cs.title }}</a></h2>
-    {%- if cs.summary -%}<p class="case-study-card__summary">{{ cs.summary }}</p>{%- endif -%}
-  </li>
+  {% include case-study-card.html cs=cs %}
 {%- endfor -%}
 </ul>

@@ -83,6 +83,17 @@ defaults:
       path: "**/*.fr.md"
     values:
       lang: fr
+  # Activity collection defaults
+  - scope:
+      path: ""
+      type: activity
+    values:
+      lang: en
+  - scope:
+      path: "**/*.fr.md"
+      type: activity
+    values:
+      lang: fr
   # Case-study collection defaults
   - scope:
       path: ""
@@ -120,6 +131,13 @@ collections:
     output: true
     sort_by: date_start
     permalink: /case-studies/:slug/
+  # Phase 3 — short-form activity updates surfaced on the homepage's
+  # "Recent Activity" section (see plan §3.1, §5.4). One file per update.
+  # Not published individually (output: false) — entries are aggregated
+  # into the home layout only.
+  activity:
+    output: false
+    sort_by: date
 
 sass:
   style: compressed

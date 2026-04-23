@@ -1,0 +1,53 @@
+# /repositories/ data — three curated sections per plan §3.1.
+# Source of truth for both EN and FR pages. Adding/removing a repo = one
+# edit here; no template or test change required.
+#
+# Section keys are stable identifiers (used in Playwright + as DOM anchors).
+# Labels render per-language from the `label.en` / `label.fr` fields.
+# Repos keep a single `description` field; keep it short (≤ 140 chars).
+
+sections:
+  - key: oc_ai_engineering
+    label:
+      en: OpenClassrooms — AI Engineering
+      fr: OpenClassrooms — Ingénierie IA
+    blurb:
+      en: Coursework and assignments from the AI Engineer path.
+      fr: Travaux et projets du parcours Ingénieur IA.
+    repos:
+      - name: oc4-hr-attrition
+        url: https://github.com/ghislaindelabie/oc4-hr-attrition
+        description: HR-attrition classifier — exploratory data analysis, feature engineering, baseline model comparison.
+      - name: Classifiez_automatiquement_des_informations_DELABIE_Ghislain
+        url: https://github.com/ghislaindelabie/Classifiez_automatiquement_des_informations_DELABIE_Ghislain
+        description: Auto-classification of tickets into categories — NLP pipeline with embeddings + supervised head.
+
+  - key: tech
+    label:
+      en: Tech
+      fr: Tech
+    blurb:
+      en: Personal technical projects and experiments.
+      fr: Projets techniques personnels et expérimentations.
+    repos:
+      - name: delabie-tech
+        url: https://github.com/ghislaindelabie/delabie-tech
+        description: This site's source — Jekyll + Chirpy + a custom plugin-free bilingual layer.
+      - name: ghislaindelabie.github.com
+        url: https://github.com/ghislaindelabie/ghislaindelabie.github.com
+        description: The legacy Jekyll site (al-folio). Archived at cutover.
+
+  - key: ai_enhanced_pro
+    label:
+      en: AI-enhanced professional
+      fr: Pro augmentée par l'IA
+    blurb:
+      en: Public repositories from my professional work where AI accelerates the loop.
+      fr: Dépôts publics issus de mon travail professionnel où l'IA accélère la boucle.
+    repos:
+      - name: fabmob/mob
+        url: https://github.com/fabmob/mob
+        description: moB (Mon Compte Mobilité) — open-source digital platform for mobility services, incentives, and users.
+      - name: fabmob/dataviz-30-lev
+        url: https://github.com/fabmob/dataviz-30-lev
+        description: Dashboards and notebooks for the 30 LEV field trial — telematics pipeline + usage analytics.

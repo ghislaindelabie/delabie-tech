@@ -1,7 +1,7 @@
 ---
 title: Étiquettes
 icon: fas fa-tags
-order: 3
+order: 6
 layout: tags
 lang: fr
 ref: tags
