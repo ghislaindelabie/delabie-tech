@@ -4,8 +4,14 @@
 
   Canonical itself is emitted by jekyll-seo-tag (shipped with Chirpy), which
   already sets <link rel="canonical"> from page.url. We only add alternates.
+
+  Skipped for pages without a `ref` (e.g. jekyll-archives generated
+  tag/category/archives pages). Those have no cross-language pair; emitting
+  hreflang alternates — including self-as-x-default — would only create SEO
+  noise. Addresses [REVIEW-22]. Canonical still fires via jekyll-seo-tag.
 {%- endcomment -%}
 
+{%- if page.ref and page.ref != empty -%}
 {%- assign current_lang = page.lang | default: site.lang -%}
 {%- for lang in site.data.i18n.languages -%}
   {%- if lang.code == current_lang -%}
@@ -35,4 +41,5 @@
   {%- endif -%}
 {%- else -%}
   <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- endif -%}
 {%- endif -%}

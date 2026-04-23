@@ -67,21 +67,24 @@ describe "rendered HTML invariants" do
     expect(violations).to be_empty, "Canonical issues:\n#{violations.join("\n")}"
   end
 
-  # Addresses [REVIEW-1]: sidebar nav filtered by language.
-  it "EN home sidebar nav contains no French tab labels" do
-    html = File.read(SITE / "index.html")
-    french_words = %w[ARCHIVES CATÉGORIES ÉTIQUETTES]  # FR UI strings that would leak if filter missed
-    # ARCHIVES is identical in EN/FR so skip it; use diacritic-bearing ones.
-    accented = french_words.select { |w| w.match?(/[ÀÂÄÇÉÈÊËÎÏÔÖÙÛÜŸŒÆ]/) }
-    violations = accented.select { |w| html.include?(w) }
-    expect(violations).to be_empty, "EN nav leaked FR tab labels: #{violations}"
+  # Addresses [REVIEW-1] + [REVIEW-16] + [REVIEW-3 @ 07:01]: checks are
+  # scoped to the <aside id="sidebar"> block, not the full HTML, so page
+  # body copy in the "other" language (expected in post content) does not
+  # cause false positives.
+  def sidebar_html(path)
+    html = File.read(SITE / path)
+    html[%r{<aside[^>]+id="sidebar".*?</aside>}m] || ""
   end
 
-  it "FR home sidebar nav contains only FR tab entries" do
-    html = File.read(SITE / "fr" / "index.html")
-    # EN-only tab labels should not appear in nav links
-    # (we look for /archives/ without /fr/ prefix in href attrs inside the sidebar area)
-    en_only_hrefs = html.scan(/href="\/(?:about|archives|categories|tags)\/"/).size
-    expect(en_only_hrefs).to eq(0), "FR nav leaked links to EN-only URLs: #{en_only_hrefs} matches"
+  it "EN home sidebar contains no /fr/ tab URLs" do
+    nav = sidebar_html("index.html")
+    fr_urls = nav.scan(%r{href="/fr/[^"]+"}).uniq
+    expect(fr_urls).to be_empty, "EN sidebar leaked FR tab URLs: #{fr_urls}"
+  end
+
+  it "FR home sidebar contains only /fr/ tab URLs (no EN-only ones)" do
+    nav = sidebar_html("fr/index.html")
+    en_only = nav.scan(%r{href="/(?:about|archives|categories|tags)/"}).uniq
+    expect(en_only).to be_empty, "FR sidebar leaked EN-only URLs: #{en_only}"
   end
 end

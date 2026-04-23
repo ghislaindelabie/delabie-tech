@@ -5,8 +5,9 @@ lang: en
 ref: phase1-notes
 permalink: /phase1-notes/
 translated: false
+sitemap: false
 ---
 
-Internal milestone note for Phase 1 of the migration. Kept as a permanent example of a `translated: false` page — used by the Playwright test that exercises the switcher's "unavailable" state. Short EN-only blurb. Not linked from nav.
+Milestone note for the Chirpy migration — Phase 1 (custom bilingual layer). Not linked from the main navigation; reachable by direct URL only.
 
-Addresses [REVIEW-4].
+Phase 1 replaced the previous i18n plugin with a plain-Jekyll pattern: content files ship as `name.md` (English) and `name.fr.md` (French), linked by a shared `ref` in the frontmatter. The site builds to identical URLs, with `hreflang` alternates and a discreet language switcher in the sidebar. Every change runs through CI that enforces the pair invariants, so future content additions can't drift out of sync.

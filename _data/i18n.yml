@@ -5,17 +5,21 @@
 languages:
   # `default: true` is consumed by hreflang.html's x-default resolution.
   # `native` is the in-language name shown in the switcher.
+  # No country flags: country-flag-for-language is a W3C-flagged anti-pattern
+  # (one language, many countries; emoji flag rendering inconsistent across OSes).
+  # Addresses [REVIEW-9 @ 07:01].
   - code: en
     native: English
-    flag: "🇬🇧"
     hreflang: en
     default: true
   - code: fr
     native: Français
-    flag: "🇫🇷"
     hreflang: fr
 
 # UI strings for the switcher and related per-language text.
+# If a new language is added to `languages` without a matching strings block,
+# the switcher falls back to the default-language strings (see lang-switcher.html
+# and [REVIEW-19]).
 strings:
   en:
     lang_switcher_label: "Language"

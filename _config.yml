@@ -52,6 +52,11 @@ robots_noindex: true
 paginate: 10
 
 # ---- Pages ----
+# Path-scoped defaults address [REVIEW-12 @ 07:01]: Jekyll applies defaults
+# in the order they appear; specific path scopes override broader ones.
+# Files under fr/ or matching *.fr.md get lang: fr by default, so a future
+# contributor who forgets to set `lang:` in a new FR post doesn't silently
+# ship it as EN-under-/fr/.
 defaults:
   - scope:
       path: ""
@@ -68,6 +73,16 @@ defaults:
       layout: page
       permalink: /:title/
       lang: en
+  # FR overrides
+  - scope:
+      path: "fr"
+      type: posts
+    values:
+      lang: fr
+  - scope:
+      path: "**/*.fr.md"
+    values:
+      lang: fr
 
 # ---- Build ----
 markdown: kramdown

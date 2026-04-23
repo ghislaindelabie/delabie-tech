@@ -41,8 +41,14 @@
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
       <!-- home -->
+      {%- comment -%}
+        Jekyll normalizes permalinks, so page.url is '/' or '/fr/' — never
+        '/index.html'. Simple equality is enough. Addresses [REVIEW-20] and
+        [REVIEW-11 @ 07:01] (Liquid filter precedence was also the ambiguity
+        flagged in the previous shape of this check).
+      {%- endcomment -%}
       {%- assign on_home = false -%}
-      {%- if page.url == home_url or page.url == home_url | append: 'index.html' -%}{%- assign on_home = true -%}{%- endif -%}
+      {%- if page.url == home_url -%}{%- assign on_home = true -%}{%- endif -%}
       <li class="nav-item{% if on_home %}{{ " active" }}{% endif %}">
         <a href="{{ home_url | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-home"></i>

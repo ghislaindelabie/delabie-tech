@@ -11,7 +11,6 @@ require_relative "lib/i18n_pairs"
 
 violations = []
 by_lang_ref = Hash.new { |h, k| h[k] = [] }
-pair_cache = {}
 
 I18nPairs.content_files.each do |file|
   fm = I18nPairs.frontmatter(file)
