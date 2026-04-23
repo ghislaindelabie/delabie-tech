@@ -1,0 +1,20 @@
+{%- comment -%}
+  Emits hreflang alternates + x-default for the current page.
+  Consumed by the overridden metadata-hook.html which is pulled by Chirpy's head.html.
+
+  Canonical itself is emitted by jekyll-seo-tag (shipped with Chirpy), which
+  already sets <link rel="canonical"> from page.url. We only add alternates.
+{%- endcomment -%}
+
+{%- assign current_lang = page.lang | default: site.lang -%}
+{%- for lang in site.data.i18n.languages -%}
+  {%- if lang.code == current_lang -%}
+    <link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ page.url | absolute_url }}">
+  {%- else -%}
+    {%- assign alt = page | translation_of: lang.code -%}
+    {%- if alt -%}
+      <link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ alt.url | absolute_url }}">
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+<link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">

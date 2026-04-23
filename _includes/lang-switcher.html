@@ -1,0 +1,43 @@
+{%- comment -%}
+  Language switcher — renders one entry per configured language.
+
+  Design:
+  - The active language renders as a non-link with class="active".
+  - Other languages that have a translation render as <a> with hreflang.
+  - Other languages without a translation render as disabled with a tooltip.
+
+  No <a> is ever emitted without an href (structural invariant enforced
+  by tests/playwright/e2e/components/lang-switcher.spec.ts).
+{%- endcomment -%}
+
+{%- assign current_lang = page.lang | default: site.lang -%}
+{%- assign strings = site.data.i18n.strings[current_lang] -%}
+
+<ul class="lang-switcher nav" data-test="lang-switcher" aria-label="{{ strings.lang_switcher_label }}">
+  {%- for lang in site.data.i18n.languages -%}
+    {%- if lang.code == current_lang -%}
+      <li class="nav-item">
+        <span class="lang-switcher__active"
+              lang="{{ lang.code }}"
+              aria-current="true"
+              title="{{ lang.native }}">{{ lang.flag }} <span class="lang-switcher__label">{{ lang.code | upcase }}</span></span>
+      </li>
+    {%- else -%}
+      {%- assign alt = page | translation_of: lang.code -%}
+      {%- if alt -%}
+        <li class="nav-item">
+          <a href="{{ alt.url | relative_url }}"
+             hreflang="{{ lang.hreflang }}"
+             lang="{{ lang.code }}"
+             title="{{ strings.switch_to | replace: '%s', lang.native }}"
+             class="lang-switcher__link">{{ lang.flag }} <span class="lang-switcher__label">{{ lang.code | upcase }}</span></a>
+        </li>
+      {%- else -%}
+        <li class="nav-item lang-switcher__unavailable"
+            lang="{{ lang.code }}"
+            title="{{ strings.not_translated }}"
+            aria-disabled="true">{{ lang.flag }} <span class="lang-switcher__label">{{ lang.code | upcase }}</span></li>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</ul>

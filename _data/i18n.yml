@@ -1,0 +1,28 @@
+# Custom i18n configuration (plugin-free). See CHIRPY_MIGRATION_PLAN.md §2.
+# Adding a language is: add an entry here + create .{code}.md pairs + add permalink
+# default in _config.yml. No code changes required.
+
+languages:
+  - code: en
+    label: English
+    native: English
+    flag: "🇬🇧"
+    hreflang: en
+    default: true
+  - code: fr
+    label: French
+    native: Français
+    flag: "🇫🇷"
+    hreflang: fr
+    default: false
+
+# UI strings for the switcher and related per-language text.
+strings:
+  en:
+    lang_switcher_label: "Language"
+    not_translated: "Not available in English"
+    switch_to: "Switch to %s"
+  fr:
+    lang_switcher_label: "Langue"
+    not_translated: "Pas encore disponible en français"
+    switch_to: "Passer en %s"

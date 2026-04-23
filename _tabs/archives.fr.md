@@ -2,7 +2,8 @@
 title: Archives
 icon: fas fa-archive
 order: 4
-lang: en
+layout: archives
+lang: fr
 ref: archives
-permalink: /archives/
+permalink: /fr/archives/
 ---
