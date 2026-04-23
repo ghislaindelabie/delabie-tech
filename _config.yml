@@ -83,6 +83,18 @@ defaults:
       path: "**/*.fr.md"
     values:
       lang: fr
+  # Case-study collection defaults
+  - scope:
+      path: ""
+      type: case_studies
+    values:
+      layout: case_study
+      lang: en
+  - scope:
+      path: "**/*.fr.md"
+      type: case_studies
+    values:
+      lang: fr
 
 # ---- Build ----
 markdown: kramdown
@@ -101,6 +113,13 @@ collections:
   tabs:
     output: true
     sort_by: order
+  # Phase 2 — case studies (see CHIRPY_MIGRATION_PLAN.md §3.2, §5.3).
+  # Renamed from `projects` to `case_studies` to signal the content model
+  # shift (professional case studies vs. generic project cards).
+  case_studies:
+    output: true
+    sort_by: date_start
+    permalink: /case-studies/:slug/
 
 sass:
   style: compressed
