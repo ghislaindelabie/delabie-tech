@@ -3,7 +3,8 @@
   Local modifications (search for "delabie-tech"):
     - Filters tabs to the current page's language so EN and FR navs don't bleed.
     - Home URL is language-aware (avatar + site-title + home <li>) for continuity.
-    - Injects {% include lang-switcher.html %} between <nav> and .sidebar-bottom.
+  The language switcher was previously injected here; moved to the topbar
+  so it remains visible without scrolling on all viewports.
   When bumping the Chirpy gem, re-diff against upstream and re-apply these markers.
 {%- endcomment -%}
 
@@ -72,9 +73,6 @@
       {% endfor %}
     </ul>
   </nav>
-
-  {%- comment -%} delabie-tech: custom language switcher (Phase 1, §2 of the plan). {%- endcomment -%}
-  {% include lang-switcher.html %}
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
