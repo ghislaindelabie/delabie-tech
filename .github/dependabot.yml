@@ -4,6 +4,11 @@
 #  - bundler (Ruby): monthly; bump gems respecting ~> constraints in Gemfile.
 #  - npm (Node): monthly; dev-only for Playwright.
 # [SEC-7].
+#
+# Policy: major-version bumps are ignored across all three ecosystems and
+# evaluated manually. Actions' majors often ship breaking changes (node
+# runtime, API surface, default permissions); we SHA-pinned intentionally.
+# Minor and patch bumps flow automatically via weekly/monthly PRs.
 
 version: 2
 updates:
@@ -18,6 +23,9 @@ updates:
     commit-message:
       prefix: "chore(deps)"
       include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "bundler"
     directory: "/"
@@ -30,6 +38,9 @@ updates:
     commit-message:
       prefix: "chore(deps)"
       include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: "npm"
     directory: "/"
@@ -42,3 +53,6 @@ updates:
     commit-message:
       prefix: "chore(deps)"
       include: "scope"
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
