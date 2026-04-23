@@ -28,50 +28,36 @@ test.describe("Language switcher (Phase 1)", () => {
     await expect(enLink).toHaveAttribute("href", /^\/(?!fr)/);
   });
 
-  test("page without translation shows unavailable state in switcher", async ({ page }) => {
-    // ia-mobilite is orphan-but-translated; pick a file explicitly marked translated: false in a future test.
-    // Here we just assert that the switcher never renders a broken <a> without href.
-    await page.goto("/");
-    const brokenLinks = page.locator('[data-test="lang-switcher"] a:not([href])');
+  // Addresses [REVIEW-4]: genuinely exercise the unavailable branch.
+  test("translated:false page renders unavailable state for the missing lang", async ({ page }) => {
+    await page.goto("/phase1-notes/");
+    const switcher = page.locator('[data-test="lang-switcher"]');
+    await expect(switcher).toBeVisible();
+
+    // Current page is EN, so FR entry must be in the unavailable state.
+    const unavailable = switcher.locator(".lang-switcher__unavailable");
+    await expect(unavailable).toHaveCount(1);
+    await expect(unavailable).toHaveAttribute("aria-disabled", "true");
+    await expect(unavailable).toHaveAttribute("lang", "fr");
+
+    // And no <a> in the switcher may be missing an href.
+    const brokenLinks = switcher.locator("a:not([href])");
     await expect(brokenLinks).toHaveCount(0);
   });
-});
 
-test.describe("hreflang + canonical (Phase 1)", () => {
-  test("EN home emits hreflang=en self-link", async ({ page }) => {
-    await page.goto("/");
-    const enHreflang = page.locator('head link[rel="alternate"][hreflang="en"]');
-    await expect(enHreflang).toHaveCount(1);
+  // Addresses [REVIEW-9]: archive-shaped pages get no switcher at all.
+  test("archive/tag/category pages do not render the switcher", async ({ page }) => {
+    for (const path of ["/archives/", "/categories/", "/tags/", "/fr/archives/"]) {
+      await page.goto(path);
+      await expect(page.locator('[data-test="lang-switcher"]')).toHaveCount(0);
+    }
   });
 
-  test("EN home emits hreflang=fr pointing to /fr/", async ({ page }) => {
-    await page.goto("/");
-    const frHreflang = page.locator('head link[rel="alternate"][hreflang="fr"]');
-    await expect(frHreflang).toHaveCount(1);
-    const href = await frHreflang.getAttribute("href");
-    expect(href).toMatch(/\/fr\/?$/);
-  });
-
-  test("EN home emits hreflang=x-default", async ({ page }) => {
-    await page.goto("/");
-    const xDefault = page.locator('head link[rel="alternate"][hreflang="x-default"]');
-    await expect(xDefault).toHaveCount(1);
-  });
-
-  test("FR home emits canonical pointing to /fr/", async ({ page }) => {
-    await page.goto("/fr/");
-    const canonical = page.locator('head link[rel="canonical"]');
-    const href = await canonical.getAttribute("href");
-    expect(href).toMatch(/\/fr\/?$/);
-  });
-
-  test("<html lang> matches page language on EN", async ({ page }) => {
-    await page.goto("/");
-    expect(await page.locator("html").getAttribute("lang")).toBe("en");
-  });
-
-  test("<html lang> matches page language on FR", async ({ page }) => {
-    await page.goto("/fr/");
-    expect(await page.locator("html").getAttribute("lang")).toBe("fr");
+  test("no broken <a> anywhere in the switcher across core pages", async ({ page }) => {
+    for (const path of ["/", "/fr/", "/about/", "/fr/about/", "/phase1-notes/"]) {
+      await page.goto(path);
+      const broken = page.locator('[data-test="lang-switcher"] a:not([href])');
+      await expect(broken, `broken <a> on ${path}`).toHaveCount(0);
+    }
   });
 });

@@ -1,8 +1,30 @@
+{%- comment -%}
+  Forked from jekyll-theme-chirpy v7.5.0 _includes/sidebar.html.
+  Local modifications (search for "delabie-tech"):
+    - Filters tabs to the current page's language so EN and FR navs don't bleed.
+    - Home URL is language-aware (avatar + site-title + home <li>) for continuity.
+    - Injects {% include lang-switcher.html %} between <nav> and .sidebar-bottom.
+  When bumping the Chirpy gem, re-diff against upstream and re-apply these markers.
+{%- endcomment -%}
+
 <!-- The Side Bar -->
+
+{%- comment -%}
+  delabie-tech: page_lang = the CONTENT language of the current page
+  (from page.lang), distinct from `include.lang` which is Chirpy's UI-strings
+  locale key (may be 'fr-FR' when the page language is 'fr').
+  Home URL is language-aware (REVIEW-2).
+{%- endcomment -%}
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- if page_lang and page_lang != site.lang -%}
+  {%- capture home_url -%}/{{ page_lang }}/{%- endcapture -%}
+{%- else -%}
+  {%- assign home_url = '/' -%}
+{%- endif -%}
 
 <aside aria-label="Sidebar" id="sidebar" class="d-flex flex-column align-items-end">
   <header class="profile-wrapper">
-    <a href="{{ '/' | relative_url }}" id="avatar" class="rounded-circle">
+    <a href="{{ home_url | relative_url }}" id="avatar" class="rounded-circle">
       {%- if site.avatar != empty and site.avatar -%}
         {%- capture avatar_url -%}
           {% include media-url.html src=site.avatar %}
@@ -11,7 +33,7 @@
       {%- endif -%}
     </a>
 
-    <a class="site-title d-block" href="{{ '/' | relative_url }}">{{ site.title }}</a>
+    <a class="site-title d-block" href="{{ home_url | relative_url }}">{{ site.title }}</a>
     <p class="site-subtitle fst-italic mb-0">{{ site.tagline }}</p>
   </header>
   <!-- .profile-wrapper -->
@@ -19,14 +41,19 @@
   <nav class="flex-column flex-grow-1 w-100 ps-0">
     <ul class="nav">
       <!-- home -->
-      <li class="nav-item{% if page.layout == 'home' %}{{ " active" }}{% endif %}">
-        <a href="{{ '/' | relative_url }}" class="nav-link">
+      {%- assign on_home = false -%}
+      {%- if page.url == home_url or page.url == home_url | append: 'index.html' -%}{%- assign on_home = true -%}{%- endif -%}
+      <li class="nav-item{% if on_home %}{{ " active" }}{% endif %}">
+        <a href="{{ home_url | relative_url }}" class="nav-link">
           <i class="fa-fw fas fa-home"></i>
           <span>{{ site.data.locales[include.lang].tabs.home | upcase }}</span>
         </a>
       </li>
       <!-- the real tabs -->
+      {%- comment -%} delabie-tech: filter tabs to the current page's language (REVIEW-1). {%- endcomment -%}
       {% for tab in site.tabs %}
+        {%- assign tab_lang = tab.lang | default: site.lang -%}
+        {%- if tab_lang != page_lang -%}{%- continue -%}{%- endif -%}
         <li class="nav-item{% if tab.url == page.url %}{{ " active" }}{% endif %}">
           <a href="{{ tab.url | relative_url }}" class="nav-link">
             <i class="fa-fw {{ tab.icon }}"></i>
@@ -40,7 +67,7 @@
     </ul>
   </nav>
 
-  {%- comment -%} delabie-tech: custom language switcher (Phase 1, §2 of the plan) {%- endcomment -%}
+  {%- comment -%} delabie-tech: custom language switcher (Phase 1, §2 of the plan). {%- endcomment -%}
   {% include lang-switcher.html %}
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">

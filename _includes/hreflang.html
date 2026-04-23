@@ -17,4 +17,22 @@
     {%- endif -%}
   {%- endif -%}
 {%- endfor -%}
-<link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- comment -%}
+  x-default identifies the default (unlocalized) version of this page,
+  not the current URL. Resolves to the translation tagged `default: true`
+  in _data/i18n.yml. Fallback to current URL if no default lang is known
+  or no translation exists. Addresses [REVIEW-3].
+{%- endcomment -%}
+{%- assign default_lang = site.data.i18n.languages | where: "default", true | first -%}
+{%- if default_lang and default_lang.code == current_lang -%}
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- elsif default_lang -%}
+  {%- assign default_alt = page | translation_of: default_lang.code -%}
+  {%- if default_alt -%}
+    <link rel="alternate" hreflang="x-default" href="{{ default_alt.url | absolute_url }}">
+  {%- else -%}
+    <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+  {%- endif -%}
+{%- else -%}
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | absolute_url }}">
+{%- endif -%}

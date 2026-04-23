@@ -8,8 +8,20 @@
 
   No <a> is ever emitted without an href (structural invariant enforced
   by tests/playwright/e2e/components/lang-switcher.spec.ts).
+
+  Skipped entirely on pages where translation-linking doesn't make sense
+  (missing `ref`, or auto-generated archive/category/tag pages whose
+  language is encoded in the URL prefix). Addresses [REVIEW-9]. Showing a
+  switcher that claims "English unavailable" on a French /fr/tags/ page
+  would be misleading.
 {%- endcomment -%}
 
+{%- assign archive_layouts = 'categories,tags,archives,category,tag' | split: ',' -%}
+{%- assign skip_switcher = false -%}
+{%- if page.ref == nil or page.ref == empty -%}{%- assign skip_switcher = true -%}{%- endif -%}
+{%- if archive_layouts contains page.layout -%}{%- assign skip_switcher = true -%}{%- endif -%}
+
+{%- unless skip_switcher -%}
 {%- assign current_lang = page.lang | default: site.lang -%}
 {%- assign strings = site.data.i18n.strings[current_lang] -%}
 
@@ -41,3 +53,4 @@
     {%- endif -%}
   {%- endfor -%}
 </ul>
+{%- endunless -%}

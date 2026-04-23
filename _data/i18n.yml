@@ -3,18 +3,17 @@
 # default in _config.yml. No code changes required.
 
 languages:
+  # `default: true` is consumed by hreflang.html's x-default resolution.
+  # `native` is the in-language name shown in the switcher.
   - code: en
-    label: English
     native: English
     flag: "🇬🇧"
     hreflang: en
     default: true
   - code: fr
-    label: French
     native: Français
     flag: "🇫🇷"
     hreflang: fr
-    default: false
 
 # UI strings for the switcher and related per-language text.
 strings:
