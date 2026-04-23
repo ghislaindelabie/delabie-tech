@@ -1,7 +1,7 @@
 ---
 title: Catégories
 icon: fas fa-stream
-order: 5
+order: 8
 layout: categories
 lang: fr
 ref: categories

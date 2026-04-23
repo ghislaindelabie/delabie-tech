@@ -1,0 +1,43 @@
+{%- comment -%}
+  Shared publication-item partial. Expects `include.pub` = one
+  _publications/*.md entry. Renders date, type badge, title, venue,
+  co-authors, short description, and an external link if present.
+{%- endcomment -%}
+
+{%- if include.pub.lang == 'fr' -%}
+  {%- assign label_with = 'avec' -%}
+{%- else -%}
+  {%- assign label_with = 'with' -%}
+{%- endif -%}
+
+<li class="publication-item" data-test="publication-item">
+  <div class="publication-item__meta">
+    <time datetime="{{ include.pub.date | date: '%Y-%m-%d' }}">{{ include.pub.date | date: '%Y-%m' }}</time>
+    <span class="publication-item__type" data-test="publication-type">{{ include.pub.type }}</span>
+  </div>
+  <h2 class="publication-item__title" data-test="publication-title">
+    {%- if include.pub.external_url -%}
+      <a href="{{ include.pub.external_url }}" target="_blank" rel="noopener noreferrer">{{ include.pub.title }}</a>
+    {%- else -%}
+      {{ include.pub.title }}
+    {%- endif -%}
+  </h2>
+  <p class="publication-item__venue">
+    {{ include.pub.venue }}{% if include.pub.co_authors and include.pub.co_authors.size > 0 %} · {{ label_with }} {{ include.pub.co_authors | join: ', ' }}{% endif %}
+  </p>
+  {%- if include.pub.short_description -%}
+    <p class="publication-item__summary">{{ include.pub.short_description }}</p>
+  {%- endif -%}
+  {%- if include.pub.video and include.pub.video.youtube_id -%}
+    <div class="publication-item__video">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/{{ include.pub.video.youtube_id }}"
+        title="{{ include.pub.title | escape }}"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+        referrerpolicy="strict-origin-when-cross-origin"
+        loading="lazy"></iframe>
+    </div>
+  {%- endif -%}
+</li>

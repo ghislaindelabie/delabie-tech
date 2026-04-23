@@ -1,7 +1,7 @@
 ---
 title: Repositories
 icon: fas fa-code-branch
-order: 4
+order: 6
 lang: en
 ref: repositories
 permalink: /repositories/

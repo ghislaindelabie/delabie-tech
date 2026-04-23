@@ -1,7 +1,7 @@
 ---
 title: Dépôts
 icon: fas fa-code-branch
-order: 4
+order: 6
 lang: fr
 ref: repositories
 permalink: /fr/repositories/

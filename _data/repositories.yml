@@ -48,6 +48,6 @@ sections:
       - name: fabmob/mob
         url: https://github.com/fabmob/mob
         description: moB (Mon Compte Mobilité) — open-source digital platform for mobility services, incentives, and users.
-      - name: fabmob/dataviz-30-lev
-        url: https://github.com/fabmob/dataviz-30-lev
+      - name: fabmob/dataviz-30-veli
+        url: https://github.com/fabmob/dataviz-30-veli
         description: Dashboards and notebooks for the 30 LEV field trial — telematics pipeline + usage analytics.
