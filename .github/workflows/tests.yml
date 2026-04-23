@@ -111,7 +111,12 @@ jobs:
   claude-security-review:
     name: Claude Security Review (Opus 4.7)
     runs-on: ubuntu-latest
-    needs: build-and-check
+    # Sequence AFTER claude-review (not parallel) to avoid hitting the
+    # Anthropic org-level 30k input-tokens-per-minute rate limit on Opus.
+    # Two concurrent Opus reviews on the same PR have been observed to 429.
+    # Sequential execution adds ~10 min wall-clock but keeps CI deterministic.
+    # If throughput becomes a bottleneck, downgrade this job to Sonnet (higher limit).
+    needs: [build-and-check, claude-review]
     timeout-minutes: 15
     permissions:
       contents: read
