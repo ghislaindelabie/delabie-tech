@@ -26,7 +26,7 @@ jobs:
         # [SEC-7] Third-party actions pinned by commit SHA (not tag).
         # Tag-to-commit resolution is mutable; SHA is immutable. Dependabot
         # will open PRs to bump these via the github-actions ecosystem.
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@0cb964fd540e0a24c900370abf38a33466142735 # v1
@@ -227,7 +227,7 @@ jobs:
       contents: read
     steps:
       - name: Checkout
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Check findings are answered
         env:
