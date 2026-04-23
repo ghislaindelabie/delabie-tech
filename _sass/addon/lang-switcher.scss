@@ -1,57 +1,66 @@
-/* Language switcher — positioned inside Chirpy's sidebar between nav and bottom row. */
+/* Language switcher — compact form, placed in the topbar.
+ * Sized to match Chirpy's topbar icon buttons; always visible on every page. */
 
-.lang-switcher {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem 0.75rem;
-  list-style: none;
-  margin: 0;
-  font-size: 0.8125rem;
+.lang-switcher-compact {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
   line-height: 1;
+  white-space: nowrap;
 
-  .nav-item {
-    margin: 0;
-  }
+  // Reset <nav> defaults so it sits nicely between topbar siblings.
+  margin: 0;
 
-  &__link,
-  &__active,
-  &__unavailable {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.25rem;
-    padding: 0.125rem 0.375rem;
-    border-radius: 0.25rem;
-    text-decoration: none;
-  }
-
-  &__link {
-    color: var(--sidebar-muted-color);
-    opacity: 0.75;
-    transition: opacity 0.15s ease, color 0.15s ease;
-
-    &:hover,
-    &:focus {
-      opacity: 1;
-      color: var(--sidebar-active-color);
-      text-decoration: none;
-    }
-  }
-
-  &__active {
-    color: var(--sidebar-active-color);
-    font-weight: 600;
+  .lang-switcher__active {
+    color: var(--text-color);
     cursor: default;
   }
 
-  &__unavailable {
-    color: var(--sidebar-muted-color);
+  .lang-switcher__link {
+    color: var(--text-muted-color);
+    opacity: 0.8;
+    text-decoration: none;
+    padding: 0.125rem 0.25rem;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease, opacity 0.15s ease, background-color 0.15s ease;
+
+    &:hover,
+    &:focus {
+      color: var(--link-color);
+      opacity: 1;
+      text-decoration: none;
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .lang-switcher__unavailable {
+    color: var(--text-muted-color);
     opacity: 0.35;
     cursor: not-allowed;
   }
 
-  &__label {
-    letter-spacing: 0.04em;
+  .lang-switcher__sep {
+    color: var(--text-muted-color);
+    opacity: 0.45;
+    user-select: none;
+  }
+
+  // On very narrow viewports, we keep the switcher but shrink a touch.
+  @media (max-width: 576px) {
+    font-size: 0.7rem;
+    gap: 0.25rem;
+    padding: 0 0.35rem;
+  }
+}
+
+// Dark mode tweaks — Chirpy toggles a data-mode attribute on <html>.
+html[data-mode='dark'] .lang-switcher-compact {
+  .lang-switcher__link:hover,
+  .lang-switcher__link:focus {
+    background-color: rgba(255, 255, 255, 0.06);
   }
 }

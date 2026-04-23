@@ -117,7 +117,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --model ${{ steps.model.outputs.model }}
-            --max-turns 10
+            --max-turns 40
             --allowedTools "Read,Grep,Glob,mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr checks:*)"
           prompt: |
             REPO: ${{ github.repository }}
@@ -182,7 +182,7 @@ jobs:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           claude_args: |
             --model ${{ steps.model.outputs.model }}
-            --max-turns 10
+            --max-turns 40
             --allowedTools "Read,Grep,Glob,mcp__github_inline_comment__create_inline_comment,Bash(gh pr comment:*),Bash(gh pr diff:*),Bash(gh pr view:*),Bash(gh pr checks:*)"
           prompt: |
             REPO: ${{ github.repository }}

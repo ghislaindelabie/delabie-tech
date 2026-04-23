@@ -1,22 +1,21 @@
 {%- comment -%}
-  Language switcher — renders one entry per configured language.
+  Compact language switcher — rendered in the topbar (always visible,
+  any viewport, any scroll position). One uppercase 2-letter code per
+  language separated by middot. Moved from the sidebar because sidebar
+  placement pushed it below the fold on normal viewports.
 
   Design:
-  - The active language renders as a non-link with class="active".
-  - Other languages that have a translation render as <a> with hreflang.
-  - Other languages without a translation render as disabled with a tooltip.
-
-  Labels are the language's native name (French, Français, Deutsch, …) not
-  country flags. Flags-for-languages is a W3C-flagged anti-pattern (one
-  language, multiple countries; one country, multiple languages; emoji flag
-  rendering is inconsistent across OSes). Addresses [REVIEW-9 @ 07:01].
-
-  The switcher is skipped entirely on pages where translation-linking
-  doesn't make sense (missing `ref`, or auto-generated archive/category/tag
-  pages whose language is encoded in the URL prefix). Addresses [REVIEW-9].
+  - Active language: non-link, bold, dark color.
+  - Other language with translation: <a> with hreflang.
+  - Other language without translation: span, dimmed, tooltip explains
+    ("Not available in English").
 
   No <a> is ever emitted without an href (structural invariant enforced
   by tests/playwright/e2e/components/lang-switcher.spec.ts).
+
+  Skipped entirely on pages where translation-linking doesn't make sense
+  (missing `ref`, or auto-generated archive/category/tag pages whose
+  language is encoded in the URL prefix).
 {%- endcomment -%}
 
 {%- assign archive_layouts = 'categories,tags,archives,category,tag' | split: ',' -%}
@@ -26,41 +25,33 @@
 
 {%- unless skip_switcher -%}
 {%- assign current_lang = page.lang | default: site.lang -%}
-{%- comment -%}
-  Fallback chain for UI strings: current lang → default lang → first configured lang.
-  Guarantees non-empty labels even if a new language is added to
-  _data/i18n.yml without a matching `strings.<code>` block. Addresses [REVIEW-19].
-{%- endcomment -%}
 {%- assign default_lang = site.data.i18n.languages | where: "default", true | first -%}
 {%- assign fallback_lang = default_lang.code | default: site.data.i18n.languages | first.code -%}
 {%- assign strings = site.data.i18n.strings[current_lang] | default: site.data.i18n.strings[fallback_lang] -%}
 
-<ul class="lang-switcher nav" data-test="lang-switcher" aria-label="{{ strings.lang_switcher_label }}">
+<nav class="lang-switcher-compact" data-test="lang-switcher" aria-label="{{ strings.lang_switcher_label }}">
   {%- for lang in site.data.i18n.languages -%}
+    {%- unless forloop.first -%}<span class="lang-switcher__sep" aria-hidden="true">·</span>{%- endunless -%}
     {%- if lang.code == current_lang -%}
-      <li class="nav-item">
-        <span class="lang-switcher__active"
-              lang="{{ lang.code }}"
-              aria-current="true"
-              title="{{ lang.native }}"><span class="lang-switcher__label">{{ lang.native }}</span></span>
-      </li>
+      <span class="lang-switcher__active"
+            lang="{{ lang.code }}"
+            aria-current="true"
+            title="{{ lang.native }}">{{ lang.code | upcase }}</span>
     {%- else -%}
       {%- assign alt = page | translation_of: lang.code -%}
       {%- if alt -%}
-        <li class="nav-item">
-          <a href="{{ alt.url | relative_url }}"
-             hreflang="{{ lang.hreflang }}"
-             lang="{{ lang.code }}"
-             title="{{ strings.switch_to | replace: '%s', lang.native }}"
-             class="lang-switcher__link"><span class="lang-switcher__label">{{ lang.native }}</span></a>
-        </li>
+        <a href="{{ alt.url | relative_url }}"
+           hreflang="{{ lang.hreflang }}"
+           lang="{{ lang.code }}"
+           title="{{ strings.switch_to | replace: '%s', lang.native }}"
+           class="lang-switcher__link">{{ lang.code | upcase }}</a>
       {%- else -%}
-        <li class="nav-item lang-switcher__unavailable"
-            lang="{{ lang.code }}"
-            title="{{ strings.not_translated }}"
-            aria-disabled="true"><span class="lang-switcher__label">{{ lang.native }}</span></li>
+        <span class="lang-switcher__unavailable"
+              lang="{{ lang.code }}"
+              title="{{ strings.not_translated }}"
+              aria-disabled="true">{{ lang.code | upcase }}</span>
       {%- endif -%}
     {%- endif -%}
   {%- endfor -%}
-</ul>
+</nav>
 {%- endunless -%}
