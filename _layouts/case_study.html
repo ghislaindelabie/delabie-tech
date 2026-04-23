@@ -1,0 +1,42 @@
+---
+layout: page
+---
+
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- assign strings = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+
+<article class="case-study" data-test="case-study">
+  <header class="case-study__meta">
+    {%- if page.category -%}
+      <span class="case-study__category" data-test="case-study-category">{{ page.category }}</span>
+    {%- endif -%}
+    {%- if page.date_start -%}
+      <span class="case-study__dates" data-test="case-study-dates">
+        {{ page.date_start }}{% if page.date_end %}–{{ page.date_end }}{% elsif page.ongoing %} →{% endif %}
+      </span>
+    {%- endif -%}
+  </header>
+
+  {%- if page.cover -%}
+    <figure class="case-study__cover">
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}" loading="lazy">
+    </figure>
+  {%- endif -%}
+
+  {%- if page.summary -%}
+    <p class="case-study__summary" data-test="case-study-summary"><em>{{ page.summary }}</em></p>
+  {%- endif -%}
+
+  <div class="case-study__body">
+    {{ content }}
+  </div>
+
+  {%- if page.external_url -%}
+    <p class="case-study__external">
+      <a href="{{ page.external_url }}" rel="noopener">{{ strings.external_link | default: "Open external reference" }} →</a>
+    </p>
+  {%- endif -%}
+
+  {%- comment -%} Related content — rendered only when frontmatter lists siblings. {%- endcomment -%}
+  {% include related.html %}
+</article>

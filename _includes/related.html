@@ -1,0 +1,51 @@
+{%- comment -%}
+  Shared "Related" block. Renders only when the page declares any of:
+    related_case_studies: [ref-slug, ...]
+    related_publications: [ref-slug, ...]
+    related_posts: [ref-slug, ...]
+    related_teaching: [ref-slug, ...]
+
+  Each entry is a `ref` — the item is resolved in the current page's language,
+  falling back to the default language if no translation exists. Keeps the
+  site's cross-linking symmetric per CHIRPY_MIGRATION_PLAN.md §3.8.3.
+{%- endcomment -%}
+
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- assign has_related = false -%}
+{%- if page.related_case_studies and page.related_case_studies.size > 0 -%}{%- assign has_related = true -%}{%- endif -%}
+{%- if page.related_publications and page.related_publications.size > 0 -%}{%- assign has_related = true -%}{%- endif -%}
+{%- if page.related_posts and page.related_posts.size > 0 -%}{%- assign has_related = true -%}{%- endif -%}
+{%- if page.related_teaching and page.related_teaching.size > 0 -%}{%- assign has_related = true -%}{%- endif -%}
+
+{%- if has_related -%}
+<aside class="related" data-test="related">
+  <h2 class="related__heading">{{ site.data.i18n.strings[page_lang].related | default: "Related" }}</h2>
+
+  {%- assign groups = "related_case_studies|case_studies,related_publications|publications,related_posts|posts,related_teaching|teaching" | split: "," -%}
+  {%- for group in groups -%}
+    {%- assign pair = group | split: "|" -%}
+    {%- assign field = pair[0] -%}
+    {%- assign collection_name = pair[1] -%}
+    {%- assign refs = page[field] -%}
+    {%- if refs and refs.size > 0 -%}
+      <ul class="related__list">
+        {%- for ref in refs -%}
+          {%- assign items = site[collection_name] | default: site.posts -%}
+          {%- assign target = nil -%}
+          {%- for item in items -%}
+            {%- if item.ref == ref and item.lang == page_lang -%}{%- assign target = item -%}{%- break -%}{%- endif -%}
+          {%- endfor -%}
+          {%- unless target -%}
+            {%- for item in items -%}
+              {%- if item.ref == ref -%}{%- assign target = item -%}{%- break -%}{%- endif -%}
+            {%- endfor -%}
+          {%- endunless -%}
+          {%- if target -%}
+            <li><a href="{{ target.url | relative_url }}">{{ target.title }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  {%- endfor -%}
+</aside>
+{%- endif -%}
