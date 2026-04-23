@@ -19,13 +19,15 @@ describe "Build smoke" do
     expect(claude_md).to include("main")
   end
 
-  it "has branch-protection snapshot referencing all required status checks" do
+  it "has branch-protection snapshot with at least the Build required status check" do
+    # Post-solo-mode: CI review is local (per CLAUDE.md 'Local review workflow'),
+    # so the only required context is `Build + structural + links + Playwright`.
+    # If CI review is reactivated, `Claude Review (Opus 4.7)`, `Claude Security
+    # Review (Opus 4.7)`, and `Review gate (findings answered)` return.
     snapshot = JSON.parse((ROOT / ".github/branch-protection.json").read)
     contexts = snapshot.dig("rules", "required_status_checks", "contexts")
     expect(contexts).to include(match(/Build/))
-    expect(contexts).to include(match(/Claude Review/))
-    expect(contexts).to include(match(/Claude Security Review/))
-    expect(contexts).to include(match(/Review gate/))
+    expect(contexts).not_to be_empty
   end
 
   it "has the pre-bash hook script executable" do

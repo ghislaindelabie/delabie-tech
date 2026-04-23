@@ -1,15 +1,12 @@
 {
-  "_comment": "Snapshot of the branch-protection rules applied to 'main'. Authoritative configuration lives on GitHub; this file is a reviewable record. Any change here must match a gh api call in a dedicated PR.",
+  "_comment": "INTENDED branch-protection rules for 'main'. Authoritative configuration lives on GitHub; this file is the reviewable intent that `scripts/apply-branch-protection.sh` pushes to the API. A discrepancy between this file and live state is either a pending manual apply OR drift — resolve by re-running the script.",
   "branch": "main",
-  "applied_at": "2026-04-22",
+  "last_synced_at": null,
   "rules": {
     "required_status_checks": {
       "strict": true,
       "contexts": [
-        "Build + structural + links + Playwright",
-        "Claude Review (Opus 4.7)",
-        "Claude Security Review (Opus 4.7)",
-        "Review gate (findings answered)"
+        "Build + structural + links + Playwright"
       ]
     },
     "enforce_admins": true,
@@ -28,10 +25,13 @@
     "allow_fork_syncing": false
   },
   "notes": [
-    "enforce_admins=true means even the repo admin (Ghislain) is subject to these rules — bypass requires deliberate toggle-off.",
-    "required_approving_review_count=0 because Ghislain is sole admin; the integrity gate is Ghislain manually clicking Merge, not a GH review count.",
+    "Only one required status check: `Build + structural + links + Playwright`.",
+    "Code review + Security review moved to LOCAL subagents (see CLAUDE.md 'Local review workflow'); not CI-gated. Reactivation triggers listed in .github/workflows/tests.yml header.",
+    "enforce_admins=true means even the repo admin is subject to these rules — bypass requires deliberate toggle-off.",
+    "required_approving_review_count=0 because Ghislain is sole admin; the integrity gate is Ghislain manually clicking Merge.",
     "allow_force_pushes=false on main; feature branches can be force-pushed.",
-    "Pre-cutover: Ghislain merges PRs manually after green CI (Option A per plan §5.0).",
-    "Post-cutover: same rule — no change needed."
+    "To apply this file to live branch protection, run: `scripts/apply-branch-protection.sh` (Ghislain-only; my client-side hooks block the underlying gh api PATCH/PUT/DELETE call).",
+    "The script pipes `jq '.rules'` into `gh api PUT .../protection --input -` — the raw file is NOT API-shaped (has wrapper keys like `_comment`, `notes`) and would 400 if passed directly.",
+    "Sequencing when changing required_status_checks: apply this file to the server BEFORE merging the PR that removes the old check names from workflow YAML — otherwise main is wedged because the server still expects the old checks that no job emits. See PR #15 for the first time we hit this."
   ]
 }

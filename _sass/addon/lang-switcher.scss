@@ -57,6 +57,16 @@
   }
 }
 
+// [REVIEW-4] Mobile: hide the switcher while the search input is expanded.
+// Chirpy toggles `.input-focus` on <search id="search"> when the user taps
+// the search-trigger; if we leave the switcher visible it fights the
+// expanded input for flex space (topbar-title, breadcrumb, sidebar-trigger
+// are already `d-none`'d by Chirpy's JS in that state — we mirror the
+// behavior for our injected element).
+#topbar:has(#search.input-focus) .lang-switcher-compact {
+  display: none;
+}
+
 // Dark mode tweaks — Chirpy toggles a data-mode attribute on <html>.
 html[data-mode='dark'] .lang-switcher-compact {
   .lang-switcher__link:hover,
