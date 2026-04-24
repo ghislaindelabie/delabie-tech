@@ -19,12 +19,18 @@ permalink: /fr/teaching/
 
 <p class="lead">Cours, ateliers et programmes sur-mesure que j'ai animés ou que j'anime. Filtrez par thème ou par format — tous les filtres sont optionnels, et les combiner resserre la liste.</p>
 
-{% include teaching-filters.html lang="fr" %}
+<div data-filter-list>
 
-<ul class="teaching-list" data-test="teaching-list">
-{%- for t in items -%}
-  {% include teaching-item.html t=t %}
-{%- endfor -%}
-</ul>
+  {% include teaching-filters.html lang="fr" %}
 
-<script src="{{ '/assets/js/teaching-filters.js' | relative_url }}" defer></script>
+  <ul class="teaching-list" data-filter-items data-test="teaching-list">
+  {%- for t in items -%}
+    {% include teaching-item.html t=t %}
+  {%- endfor -%}
+  </ul>
+
+  <p class="list-empty" data-filter-empty data-test="teaching-empty" hidden>{{ site.data.i18n.strings.fr.teaching_filter_empty }}</p>
+
+</div>
+
+<script src="{{ '/assets/js/filter-list.js' | relative_url }}" defer></script>

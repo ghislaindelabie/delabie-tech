@@ -1,7 +1,11 @@
 {%- comment -%}
   Shared publication-item partial. Expects `include.pub` = one
-  _publications/*.md entry. Renders date, type badge, title, venue,
-  co-authors, short description, and an external link if present.
+  _publications/*.md entry. Renders date, title, venue, co-authors,
+  short description, an external link if present, and visible theme +
+  format tags drawn from _data/publications_taxonomy.yml.
+
+  Emits `data-filter-item`, `data-themes`, `data-format` so the generic
+  filter-list.js script can narrow the list on /publications/.
 {%- endcomment -%}
 
 {%- if include.pub.lang == 'fr' -%}
@@ -10,10 +14,16 @@
   {%- assign label_with = 'with' -%}
 {%- endif -%}
 
-<li class="publication-item" data-test="publication-item">
+{%- assign themes_str = include.pub.themes | join: ' ' -%}
+{%- assign taxonomy = site.data.publications_taxonomy -%}
+
+<li class="publication-item"
+    data-test="publication-item"
+    data-filter-item
+    data-themes="{{ themes_str }}"
+    data-format="{{ include.pub.format }}">
   <div class="publication-item__meta">
     <time datetime="{{ include.pub.date | date: '%Y-%m-%d' }}">{{ include.pub.date | date: '%Y-%m' }}</time>
-    <span class="publication-item__type" data-test="publication-type">{{ include.pub.type }}</span>
   </div>
   <h2 class="publication-item__title" data-test="publication-title">
     {%- if include.pub.external_url -%}
@@ -40,4 +50,12 @@
         loading="lazy"></iframe>
     </div>
   {%- endif -%}
+  <ul class="publication-item__tags" data-test="publication-tags">
+    {%- for theme in include.pub.themes -%}
+      {%- assign theme_label = taxonomy.themes[theme][include.pub.lang] -%}
+      {%- if theme_label -%}<li class="tag tag--theme">{{ theme_label }}</li>{%- endif -%}
+    {%- endfor -%}
+    {%- assign format_label = taxonomy.formats[include.pub.format][include.pub.lang] -%}
+    {%- if format_label -%}<li class="tag tag--format" data-test="publication-type">{{ format_label }}</li>{%- endif -%}
+  </ul>
 </li>

@@ -3,6 +3,8 @@ title: "Pour des ZFE-m saines et justes"
 date: 2023-03-01
 venue: Respire
 type: report
+themes: [mobility]
+format: report
 lang: fr
 ref: respire-zfe-m-2023
 short_description: "Concepteur et inspirateur de cette étude Respire sur des ZFE-m à la fois efficaces pour la qualité de l'air et socialement justes."

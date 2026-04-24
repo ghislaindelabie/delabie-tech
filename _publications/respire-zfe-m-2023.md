@@ -3,6 +3,8 @@ title: "Towards healthy and fair low-emission zones (ZFE-m)"
 date: 2023-03-01
 venue: Respire
 type: report
+themes: [mobility]
+format: report
 lang: en
 ref: respire-zfe-m-2023
 short_description: "Contributed as designer and initiator of this Respire study on making French low-emission zones (ZFE-m) both effective for air quality and socially just."

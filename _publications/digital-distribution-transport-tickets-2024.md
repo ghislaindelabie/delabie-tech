@@ -3,6 +3,8 @@ title: "The share of digital distribution of transport tickets in France"
 date: 2024-06-01
 venue: French Ministry of Transport
 type: report
+themes: [digital-services, mobility]
+format: report
 lang: en
 ref: digital-distribution-transport-tickets-2024
 short_description: "Study measuring how much of the French transport-ticket market has shifted to digital channels — methodology, indicators, and policy implications."

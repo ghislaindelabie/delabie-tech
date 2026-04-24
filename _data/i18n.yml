@@ -36,6 +36,10 @@ strings:
     teaching_filter_format_label: "Format"
     teaching_filter_empty: "No matches — try another filter combination."
     teaching_filter_reset: "Reset"
+    publications_filter_theme_label: "Theme"
+    publications_filter_format_label: "Format"
+    publications_filter_empty: "No matches — try another filter combination."
+    publications_filter_reset: "Reset"
   fr:
     lang_switcher_label: "Langue"
     not_translated: "Pas encore disponible en français"
@@ -51,3 +55,7 @@ strings:
     teaching_filter_format_label: "Format"
     teaching_filter_empty: "Aucun résultat — essayez une autre combinaison."
     teaching_filter_reset: "Réinitialiser"
+    publications_filter_theme_label: "Thème"
+    publications_filter_format_label: "Format"
+    publications_filter_empty: "Aucun résultat — essayez une autre combinaison."
+    publications_filter_reset: "Réinitialiser"
