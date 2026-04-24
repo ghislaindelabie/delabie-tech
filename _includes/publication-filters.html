@@ -1,0 +1,26 @@
+{%- comment -%}
+  Publications page filter UI. Two independent axes (themes + format),
+  each multi-select. Shares the `data-filter-*` contract with the
+  teaching page (driven by assets/js/filter-list.js).
+
+  Labels come from _data/publications_taxonomy.yml.
+{%- endcomment -%}
+
+{%- assign i18n = site.data.i18n.strings[include.lang] -%}
+{%- assign taxonomy = site.data.publications_taxonomy -%}
+
+<section class="list-filters" data-filter-controls data-test="publications-filters" aria-label="{{ i18n.publications_filter_theme_label }} / {{ i18n.publications_filter_format_label }}">
+  <div class="filter-group" data-group="themes" role="group" aria-label="{{ i18n.publications_filter_theme_label }}">
+    <span class="filter-group__label">{{ i18n.publications_filter_theme_label }}</span>
+    {%- for entry in taxonomy.themes -%}
+      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+    {%- endfor -%}
+  </div>
+  <div class="filter-group" data-group="format" role="group" aria-label="{{ i18n.publications_filter_format_label }}">
+    <span class="filter-group__label">{{ i18n.publications_filter_format_label }}</span>
+    {%- for entry in taxonomy.formats -%}
+      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+    {%- endfor -%}
+  </div>
+  <button type="button" class="filter-reset" data-filter-reset data-test="publications-filter-reset" hidden>{{ i18n.publications_filter_reset }}</button>
+</section>

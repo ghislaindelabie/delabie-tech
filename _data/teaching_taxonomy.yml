@@ -1,0 +1,30 @@
+# Single source of truth for theme + format taxonomy used on /teaching/.
+# Drives both the filter pills (in _includes/teaching-filters.html) and
+# the per-item visible tags (in _includes/teaching-item.html).
+#
+# Order matters — the keys render in document order in the filter UI.
+# Adding a new key requires: update this file, update the allow-lists in
+# tests/structural/teaching_collection_spec.rb (TEACH_ALLOWED_THEMES /
+# TEACH_ALLOWED_FORMATS), and tag the relevant entries.
+
+themes:
+  data-ai:
+    en: "Data & AI"
+    fr: "Data & IA"
+  digital-services:
+    en: "Digital services"
+    fr: "Services numériques"
+  mobility:
+    en: "Mobility"
+    fr: "Mobilité"
+
+formats:
+  academic:
+    en: "Academic"
+    fr: "Académique"
+  executive:
+    en: "Executive"
+    fr: "Formation continue"
+  innovative:
+    en: "Innovative formats"
+    fr: "Formats innovants"

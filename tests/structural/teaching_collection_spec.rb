@@ -5,7 +5,7 @@ require_relative "spec_helper"
 
 describe "teaching collection invariants" do
   TEACH_DIR = I18nPairs::ROOT / "_teaching"
-  TEACH_REQUIRED = %w[title institution years year_end lang ref short_description themes format].freeze
+  TEACH_REQUIRED = %w[title institution years year_start year_end sort_key lang ref short_description themes format].freeze
   TEACH_ALLOWED_LEVELS = %w[undergrad grad pro exec].freeze
   TEACH_ALLOWED_ROLES = %w[lead co guest].freeze
   TEACH_ALLOWED_THEMES = %w[data-ai digital-services mobility].freeze
@@ -94,6 +94,40 @@ describe "teaching collection invariants" do
       end
     end
     expect(violations).to be_empty, "format violations:\n#{violations.join("\n")}"
+  end
+
+  # sort_key must equal year_end * 10000 + year_start — drives the single-scalar
+  # sort on the /teaching/ index (chained Liquid sorts are not stable).
+  it "sort_key == year_end * 10000 + year_start" do
+    violations = []
+    Dir.glob(TEACH_DIR / "*.md").each do |file|
+      fm = I18nPairs.frontmatter(file)
+      next unless fm["sort_key"]
+      rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
+      expected = fm["year_end"].to_i * 10_000 + fm["year_start"].to_i
+      unless fm["sort_key"] == expected
+        violations << "#{rel}: sort_key=#{fm["sort_key"]} but expected #{expected}"
+      end
+    end
+    expect(violations).to be_empty, "sort_key violations:\n#{violations.join("\n")}"
+  end
+
+  # year_start mirrors years.first — used as a sort tiebreaker in the index.
+  it "year_start is a 4-digit integer matching the first year in `years`" do
+    violations = []
+    Dir.glob(TEACH_DIR / "*.md").each do |file|
+      fm = I18nPairs.frontmatter(file)
+      next unless fm["year_start"]
+      rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
+      unless fm["year_start"].is_a?(Integer) && fm["year_start"].to_s =~ /^\d{4}$/
+        violations << "#{rel}: year_start=#{fm["year_start"].inspect} must be a 4-digit integer"
+        next
+      end
+      if fm["years"].is_a?(Array) && fm["years"].first.to_i != fm["year_start"]
+        violations << "#{rel}: year_start=#{fm["year_start"]} disagrees with years.first=#{fm["years"].first}"
+      end
+    end
+    expect(violations).to be_empty, "year_start violations:\n#{violations.join("\n")}"
   end
 
   # year_end is the scalar we sort on (see _config.yml teaching collection).

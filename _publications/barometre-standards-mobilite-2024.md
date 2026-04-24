@@ -3,6 +3,8 @@ title: "Baromètre des standards de la mobilité 2024"
 date: 2024-12-01
 venue: La Fabrique des Mobilités
 type: report
+themes: [digital-services, mobility]
+format: report
 lang: en
 ref: barometre-standards-mobilite-2024
 short_description: "Annual barometer tracking the adoption, maturity, and gaps of open mobility data standards across French operators and local authorities."

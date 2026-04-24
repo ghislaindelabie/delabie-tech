@@ -3,6 +3,8 @@ title: "État des lieux MaaS en France — recommandations pour une stratégie n
 date: 2023-09-01
 venue: Ministère des Transports
 type: report
+themes: [digital-services, mobility]
+format: report
 lang: fr
 ref: maas-state-of-france-2023
 short_description: "Rapport d'état des lieux + recommandations pour une stratégie nationale MaaS, commandé par le Ministère des Transports."

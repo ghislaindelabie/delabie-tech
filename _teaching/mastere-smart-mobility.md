@@ -2,7 +2,9 @@
 title: "MaaS in Europe & Smart City / Smart Mobility"
 institution: Mastère Smart Mobility (Télécom Paris – École des Ponts)
 years: [2020, 2026]
+year_start: 2020
 year_end: 2026
+sort_key: 20262020
 level: grad
 role: guest
 lang: en

@@ -2,7 +2,9 @@
 title: "Vedecom — Autonomous vehicle concept design program"
 institution: ESTACA × Strate College (for Vedecom)
 years: [2014, 2017]
+year_start: 2014
 year_end: 2017
+sort_key: 20172014
 level: grad
 role: lead
 lang: en

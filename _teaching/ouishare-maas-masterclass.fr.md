@@ -2,7 +2,9 @@
 title: "Masterclass : mettre le MaaS au service des politiques publiques"
 institution: Ouishare
 years: [2019]
+year_start: 2019
 year_end: 2019
+sort_key: 20192019
 level: exec
 role: lead
 lang: fr

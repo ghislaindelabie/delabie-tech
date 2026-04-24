@@ -3,6 +3,8 @@ title: "Digital and data roadmap for ecological planning — \"Getting around\" 
 date: 2023-11-01
 venue: Secrétariat général à la planification écologique (SGPE)
 type: report
+themes: [data-ai, digital-services, mobility]
+format: report
 co_authors: [DGITM (Ministère des Transports)]
 lang: en
 ref: sgpe-digital-roadmap-ecological-planning-2023

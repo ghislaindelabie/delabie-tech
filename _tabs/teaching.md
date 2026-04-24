@@ -8,16 +8,28 @@ permalink: /teaching/
 ---
 
 {%- assign page_lang = page.lang | default: site.lang -%}
-{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'year_end' | reverse -%}
+{%- comment -%}
+  Sort on composite `sort_key` (= year_end * 10000 + year_start) then
+  reverse. Single-scalar sort avoids Liquid's unstable chained-sort
+  behaviour. Result: most-recent year_end first; within the same
+  year_end, the engagement that started most recently wins.
+{%- endcomment -%}
+{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'sort_key' | reverse -%}
 
 <p class="lead">Courses, workshops and custom programs I teach or have taught. Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
 
-{% include teaching-filters.html lang="en" %}
+<div data-filter-list>
 
-<ul class="teaching-list" data-test="teaching-list">
-{%- for t in items -%}
-  {% include teaching-item.html t=t %}
-{%- endfor -%}
-</ul>
+  {% include teaching-filters.html lang="en" %}
 
-<script src="{{ '/assets/js/teaching-filters.js' | relative_url }}" defer></script>
+  <ul class="teaching-list" data-filter-items data-test="teaching-list">
+  {%- for t in items -%}
+    {% include teaching-item.html t=t %}
+  {%- endfor -%}
+  </ul>
+
+  <p class="list-empty" data-filter-empty data-test="teaching-empty" hidden>{{ site.data.i18n.strings.en.teaching_filter_empty }}</p>
+
+</div>
+
+<script src="{{ '/assets/js/filter-list.js' | relative_url }}" defer></script>
