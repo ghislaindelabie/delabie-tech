@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+# Local development server with livereload.
+#
+# Usage:
+#   scripts/dev           # serves at http://127.0.0.1:4000 (localhost only)
+#   scripts/dev --lan     # binds to 0.0.0.0 so you can preview on your phone
+#                         # via your LAN IP (run `ipconfig getifaddr en0` on macOS)
+#
+# Livereload reloads your browser tab on any file change. Default dev loop
+# for iterating on content, templates, and styles — CI only runs on PR push.
+set -euo pipefail
+
+HOST="127.0.0.1"
+PORT="4000"
+
+for arg in "$@"; do
+  case "$arg" in
+    --lan) HOST="0.0.0.0" ;;
+    --help|-h)
+      sed -n '3,10p' "$0" | sed 's/^# \{0,1\}//'
+      exit 0
+      ;;
+    *)
+      echo "Unknown flag: $arg" >&2
+      echo "Usage: scripts/dev [--lan]" >&2
+      exit 1
+      ;;
+  esac
+done
+
+cd "$(dirname "$0")/.."
+
+# Free the port if a stale jekyll-serve still holds it.
+if command -v lsof >/dev/null 2>&1; then
+  pid=$(lsof -ti ":$PORT" 2>/dev/null || true)
+  if [ -n "$pid" ]; then
+    echo "Stopping existing process on :$PORT (pid $pid)…"
+    kill "$pid" 2>/dev/null || true
+    sleep 1
+  fi
+fi
+
+echo "Serving delabie-tech at http://$HOST:$PORT (livereload on)"
+if [ "$HOST" = "0.0.0.0" ]; then
+  echo "  LAN access: find your IP with 'ipconfig getifaddr en0' on macOS,"
+  echo "              then browse to http://<that-ip>:$PORT on your phone."
+fi
+exec bundle exec jekyll serve --host "$HOST" --port "$PORT" --livereload

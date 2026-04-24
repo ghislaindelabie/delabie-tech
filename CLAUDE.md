@@ -46,6 +46,12 @@ Project-level rules for any Claude Code agent operating on this repo. See `CHIRP
 - Every new layout or content collection gets its own template-level test in `tests/playwright/e2e/layouts/`.
 - Every new component gets a test in `tests/playwright/e2e/components/`.
 
+## Local dev loop
+
+- For UI / content iteration, start the livereload server with `scripts/dev`. Serves at `http://127.0.0.1:4000` (EN) and `/fr/`; rebuilds + reloads the browser tab on any file change.
+- `scripts/dev --lan` binds to `0.0.0.0` for LAN preview on a phone (use the LAN IP from `ipconfig getifaddr en0`).
+- CI runs full `jekyll build` + RSpec + Playwright + lychee on every push — trust it as the final gate, use `scripts/dev` as the feedback loop for iteration.
+
 ## Allowed operations
 
 - All `git` operations except `git push origin main`, `git push --force*`, and resets on protected branches.
