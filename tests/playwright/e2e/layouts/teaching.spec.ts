@@ -40,4 +40,41 @@ test.describe("Teaching index", () => {
     await page.goto("/fr/");
     await expect(page.locator('#sidebar nav a[href="/fr/teaching/"]')).toHaveCount(1);
   });
+
+  test("filter pill narrows the list and reset restores it", async ({ page }) => {
+    await page.goto("/teaching/");
+    const items = page.locator('[data-test="teaching-item"]');
+    const total = await items.count();
+    expect(total).toBeGreaterThan(0);
+
+    // Click the `Data & AI` theme pill.
+    await page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]').click();
+    await expect(
+      page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]'),
+    ).toHaveAttribute("aria-pressed", "true");
+    const narrowed = await items.evaluateAll((els) =>
+      els.filter((el) => !(el as HTMLElement).hidden).length,
+    );
+    expect(narrowed).toBeGreaterThan(0);
+    expect(narrowed).toBeLessThan(total);
+
+    // Reset clears filters and restores full list.
+    await page.locator('[data-test="teaching-filter-reset"]').click();
+    const restored = await items.evaluateAll((els) =>
+      els.filter((el) => !(el as HTMLElement).hidden).length,
+    );
+    expect(restored).toBe(total);
+  });
+
+  test("empty-state message appears when no item matches", async ({ page }) => {
+    await page.goto("/teaching/");
+    // Pick a combination that should produce no matches:
+    // "academic" format AND no theme filter still returns items, so pair a
+    // narrow theme with a mismatched format. (Data-AI themed items are
+    // tagged `academic`, so Data-AI + Executive should yield zero.)
+    await page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]').click();
+    await page.locator('.teaching-filters .filter-pill[data-filter="executive"]').click();
+    const empty = page.locator('[data-test="teaching-empty"]');
+    await expect(empty).toBeVisible();
+  });
 });

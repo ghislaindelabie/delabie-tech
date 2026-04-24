@@ -146,3 +146,79 @@
 }
 
 /* CV uses Chirpy's default page typography — no custom overrides needed. */
+
+/* Teaching filters ------------------------------------------------------ */
+
+.teaching-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.5rem;
+  align-items: center;
+  margin: 1rem 0 1.25rem;
+  padding: 0.75rem 1rem;
+  background: var(--card-bg, var(--main-bg));
+  border: 1px solid var(--main-border-color);
+  border-radius: 0.5rem;
+
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .filter-group__label {
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted-color);
+    margin-right: 0.25rem;
+  }
+
+  .filter-pill {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    border: 1px solid var(--main-border-color);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-color);
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      border-color: var(--link-color, currentcolor);
+    }
+
+    &[aria-pressed='true'] {
+      background: var(--link-color, #007acc);
+      color: var(--card-bg, #fff);
+      border-color: var(--link-color, #007acc);
+    }
+  }
+
+  .filter-reset {
+    margin-left: auto;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background: transparent;
+    border: none;
+    color: var(--text-muted-color);
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--link-color, currentcolor);
+    }
+  }
+}
+
+.teaching-empty {
+  margin: 1.5rem 0;
+  color: var(--text-muted-color);
+  font-style: italic;
+}

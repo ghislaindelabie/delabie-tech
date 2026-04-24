@@ -29,7 +29,11 @@
   {%- assign label_video = 'Video' -%}
 {%- endif -%}
 
-<li class="teaching-item" data-test="teaching-item">
+{%- assign themes_str = include.t.themes | join: ' ' -%}
+<li class="teaching-item"
+    data-test="teaching-item"
+    data-themes="{{ themes_str }}"
+    data-format="{{ include.t.format }}">
   <div class="teaching-item__meta">
     <span class="teaching-item__institution" data-test="teaching-institution">{{ include.t.institution }}</span>
     <span class="teaching-item__years" data-test="teaching-years">{{ years_str }}</span>
