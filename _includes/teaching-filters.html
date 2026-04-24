@@ -1,0 +1,26 @@
+{%- comment -%}
+  Teaching page filter UI. Two independent axes (theme + format), each
+  multi-select. Rendered server-side as plain buttons — JS only toggles
+  aria-pressed + display on items. JS-off users see the full list.
+  Expects include.lang to be 'en' or 'fr'.
+{%- endcomment -%}
+
+{%- assign t = site.data.i18n.strings[include.lang] -%}
+
+<section class="teaching-filters" data-test="teaching-filters" aria-label="{{ t.teaching_filter_theme_label }} / {{ t.teaching_filter_format_label }}">
+  <div class="filter-group" data-group="theme" role="group" aria-label="{{ t.teaching_filter_theme_label }}">
+    <span class="filter-group__label">{{ t.teaching_filter_theme_label }}</span>
+    <button type="button" class="filter-pill" data-filter="data-ai" aria-pressed="false">{{ t.teaching_filter_theme_data_ai }}</button>
+    <button type="button" class="filter-pill" data-filter="digital-services" aria-pressed="false">{{ t.teaching_filter_theme_digital_services }}</button>
+    <button type="button" class="filter-pill" data-filter="mobility" aria-pressed="false">{{ t.teaching_filter_theme_mobility }}</button>
+  </div>
+  <div class="filter-group" data-group="format" role="group" aria-label="{{ t.teaching_filter_format_label }}">
+    <span class="filter-group__label">{{ t.teaching_filter_format_label }}</span>
+    <button type="button" class="filter-pill" data-filter="academic" aria-pressed="false">{{ t.teaching_filter_format_academic }}</button>
+    <button type="button" class="filter-pill" data-filter="executive" aria-pressed="false">{{ t.teaching_filter_format_executive }}</button>
+    <button type="button" class="filter-pill" data-filter="innovative" aria-pressed="false">{{ t.teaching_filter_format_innovative }}</button>
+  </div>
+  <button type="button" class="filter-reset" data-test="teaching-filter-reset" hidden>{{ t.teaching_filter_reset }}</button>
+</section>
+
+<p class="teaching-empty" data-test="teaching-empty" hidden>{{ t.teaching_filter_empty }}</p>

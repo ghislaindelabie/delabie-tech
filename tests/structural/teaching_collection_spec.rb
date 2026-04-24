@@ -5,9 +5,11 @@ require_relative "spec_helper"
 
 describe "teaching collection invariants" do
   TEACH_DIR = I18nPairs::ROOT / "_teaching"
-  TEACH_REQUIRED = %w[title institution years year_end lang ref short_description].freeze
+  TEACH_REQUIRED = %w[title institution years year_end lang ref short_description themes format].freeze
   TEACH_ALLOWED_LEVELS = %w[undergrad grad pro exec].freeze
   TEACH_ALLOWED_ROLES = %w[lead co guest].freeze
+  TEACH_ALLOWED_THEMES = %w[data-ai digital-services mobility].freeze
+  TEACH_ALLOWED_FORMATS = %w[academic executive innovative].freeze
 
   it "directory exists with ≥ 1 entry" do
     expect(TEACH_DIR.exist?).to be(true)
@@ -64,6 +66,34 @@ describe "teaching collection invariants" do
       end
     end
     expect(violations).to be_empty
+  end
+
+  it "every `themes` is a non-empty array of allowed values" do
+    violations = []
+    Dir.glob(TEACH_DIR / "*.md").each do |file|
+      fm = I18nPairs.frontmatter(file)
+      rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
+      themes = fm["themes"]
+      unless themes.is_a?(Array) && !themes.empty?
+        violations << "#{rel}: themes=#{themes.inspect} must be a non-empty array"
+        next
+      end
+      bad = themes.reject { |t| TEACH_ALLOWED_THEMES.include?(t.to_s) }
+      violations << "#{rel}: themes=#{bad.inspect} not in #{TEACH_ALLOWED_THEMES}" unless bad.empty?
+    end
+    expect(violations).to be_empty, "theme violations:\n#{violations.join("\n")}"
+  end
+
+  it "every `format` is in the allowed set" do
+    violations = []
+    Dir.glob(TEACH_DIR / "*.md").each do |file|
+      fm = I18nPairs.frontmatter(file)
+      rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
+      unless TEACH_ALLOWED_FORMATS.include?(fm["format"].to_s)
+        violations << "#{rel}: format=#{fm["format"].inspect} not in #{TEACH_ALLOWED_FORMATS}"
+      end
+    end
+    expect(violations).to be_empty, "format violations:\n#{violations.join("\n")}"
   end
 
   # year_end is the scalar we sort on (see _config.yml teaching collection).
