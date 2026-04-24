@@ -1,0 +1,50 @@
+{%- comment -%}
+  Shared teaching-item partial. Expects `include.t` = one _teaching/*.md entry.
+  Renders institution, years range, title, short description, and optional
+  external resources (homepage / PDF / slides / video).
+{%- endcomment -%}
+
+{%- assign years = include.t.years -%}
+{%- assign years_str = '' -%}
+{%- if years and years.size > 0 -%}
+  {%- assign y_first = years | first -%}
+  {%- assign y_last = years | last -%}
+  {%- if years.size == 1 -%}
+    {%- assign years_str = y_first -%}
+  {%- else -%}
+    {%- capture years_str -%}{{ y_first }}–{{ y_last }}{%- endcapture -%}
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} Bilingual labels for optional resource links. {%- endcomment -%}
+{%- if include.t.lang == 'fr' -%}
+  {%- assign label_course = 'Page du cours' -%}
+  {%- assign label_pdf = 'PDF' -%}
+  {%- assign label_slides = 'Diapositives' -%}
+  {%- assign label_video = 'Vidéo' -%}
+{%- else -%}
+  {%- assign label_course = 'Course page' -%}
+  {%- assign label_pdf = 'PDF' -%}
+  {%- assign label_slides = 'Slides' -%}
+  {%- assign label_video = 'Video' -%}
+{%- endif -%}
+
+<li class="teaching-item" data-test="teaching-item">
+  <div class="teaching-item__meta">
+    <span class="teaching-item__institution" data-test="teaching-institution">{{ include.t.institution }}</span>
+    <span class="teaching-item__years" data-test="teaching-years">{{ years_str }}</span>
+    {%- if include.t.level -%}<span class="teaching-item__level">{{ include.t.level }}</span>{%- endif -%}
+  </div>
+  <h2 class="teaching-item__title" data-test="teaching-title">{{ include.t.title }}</h2>
+  {%- if include.t.short_description -%}
+    <p class="teaching-item__summary">{{ include.t.short_description }}</p>
+  {%- endif -%}
+  {%- if include.t.external_url or include.t.pdf or include.t.slides or include.t.video_url -%}
+    <ul class="teaching-item__resources">
+      {%- if include.t.external_url -%}<li><a href="{{ include.t.external_url }}" target="_blank" rel="noopener noreferrer">{{ label_course }}</a></li>{%- endif -%}
+      {%- if include.t.pdf -%}<li><a href="{{ include.t.pdf | relative_url }}">{{ label_pdf }}</a></li>{%- endif -%}
+      {%- if include.t.slides -%}<li><a href="{{ include.t.slides | relative_url }}">{{ label_slides }}</a></li>{%- endif -%}
+      {%- if include.t.video_url -%}<li><a href="{{ include.t.video_url }}" target="_blank" rel="noopener noreferrer">{{ label_video }}</a></li>{%- endif -%}
+    </ul>
+  {%- endif -%}
+</li>

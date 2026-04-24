@@ -1,7 +1,7 @@
 ---
 title: Archives
 icon: fas fa-archive
-order: 7
+order: 10
 layout: archives
 lang: fr
 ref: archives

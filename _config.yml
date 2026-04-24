@@ -29,7 +29,7 @@ social:
 # ---- Appearance ----
 theme_mode: # left blank for user toggle
 img_cdn: ""
-avatar: ""
+avatar: /assets/img/ghislain-delabie.jpg
 toc: true
 
 # ---- Comments (OFF in v1 per §9.3.c) ----
@@ -94,6 +94,28 @@ defaults:
       type: activity
     values:
       lang: fr
+  # Publications collection defaults
+  - scope:
+      path: ""
+      type: publications
+    values:
+      lang: en
+  - scope:
+      path: "**/*.fr.md"
+      type: publications
+    values:
+      lang: fr
+  # Teaching collection defaults
+  - scope:
+      path: ""
+      type: teaching
+    values:
+      lang: en
+  - scope:
+      path: "**/*.fr.md"
+      type: teaching
+    values:
+      lang: fr
   # Case-study collection defaults
   - scope:
       path: ""
@@ -138,6 +160,21 @@ collections:
   activity:
     output: false
     sort_by: date
+  # Phase 4 — publications: reports, talks, webinars, interviews, papers.
+  # (Plan §3.4 / §5.5.) One file per item. Listed on /publications/, not
+  # individually routed yet (detail pages optional per-item via has_detail_page).
+  publications:
+    output: false
+    sort_by: date
+  # Phase 4 — teaching assignments. (Plan §3.5 / §5.5.) One file per course.
+  # Listed on /teaching/; optional detail pages when has_detail_page: true.
+  #
+  # Sort by scalar `year_end` (last year of engagement). Sorting directly on
+  # the `years` array breaks when a future entry uses a scalar or mixed-length
+  # array — `[2024,2025] <=> 2025` raises at build time.
+  teaching:
+    output: false
+    sort_by: year_end
 
 sass:
   style: compressed
