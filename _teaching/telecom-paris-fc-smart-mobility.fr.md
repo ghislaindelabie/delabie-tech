@@ -2,7 +2,9 @@
 title: "« Mobilité intelligente pour la ville » — module FC"
 institution: Télécom Paris — Formation continue
 years: [2022, 2026]
+year_start: 2022
 year_end: 2026
+sort_key: 20262022
 level: exec
 role: guest
 lang: fr

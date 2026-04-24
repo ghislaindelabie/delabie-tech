@@ -3,24 +3,28 @@
   multi-select. Rendered server-side as plain buttons — JS only toggles
   aria-pressed + display on items. JS-off users see the full list.
   Expects include.lang to be 'en' or 'fr'.
+
+  Theme + format labels come from _data/teaching_taxonomy.yml (single
+  source of truth also consumed by _includes/teaching-item.html).
 {%- endcomment -%}
 
-{%- assign t = site.data.i18n.strings[include.lang] -%}
+{%- assign i18n = site.data.i18n.strings[include.lang] -%}
+{%- assign taxonomy = site.data.teaching_taxonomy -%}
 
-<section class="teaching-filters" data-test="teaching-filters" aria-label="{{ t.teaching_filter_theme_label }} / {{ t.teaching_filter_format_label }}">
-  <div class="filter-group" data-group="theme" role="group" aria-label="{{ t.teaching_filter_theme_label }}">
-    <span class="filter-group__label">{{ t.teaching_filter_theme_label }}</span>
-    <button type="button" class="filter-pill" data-filter="data-ai" aria-pressed="false">{{ t.teaching_filter_theme_data_ai }}</button>
-    <button type="button" class="filter-pill" data-filter="digital-services" aria-pressed="false">{{ t.teaching_filter_theme_digital_services }}</button>
-    <button type="button" class="filter-pill" data-filter="mobility" aria-pressed="false">{{ t.teaching_filter_theme_mobility }}</button>
+<section class="teaching-filters" data-test="teaching-filters" aria-label="{{ i18n.teaching_filter_theme_label }} / {{ i18n.teaching_filter_format_label }}">
+  <div class="filter-group" data-group="theme" role="group" aria-label="{{ i18n.teaching_filter_theme_label }}">
+    <span class="filter-group__label">{{ i18n.teaching_filter_theme_label }}</span>
+    {%- for entry in taxonomy.themes -%}
+      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+    {%- endfor -%}
   </div>
-  <div class="filter-group" data-group="format" role="group" aria-label="{{ t.teaching_filter_format_label }}">
-    <span class="filter-group__label">{{ t.teaching_filter_format_label }}</span>
-    <button type="button" class="filter-pill" data-filter="academic" aria-pressed="false">{{ t.teaching_filter_format_academic }}</button>
-    <button type="button" class="filter-pill" data-filter="executive" aria-pressed="false">{{ t.teaching_filter_format_executive }}</button>
-    <button type="button" class="filter-pill" data-filter="innovative" aria-pressed="false">{{ t.teaching_filter_format_innovative }}</button>
+  <div class="filter-group" data-group="format" role="group" aria-label="{{ i18n.teaching_filter_format_label }}">
+    <span class="filter-group__label">{{ i18n.teaching_filter_format_label }}</span>
+    {%- for entry in taxonomy.formats -%}
+      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+    {%- endfor -%}
   </div>
-  <button type="button" class="filter-reset" data-test="teaching-filter-reset" hidden>{{ t.teaching_filter_reset }}</button>
+  <button type="button" class="filter-reset" data-test="teaching-filter-reset" hidden>{{ i18n.teaching_filter_reset }}</button>
 </section>
 
-<p class="teaching-empty" data-test="teaching-empty" hidden>{{ t.teaching_filter_empty }}</p>
+<p class="teaching-empty" data-test="teaching-empty" hidden>{{ i18n.teaching_filter_empty }}</p>

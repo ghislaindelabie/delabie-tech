@@ -2,7 +2,9 @@
 title: "Modèles économiques de la mobilité"
 institution: ESTACA
 years: [2014, 2018]
+year_start: 2014
 year_end: 2018
+sort_key: 20182014
 level: grad
 role: lead
 lang: fr

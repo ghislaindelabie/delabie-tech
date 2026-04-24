@@ -2,7 +2,9 @@
 title: "IA & Mobilité — Préparer les ingénieurs à travailler avec l'IA et les cas d'usage mobilité"
 institution: ESTACA
 years: [2025, 2026]
+year_start: 2025
 year_end: 2026
+sort_key: 20262025
 level: grad
 role: lead
 lang: fr

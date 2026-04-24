@@ -2,7 +2,9 @@
 title: "\"Autonomous Mobility\" apprenticeship track design"
 institution: ESTACA
 years: [2016]
+year_start: 2016
 year_end: 2016
+sort_key: 20162016
 level: grad
 role: lead
 lang: en
