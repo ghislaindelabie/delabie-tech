@@ -47,4 +47,37 @@ test.describe("Publications index", () => {
     await page.goto("/fr/");
     await expect(page.locator('#sidebar nav a[href="/fr/publications/"]')).toHaveCount(1);
   });
+
+  test("filter pill narrows the list and reset restores it", async ({ page }) => {
+    await page.goto("/publications/");
+    const items = page.locator('[data-test="publication-item"]');
+    const total = await items.count();
+    expect(total).toBeGreaterThan(0);
+
+    // Narrow to "Data & AI" theme.
+    await page
+      .locator('[data-test="publications-filters"] .filter-pill[data-filter="data-ai"]')
+      .click();
+    const narrowed = await items.evaluateAll((els) =>
+      els.filter((el) => !(el as HTMLElement).hidden).length,
+    );
+    expect(narrowed).toBeGreaterThan(0);
+    expect(narrowed).toBeLessThan(total);
+
+    await page.locator('[data-test="publications-filter-reset"]').click();
+    const restored = await items.evaluateAll((els) =>
+      els.filter((el) => !(el as HTMLElement).hidden).length,
+    );
+    expect(restored).toBe(total);
+  });
+
+  test("empty-state appears when no item matches", async ({ page }) => {
+    await page.goto("/publications/");
+    // No current entry carries format=talk, so selecting it alone should
+    // empty the list.
+    await page
+      .locator('[data-test="publications-filters"] .filter-pill[data-filter="talk"]')
+      .click();
+    await expect(page.locator('[data-test="publications-empty"]')).toBeVisible();
+  });
 });

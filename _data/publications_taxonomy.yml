@@ -1,0 +1,27 @@
+# Single source of truth for theme + format taxonomy used on /publications/.
+# Drives the filter pills (_includes/publication-filters.html) and the
+# per-item visible tags (_includes/publication-item.html).
+#
+# Order matters — keys render in document order. Adding a new key
+# requires: update this file, update the allow-lists in
+# tests/structural/publications_collection_spec.rb, and tag the relevant
+# entries.
+
+themes:
+  data-ai:
+    en: "Data & AI"
+    fr: "Data & IA"
+  digital-services:
+    en: "Digital services"
+    fr: "Services numériques"
+  mobility:
+    en: "Mobility"
+    fr: "Mobilité"
+
+formats:
+  report:
+    en: "Report"
+    fr: "Rapport"
+  talk:
+    en: "Webinar & talks"
+    fr: "Webinaire & interventions"

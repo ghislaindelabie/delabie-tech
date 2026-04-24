@@ -18,12 +18,18 @@ permalink: /teaching/
 
 <p class="lead">Courses, workshops and custom programs I teach or have taught. Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
 
-{% include teaching-filters.html lang="en" %}
+<div data-filter-list>
 
-<ul class="teaching-list" data-test="teaching-list">
-{%- for t in items -%}
-  {% include teaching-item.html t=t %}
-{%- endfor -%}
-</ul>
+  {% include teaching-filters.html lang="en" %}
 
-<script src="{{ '/assets/js/teaching-filters.js' | relative_url }}" defer></script>
+  <ul class="teaching-list" data-filter-items data-test="teaching-list">
+  {%- for t in items -%}
+    {% include teaching-item.html t=t %}
+  {%- endfor -%}
+  </ul>
+
+  <p class="list-empty" data-filter-empty data-test="teaching-empty" hidden>{{ site.data.i18n.strings.en.teaching_filter_empty }}</p>
+
+</div>
+
+<script src="{{ '/assets/js/filter-list.js' | relative_url }}" defer></script>

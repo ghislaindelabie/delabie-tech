@@ -3,6 +3,8 @@ title: "Standards MaaS — gouvernance et performance"
 date: 2022-12-01
 venue: Observatoire du MaaS
 type: report
+themes: [digital-services, mobility]
+format: report
 lang: fr
 ref: maas-standards-governance-2022
 short_description: "Rapport sur la gouvernance des standards MaaS et la mesure de leur performance — ce qui fait qu'un standard fonctionne vraiment dans ce secteur."

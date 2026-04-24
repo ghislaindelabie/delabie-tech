@@ -3,6 +3,8 @@ title: "La part de la distribution digitale des titres de transport en France"
 date: 2024-06-01
 venue: Ministère des Transports
 type: report
+themes: [digital-services, mobility]
+format: report
 lang: fr
 ref: digital-distribution-transport-tickets-2024
 short_description: "Étude mesurant la part de la distribution digitale sur le marché des titres de transport en France — méthodologie, indicateurs et enjeux pour les politiques publiques."

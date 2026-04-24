@@ -48,9 +48,9 @@ test.describe("Teaching index", () => {
     expect(total).toBeGreaterThan(0);
 
     // Click the `Data & AI` theme pill.
-    await page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]').click();
+    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]').click();
     await expect(
-      page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]'),
+      page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]'),
     ).toHaveAttribute("aria-pressed", "true");
     const narrowed = await items.evaluateAll((els) =>
       els.filter((el) => !(el as HTMLElement).hidden).length,
@@ -72,8 +72,8 @@ test.describe("Teaching index", () => {
     // "academic" format AND no theme filter still returns items, so pair a
     // narrow theme with a mismatched format. (Data-AI themed items are
     // tagged `academic`, so Data-AI + Executive should yield zero.)
-    await page.locator('.teaching-filters .filter-pill[data-filter="data-ai"]').click();
-    await page.locator('.teaching-filters .filter-pill[data-filter="executive"]').click();
+    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]').click();
+    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="executive"]').click();
     const empty = page.locator('[data-test="teaching-empty"]');
     await expect(empty).toBeVisible();
   });

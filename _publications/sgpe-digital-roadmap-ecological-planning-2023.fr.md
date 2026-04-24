@@ -3,6 +3,8 @@ title: "Feuille de route numérique et données pour la planification écologiqu
 date: 2023-11-01
 venue: Secrétariat général à la planification écologique (SGPE)
 type: report
+themes: [data-ai, digital-services, mobility]
+format: report
 co_authors: [DGITM (Ministère des Transports)]
 lang: fr
 ref: sgpe-digital-roadmap-ecological-planning-2023
