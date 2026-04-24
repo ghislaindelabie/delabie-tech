@@ -2,7 +2,9 @@
 title: "Learning Expedition — Smart Mobility in the Nordics"
 institution: Transdev × Ministère des Transports
 years: [2018]
+year_start: 2018
 year_end: 2018
+sort_key: 20182018
 level: exec
 role: lead
 lang: fr

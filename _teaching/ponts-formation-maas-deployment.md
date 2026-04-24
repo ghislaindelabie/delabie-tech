@@ -1,8 +1,10 @@
 ---
 title: "Deploying a MaaS system — 3-day program"
 institution: Ponts Formation
-years: [2020, 2026]
-year_end: 2026
+years: [2023, 2024]
+year_start: 2023
+year_end: 2024
+sort_key: 20242023
 level: exec
 role: lead
 lang: en

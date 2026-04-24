@@ -8,7 +8,13 @@ permalink: /teaching/
 ---
 
 {%- assign page_lang = page.lang | default: site.lang -%}
-{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'year_end' | reverse -%}
+{%- comment -%}
+  Sort on composite `sort_key` (= year_end * 10000 + year_start) then
+  reverse. Single-scalar sort avoids Liquid's unstable chained-sort
+  behaviour. Result: most-recent year_end first; within the same
+  year_end, the engagement that started most recently wins.
+{%- endcomment -%}
+{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'sort_key' | reverse -%}
 
 <p class="lead">Courses, workshops and custom programs I teach or have taught. Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
 

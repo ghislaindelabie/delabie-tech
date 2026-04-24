@@ -2,7 +2,9 @@
 title: "Learning Expedition — PropTech in NYC"
 institution: Schoolab × VINCI Immobilier
 years: [2019]
+year_start: 2019
 year_end: 2019
+sort_key: 20192019
 level: exec
 role: lead
 lang: en

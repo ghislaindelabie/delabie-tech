@@ -2,7 +2,9 @@
 title: "Innovation Summer Camp Paris-Saclay — édition Mobilité"
 institution: Paris-Saclay (accueilli à l'ESTACA)
 years: [2016]
+year_start: 2016
 year_end: 2016
+sort_key: 20162016
 level: grad
 role: lead
 lang: fr

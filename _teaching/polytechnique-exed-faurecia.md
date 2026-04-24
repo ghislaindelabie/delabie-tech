@@ -2,7 +2,9 @@
 title: "Custom executive program for Faurecia managers"
 institution: École Polytechnique Executive Education
 years: [2019]
+year_start: 2019
 year_end: 2019
+sort_key: 20192019
 level: exec
 role: lead
 lang: en

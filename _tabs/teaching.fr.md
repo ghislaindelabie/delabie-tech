@@ -8,7 +8,14 @@ permalink: /fr/teaching/
 ---
 
 {%- assign page_lang = page.lang | default: site.lang -%}
-{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'year_end' | reverse -%}
+{%- comment -%}
+  Tri sur la clef composite `sort_key` (= year_end * 10000 + year_start)
+  puis `reverse`. Un seul sort sur un scalaire évite le comportement
+  instable des tris chaînés en Liquid. Résultat : year_end le plus
+  récent en tête ; à year_end égal, l'engagement démarré le plus
+  récemment gagne.
+{%- endcomment -%}
+{%- assign items = site.teaching | where: 'lang', page_lang | sort: 'sort_key' | reverse -%}
 
 <p class="lead">Cours, ateliers et programmes sur-mesure que j'ai animés ou que j'anime. Filtrez par thème ou par format — tous les filtres sont optionnels, et les combiner resserre la liste.</p>
 

@@ -2,7 +2,9 @@
 title: "Autonomous mobility systems"
 institution: ESILV
 years: [2015, 2017]
+year_start: 2015
 year_end: 2017
+sort_key: 20172015
 level: grad
 role: lead
 lang: en

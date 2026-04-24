@@ -30,6 +30,7 @@
 {%- endif -%}
 
 {%- assign themes_str = include.t.themes | join: ' ' -%}
+{%- assign taxonomy = site.data.teaching_taxonomy -%}
 <li class="teaching-item"
     data-test="teaching-item"
     data-themes="{{ themes_str }}"
@@ -37,12 +38,19 @@
   <div class="teaching-item__meta">
     <span class="teaching-item__institution" data-test="teaching-institution">{{ include.t.institution }}</span>
     <span class="teaching-item__years" data-test="teaching-years">{{ years_str }}</span>
-    {%- if include.t.level -%}<span class="teaching-item__level">{{ include.t.level }}</span>{%- endif -%}
   </div>
   <h2 class="teaching-item__title" data-test="teaching-title">{{ include.t.title }}</h2>
   {%- if include.t.short_description -%}
     <p class="teaching-item__summary">{{ include.t.short_description }}</p>
   {%- endif -%}
+  <ul class="teaching-item__tags" data-test="teaching-tags">
+    {%- for theme in include.t.themes -%}
+      {%- assign theme_label = taxonomy.themes[theme][include.t.lang] -%}
+      {%- if theme_label -%}<li class="tag tag--theme">{{ theme_label }}</li>{%- endif -%}
+    {%- endfor -%}
+    {%- assign format_label = taxonomy.formats[include.t.format][include.t.lang] -%}
+    {%- if format_label -%}<li class="tag tag--format">{{ format_label }}</li>{%- endif -%}
+  </ul>
   {%- if include.t.external_url or include.t.pdf or include.t.slides or include.t.video_url -%}
     <ul class="teaching-item__resources">
       {%- if include.t.external_url -%}<li><a href="{{ include.t.external_url }}" target="_blank" rel="noopener noreferrer">{{ label_course }}</a></li>{%- endif -%}

@@ -2,7 +2,9 @@
 title: "\"Smart Mobility for the City\" — continuing-education module"
 institution: Télécom Paris — Executive Education
 years: [2022, 2026]
+year_start: 2022
 year_end: 2026
+sort_key: 20262022
 level: exec
 role: guest
 lang: en
