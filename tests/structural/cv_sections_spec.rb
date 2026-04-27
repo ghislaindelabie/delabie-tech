@@ -24,15 +24,24 @@ describe "CV tab invariants" do
     end
   end
 
+  # Match either kramdown `## Heading` style or inline HTML `<h2>Heading</h2>` —
+  # the CV currently uses inline HTML to render the split layout.
+  HEADING_RE = ->(h) {
+    Regexp.union(
+      /^#+\s+.*\b#{Regexp.escape(h)}\b/i,
+      /<h[1-6][^>]*>[^<]*\b#{Regexp.escape(h)}\b/i
+    )
+  }
+
   it "EN CV contains each required section heading" do
     content = File.read(EN_PATH)
-    missing = REQUIRED_EN_HEADINGS.reject { |h| content =~ /^#+\s+.*\b#{Regexp.escape(h)}\b/i }
+    missing = REQUIRED_EN_HEADINGS.reject { |h| content =~ HEADING_RE.call(h) }
     expect(missing).to be_empty, "EN CV missing headings: #{missing}"
   end
 
   it "FR CV contains each required section heading" do
     content = File.read(FR_PATH)
-    missing = REQUIRED_FR_HEADINGS.reject { |h| content =~ /^#+\s+.*\b#{Regexp.escape(h)}\b/i }
+    missing = REQUIRED_FR_HEADINGS.reject { |h| content =~ HEADING_RE.call(h) }
     expect(missing).to be_empty, "FR CV missing headings: #{missing}"
   end
 

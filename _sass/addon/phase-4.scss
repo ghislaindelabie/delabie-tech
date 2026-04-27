@@ -270,3 +270,185 @@
   color: var(--text-muted-color);
   font-style: italic;
 }
+
+/* CV variant B — two-column split layout (/cv-split/) ------------------ */
+
+.cv-split {
+  &__intro {
+    margin: 0 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+
+  &__lede {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    margin: 0 0 0.4rem;
+  }
+
+  &__meta {
+    margin: 0;
+    font-size: 0.875rem;
+    color: var(--text-muted-color);
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 2rem;
+    align-items: start;
+  }
+
+  &__main {
+    min-width: 0;
+  }
+
+  &__sidebar {
+    min-width: 0;
+    padding: 0.15rem 0 0 1.5rem;
+    border-left: 1px solid var(--main-border-color);
+    font-size: 0.9rem;
+    line-height: 1.5;
+    position: sticky;
+    top: 5rem;
+    max-height: calc(100vh - 6rem);
+    overflow-y: auto;
+  }
+
+  &__section {
+    margin: 0 0 1.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__h2 {
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 1px solid var(--main-border-color);
+  }
+
+  &__h3 {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-color);
+    font-weight: 600;
+    margin: 1.5rem 0 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--main-border-color);
+
+    &:first-child {
+      margin-top: 0.25rem;
+    }
+  }
+
+  &__role {
+    margin: 0 0 1.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    &--current {
+      padding: 0.2rem 0 0.2rem 1rem;
+      border-left: 3px solid var(--link-color);
+    }
+  }
+
+  &__role-title {
+    font-size: 1rem;
+    line-height: 1.35;
+    margin: 0 0 0.15rem;
+    font-weight: 600;
+  }
+
+  &__role-dates {
+    margin: 0 0 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--text-muted-color);
+  }
+
+  &__card {
+    margin: 0 0 1.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__card-body {
+    margin: 0;
+  }
+
+  &__facts {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 0 0 0.6rem;
+    }
+
+    &--tight li {
+      margin: 0 0 0.35rem;
+    }
+
+    li:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  &__skills {
+    margin: 0;
+
+    dt {
+      font-weight: 600;
+      margin-top: 0.5rem;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    dd {
+      margin: 0.15rem 0 0;
+      color: var(--text-color);
+    }
+  }
+
+  &__muted {
+    color: var(--text-muted-color);
+    font-size: 0.8125rem;
+  }
+
+  &__rule {
+    margin: 2rem 0 1rem;
+    border: 0;
+    border-top: 1px solid var(--main-border-color);
+  }
+
+  &__footnote {
+    font-size: 0.8125rem;
+    color: var(--text-muted-color);
+    margin: 0;
+  }
+
+  /* Responsive: stack below ~650px. The breakpoint has to be narrower than
+     Chirpy's inner <main> width (≈ 747px at 1280 viewport), otherwise the
+     two columns collapse even on desktop. */
+  @media (max-width: 650px) {
+    &__grid {
+      grid-template-columns: minmax(0, 1fr);
+      gap: 1.5rem;
+    }
+
+    &__sidebar {
+      position: static;
+      max-height: none;
+      overflow-y: visible;
+    }
+  }
+}
