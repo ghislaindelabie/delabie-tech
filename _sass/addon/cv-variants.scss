@@ -1,0 +1,564 @@
+/* CV variants — experimental layouts. Shared editorial primitives first,
+   then per-variant overrides (timeline, cards; cv-split lives in phase-4.scss). */
+
+/* Shared editorial hero ------------------------------------------------- */
+
+.cv-hero {
+  margin: 0 0 2.25rem;
+  padding: 0 0 1.25rem;
+  border-bottom: 1px solid var(--main-border-color);
+
+  &__name {
+    font-size: 1.875rem;
+    line-height: 1.1;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+    margin: 0 0 0.65rem;
+  }
+
+  &__tagline {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+    max-width: 52em;
+    margin: 0 0 0.75rem;
+  }
+
+  &__contact {
+    font-size: 0.875rem;
+    color: var(--text-muted-color);
+    margin: 0;
+
+    a {
+      color: var(--text-muted-color);
+      text-decoration: none;
+      border-bottom: 1px solid var(--main-border-color);
+
+      &:hover,
+      &:focus-visible {
+        color: var(--link-color);
+        border-bottom-color: currentcolor;
+      }
+    }
+
+    .cv-hero__sep {
+      display: inline-block;
+      margin: 0 0.5em;
+      color: var(--main-border-color);
+    }
+  }
+}
+
+/* Ongoing indicator — small filled accent dot before any year span that
+   marks a current engagement. Applied via .cv-ongoing on the year element. */
+.cv-ongoing::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 0.5em;
+  border-radius: 50%;
+  background: var(--link-color);
+  vertical-align: 0.12em;
+}
+
+
+
+/* Timeline variant ------------------------------------------------------- */
+
+.cv-timeline {
+  &__section-title {
+    font-size: 1.15rem;
+    margin: 2.25rem 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted-color);
+    border-bottom: 1px solid var(--main-border-color);
+    padding-bottom: 0.35rem;
+  }
+
+  /* The rail itself: a visible vertical line on the left. */
+  &__rail {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.75rem;
+    position: relative;
+    border-left: 2px solid var(--text-muted-color);
+  }
+
+  &__entry {
+    position: relative;
+    padding: 0 0 1.5rem 0.75rem;
+
+    &:last-child {
+      padding-bottom: 0.25rem;
+    }
+
+    /* The dot anchored on the rail. */
+    &::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.75rem - 5px);
+      top: 0.55rem;
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: var(--main-bg);
+      border: 2px solid var(--text-muted-color);
+    }
+
+    &--current::before {
+      background: var(--link-color);
+      border-color: var(--link-color);
+      box-shadow: 0 0 0 3px var(--main-bg);
+    }
+  }
+
+  &__year {
+    display: block;
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--text-color);
+    margin: 0 0 0.3rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__role {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    font-weight: 600;
+    margin: 0 0 0.15rem;
+    color: var(--text-color);
+  }
+
+  &__org {
+    font-size: 0.9375rem;
+    margin: 0 0 0.4rem;
+    color: var(--text-muted-color);
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 0.925rem;
+    line-height: 1.55;
+
+    p {
+      margin: 0 0 0.4rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      margin: 0.4rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+
+      li {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+
+  /* Skills / credentials / languages — compact blocks outside the rail. */
+  &__block {
+    margin: 0 0 1.25rem;
+
+    h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted-color);
+      font-weight: 600;
+    }
+
+    p,
+    ul {
+      margin: 0 0 0.5rem;
+      font-size: 0.925rem;
+      line-height: 1.55;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+    }
+  }
+
+  /* Skills / facts rendered as dense dl — label left, body right. */
+  &__dl {
+    display: grid;
+    grid-template-columns: minmax(9rem, 1fr) minmax(0, 3fr);
+    gap: 0.5rem 1.5rem;
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+
+    dt {
+      grid-column: 1;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      color: var(--text-muted-color);
+      padding-top: 0.2rem;
+    }
+
+    dd {
+      grid-column: 2;
+      margin: 0 0 0.4rem;
+    }
+  }
+
+  &__footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--main-border-color);
+    font-size: 0.825rem;
+    color: var(--text-muted-color);
+    font-style: italic;
+  }
+
+  /* Narrow viewports: tighten the rail + stack the dl. */
+  @media (max-width: 600px) {
+    &__rail {
+      padding-left: 1.1rem;
+    }
+
+    &__entry {
+      padding-left: 0.4rem;
+
+      &::before {
+        left: calc(-1.1rem - 4px);
+      }
+    }
+
+    &__dl {
+      grid-template-columns: 1fr;
+      gap: 0.2rem 0;
+
+      dt {
+        padding-top: 0.9rem;
+      }
+    }
+  }
+}
+
+/* Tagged-cards variant -------------------------------------------------- */
+
+.cv-cards {
+  &__section-title {
+    font-size: 1.1rem;
+    margin: 2.25rem 0 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted-color);
+    border-bottom: 1px solid var(--main-border-color);
+    padding-bottom: 0.35rem;
+  }
+
+  /* Stack of cards (experience). */
+  &__stack {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  /* Individual experience card. */
+  &__card {
+    padding: 0.9rem 1.1rem;
+    background: var(--card-bg, var(--main-bg));
+    border: 1px solid var(--main-border-color);
+    border-radius: 0.5rem;
+    transition: border-color 0.15s ease;
+
+    &:hover {
+      border-color: var(--text-muted-color);
+    }
+
+    &--current {
+      border-left: 3px solid var(--link-color);
+    }
+  }
+
+  &__meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem 0.9rem;
+    align-items: baseline;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted-color);
+    margin-bottom: 0.35rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  &__years {
+    font-weight: 600;
+    color: var(--text-color);
+  }
+
+  &__org {
+    color: var(--text-muted-color);
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__role {
+    font-size: 1.05rem;
+    line-height: 1.35;
+    font-weight: 600;
+    margin: 0 0 0.35rem;
+    color: var(--text-color);
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 0.925rem;
+    line-height: 1.55;
+
+    p {
+      margin: 0 0 0.4rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul {
+      margin: 0.45rem 0 0;
+      padding-left: 1.1rem;
+      font-size: 0.9rem;
+
+      li {
+        margin-bottom: 0.3rem;
+      }
+    }
+  }
+
+  /* Reuse the teaching/publications tag pill styles. */
+  &__tags {
+    list-style: none;
+    padding: 0;
+    margin: 0.65rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border: 1px solid var(--main-border-color);
+      color: var(--text-muted-color);
+    }
+
+    .tag--theme {
+      background: var(--main-bg);
+    }
+
+    .tag--format {
+      background: transparent;
+      color: var(--link-color);
+      border-color: var(--link-color);
+    }
+  }
+
+  /* Earlier-roles tier: compact one-line rows for pre-2021 engagements.
+     Recency hierarchy — full cards for current + recent, rows for the archive. */
+  &__earlier-header {
+    margin: 2.5rem 0 0.75rem;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--main-border-color);
+
+    h3 {
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-muted-color);
+      font-weight: 600;
+      margin: 0;
+    }
+  }
+
+  &__earlier {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+  }
+
+  &__earlier-row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.5rem 1.25rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid var(--main-border-color);
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &__years {
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted-color);
+      font-variant-numeric: tabular-nums;
+      font-weight: 600;
+      padding-top: 0.1rem;
+    }
+
+    &__body {
+      font-size: 0.9375rem;
+      line-height: 1.5;
+
+      strong {
+        font-weight: 600;
+      }
+
+      .cv-cards__earlier-row__org {
+        color: var(--text-muted-color);
+      }
+    }
+
+    @media (max-width: 520px) {
+      grid-template-columns: 1fr;
+      gap: 0.1rem 0;
+    }
+  }
+
+  /* Education — smaller, denser cards in a 2-column grid on wide screens. */
+  &__edu-grid {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 0.75rem;
+  }
+
+  &__edu-card {
+    padding: 0.75rem 0.9rem;
+    background: var(--card-bg, var(--main-bg));
+    border: 1px solid var(--main-border-color);
+    border-radius: 0.5rem;
+
+    h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.2rem;
+      line-height: 1.35;
+      font-weight: 600;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: var(--text-muted-color);
+      line-height: 1.45;
+
+      a {
+        color: var(--link-color);
+        text-decoration: none;
+
+        &:hover,
+        &:focus {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    .cv-cards__edu-years {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-top: 0.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+  }
+
+  /* Skills / credentials / languages — compact blocks. */
+  &__block {
+    margin: 0 0 1.25rem;
+
+    h3 {
+      font-size: 0.95rem;
+      margin: 0 0 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted-color);
+      font-weight: 600;
+    }
+
+    p,
+    ul {
+      margin: 0 0 0.5rem;
+      font-size: 0.925rem;
+      line-height: 1.55;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem 1.5rem;
+    margin: 0 0 1.5rem;
+  }
+
+  &__footer {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--main-border-color);
+    font-size: 0.825rem;
+    color: var(--text-muted-color);
+    font-style: italic;
+  }
+
+  @media (max-width: 600px) {
+    &__edu-grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__card {
+      padding: 0.75rem 0.9rem;
+    }
+  }
+}

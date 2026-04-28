@@ -1,10 +1,9 @@
 ---
-title: CV
-icon: fas fa-address-card
-order: 7
+title: CV — Split layout (preview)
 lang: en
-ref: cv
-permalink: /cv/
+ref: cv-split
+permalink: /cv-split/
+translated: false
 ---
 
 <div class="cv-split">
