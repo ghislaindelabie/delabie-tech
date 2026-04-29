@@ -1,0 +1,80 @@
+{%- comment -%}
+  Shared archive-row partial. Expects `include.item` = one
+  _archive/*.md entry, `include.strings` = the i18n strings hash.
+  Mirrors `_includes/publication-item.html` structure for visual
+  consistency with /publications/.
+
+  UX rule (per Phase 4b plan §detail flag):
+    - detail: false → title links directly to the original resource
+      (or the Wayback fallback if the original is dead).
+    - detail: true  → title links to the internal page (item.url),
+      because there is body content worth reading.
+
+  `data-test` strings preserved across the redesign so the existing
+  Playwright specs continue to bind to the same elements.
+{%- endcomment -%}
+
+{%- assign tags_str = include.item.tags | join: ' ' -%}
+{%- assign year = include.item.date | date: '%Y' -%}
+{%- assign taxonomy = site.data.archive_taxonomy -%}
+{%- assign type_label = taxonomy.types[include.item.type][include.item.lang] | default: include.item.type -%}
+
+{%- if include.item.detail -%}
+  {%- assign title_href = include.item.url | relative_url -%}
+  {%- assign title_target = '' -%}
+  {%- assign title_rel = '' -%}
+{%- else -%}
+  {%- assign title_href = include.item.original_url -%}
+  {%- if title_href == nil or title_href == '' -%}
+    {%- assign title_href = include.item.wayback_url -%}
+  {%- endif -%}
+  {%- assign title_target = '_blank' -%}
+  {%- assign title_rel = 'noopener noreferrer' -%}
+{%- endif -%}
+
+<li class="archive-item"
+    data-test="archive-row"
+    data-filter-item
+    data-type="{{ include.item.type }}"
+    data-year="{{ year }}"
+    data-tags="{{ tags_str }}">
+  <div class="archive-item__meta">
+    <time datetime="{{ include.item.date | date: '%Y-%m-%d' }}">{{ include.item.date | date: '%Y-%m' }}</time>
+  </div>
+  <h2 class="archive-item__title" data-test="archive-row-title">
+    {%- if title_href and title_href != '' -%}
+      <a href="{{ title_href }}"{% if title_target != '' %} target="{{ title_target }}"{% endif %}{% if title_rel != '' %} rel="{{ title_rel }}"{% endif %}>{{ include.item.title }}</a>
+    {%- else -%}
+      {{ include.item.title }}
+    {%- endif -%}
+  </h2>
+  <p class="archive-item__venue">
+    {{ include.item.source }}{% if include.item.role %} · {{ include.item.role }}{% endif %}
+  </p>
+  {%- if include.item.excerpt -%}
+    <p class="archive-item__summary">{{ include.item.excerpt }}</p>
+  {%- endif -%}
+  {%- assign has_actions = false -%}
+  {%- if include.item.pdf -%}{%- assign has_actions = true -%}{%- endif -%}
+  {%- if include.item.wayback_url -%}{%- assign has_actions = true -%}{%- endif -%}
+  {%- if include.item.detail -%}{%- assign has_actions = true -%}{%- endif -%}
+  {%- if has_actions -%}
+    <p class="archive-item__actions">
+      {%- if include.item.pdf -%}
+        <a href="{{ include.item.pdf | relative_url }}" rel="noopener">{{ include.strings.archive_download_pdf | default: "PDF" }} ↓</a>
+      {%- endif -%}
+      {%- if include.item.wayback_url -%}
+        <a href="{{ include.item.wayback_url }}" target="_blank" rel="noopener noreferrer">{{ include.strings.archive_view_wayback | default: "Wayback" }} ↗</a>
+      {%- endif -%}
+      {%- if include.item.detail -%}
+        <a href="{{ include.item.url | relative_url }}" data-test="archive-row-detail-link">{{ include.strings.archive_read_more | default: "Notes" }} →</a>
+      {%- endif -%}
+    </p>
+  {%- endif -%}
+  <ul class="archive-item__tags" data-test="archive-row-tags">
+    <li class="tag tag--type" data-test="archive-row-type">{{ type_label }}</li>
+    {%- for tag in include.item.tags -%}
+      <li class="tag tag--theme">{{ tag }}</li>
+    {%- endfor -%}
+  </ul>
+</li>

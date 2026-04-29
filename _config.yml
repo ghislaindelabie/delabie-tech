@@ -128,6 +128,18 @@ defaults:
       type: case_studies
     values:
       lang: fr
+  # Archive collection defaults (Phase 4b)
+  - scope:
+      path: ""
+      type: archive
+    values:
+      layout: archive_item
+      lang: en
+  - scope:
+      path: "**/*.fr.md"
+      type: archive
+    values:
+      lang: fr
 
 # ---- Build ----
 markdown: kramdown
@@ -175,6 +187,17 @@ collections:
   teaching:
     output: false
     sort_by: year_end
+  # Phase 4b — archive: third-party traces (press citations, talks where
+  # he is invited, podcasts, reports citing him as contributor). Distinct
+  # from `_publications/` (vitrine of items he authored). See
+  # research/archive_design_options.md Scenario A' and project memory
+  # `project_archive_scope.md`. Items render at /archive/:year/:slug/;
+  # `detail: false` items render a redirect stub to `original_url`,
+  # `detail: true` items render a full layout with body content.
+  archive:
+    output: true
+    sort_by: date
+    permalink: /archive/:year/:slug/
 
 sass:
   style: compressed

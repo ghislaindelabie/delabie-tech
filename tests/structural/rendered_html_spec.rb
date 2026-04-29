@@ -46,7 +46,7 @@ describe "rendered HTML invariants" do
 
   # Addresses [REVIEW-13] (partial): permalinks follow the EN/FR shape rule.
   it "rendered EN tab URLs have no /fr/ prefix and no diacritics" do
-    tab_paths = %w[about archives categories tags]
+    tab_paths = %w[about archive categories tags]
     tab_paths.each do |tab|
       expected = SITE / tab / "index.html"
       expect(expected.exist?).to be(true), "EN tab /#{tab}/ should exist as /#{tab}/index.html"
@@ -54,7 +54,7 @@ describe "rendered HTML invariants" do
   end
 
   it "rendered FR tab URLs use the /fr/ prefix" do
-    tab_paths = %w[about archives categories tags]
+    tab_paths = %w[about archive categories tags]
     tab_paths.each do |tab|
       expected = SITE / "fr" / tab / "index.html"
       expect(expected.exist?).to be(true), "FR tab should exist as /fr/#{tab}/index.html"
@@ -90,7 +90,7 @@ describe "rendered HTML invariants" do
 
   it "FR home sidebar contains only /fr/ tab URLs (no EN-only ones)" do
     nav = sidebar_html("fr/index.html")
-    en_only = nav.scan(%r{href="/(?:about|archives|categories|tags)/"}).uniq
+    en_only = nav.scan(%r{href="/(?:about|archive|categories|tags)/"}).uniq
     expect(en_only).to be_empty, "FR sidebar leaked EN-only URLs: #{en_only}"
   end
 end

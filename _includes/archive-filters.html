@@ -1,0 +1,31 @@
+{%- comment -%}
+  Archive page filter UI. One axis only (type). Mirrors
+  `_includes/publication-filters.html` but renders pills only for types
+  that have ≥1 item in the current language (hide-empty), since archive
+  items are imported gradually and most types start out empty.
+
+  Expects:
+    include.lang  = "en" | "fr"
+    include.items = pre-filtered list (already where: 'lang', page_lang)
+
+  Drives `assets/js/filter-list.js` via the same `data-filter-*` contract
+  used by /publications/ and /teaching/.
+{%- endcomment -%}
+
+{%- assign i18n = site.data.i18n.strings[include.lang] -%}
+{%- assign taxonomy = site.data.archive_taxonomy -%}
+{%- assign present_types = include.items | map: 'type' | uniq | sort -%}
+
+{%- if present_types.size > 1 -%}
+<section class="list-filters" data-filter-controls data-test="archive-filters" aria-label="{{ i18n.archive_filter_type_label }}">
+  <div class="filter-group" data-group="type" role="group" aria-label="{{ i18n.archive_filter_type_label }}">
+    <span class="filter-group__label">{{ i18n.archive_filter_type_label }}</span>
+    {%- for entry in taxonomy.types -%}
+      {%- if present_types contains entry[0] -%}
+        <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <button type="button" class="filter-reset" data-filter-reset data-test="archive-filter-reset" hidden>{{ i18n.archive_filter_reset }}</button>
+</section>
+{%- endif -%}

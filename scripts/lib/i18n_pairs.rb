@@ -14,7 +14,7 @@ require "pathname"
 module I18nPairs
   ROOT = Pathname.new(File.expand_path("../..", __dir__))
 
-  CONTENT_DIRS = %w[_tabs _posts _case_studies _publications _teaching _activity].freeze
+  CONTENT_DIRS = %w[_tabs _posts _case_studies _publications _teaching _activity _archive].freeze
 
   def self.content_files
     CONTENT_DIRS.flat_map do |dir|

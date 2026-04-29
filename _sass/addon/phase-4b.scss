@@ -1,0 +1,201 @@
+/* Phase 4b — Archive collection.
+   Visually mirrors `_sass/addon/phase-4.scss` Publications styling so the
+   two surfaces feel like siblings: sober, dense, border-bottom separators,
+   muted uppercase metadata, rounded-pill tags. */
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.archive-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--main-border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted-color);
+    margin-bottom: 0.25rem;
+  }
+
+  &__title {
+    font-size: 1.0625rem;
+    line-height: 1.35;
+    margin: 0 0 0.25rem;
+
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: var(--link-color);
+      }
+    }
+  }
+
+  &__venue {
+    margin: 0 0 0.25rem;
+    font-size: 0.875rem;
+    color: var(--text-muted-color);
+  }
+
+  &__summary {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 0.9rem;
+  }
+
+  &__actions {
+    margin: 0.25rem 0 0.5rem;
+    font-size: 0.8125rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 1rem;
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__tags {
+    list-style: none;
+    padding: 0;
+    margin: 0.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border: 1px solid var(--main-border-color);
+      color: var(--text-muted-color);
+    }
+
+    .tag--theme {
+      background: var(--main-bg);
+    }
+
+    .tag--type {
+      background: transparent;
+      color: var(--link-color);
+      border-color: var(--link-color);
+    }
+  }
+}
+
+/* Detail page (one item) — same vocabulary, slightly taller spacing
+   because it's a single-item page rather than a list row. */
+
+.archive-detail {
+  &__meta {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    flex-wrap: wrap;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-muted-color);
+    margin-bottom: 0.5rem;
+  }
+
+  &__venue {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    color: var(--text-muted-color);
+  }
+
+  &__cover {
+    margin: 1rem 0;
+
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 0.375rem;
+    }
+  }
+
+  &__summary {
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+
+  &__body {
+    margin: 1rem 0 1.5rem;
+  }
+
+  &__actions {
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+
+    a {
+      color: var(--link-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__tags {
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.1rem 0.55rem;
+      border-radius: 999px;
+      font-size: 0.6875rem;
+      line-height: 1.4;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      border: 1px solid var(--main-border-color);
+      color: var(--text-muted-color);
+    }
+
+    .tag--theme {
+      background: var(--main-bg);
+    }
+
+    .tag--type {
+      background: transparent;
+      color: var(--link-color);
+      border-color: var(--link-color);
+    }
+  }
+}
