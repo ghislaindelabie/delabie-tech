@@ -1,0 +1,223 @@
+# Seed data for `_migration/archive_import.rb`. Curated by hand from
+# `research/press_catalog.md` (gitignored — lives in the sibling al-folio
+# repo). One block per item; the script generates a paired
+# `_archive/<slug>.md` (EN) + `_archive/<slug>.fr.md` (FR).
+#
+# **Bilingual content is authored here directly** — no LLM call at import
+# time. If a future scope needs scale (DE/ES/IT, hundreds of items), wire
+# in an Anthropic call then.
+#
+# `detail: true` items get hand-authored body content via a `body_en` /
+# `body_fr` block (Markdown). `detail: false` items skip the body entirely.
+#
+# `wayback_url` is the manual override; the script does NOT ping Wayback
+# automatically. Look it up via web.archive.org if you want a fallback.
+#
+# `pdf:` is omitted from the seed by default. The script attempts a
+# fetch on `original_url`; if `Content-Type: application/pdf`, saves to
+# `/assets/pdf/archive/<slug>.pdf` and writes the field. Force-skip with
+# `pdf_fetch: false` per item.
+#
+# When `detail: true`, the body should follow the Florence template:
+#   ## Context        (one paragraph: the venue, the audience, the moment)
+#   ## What I argued  (first-person framing — never put words in others' mouths)
+#   ## Why it matters here  (one paragraph: how this item connects to the
+#                            project / case study it points at via `projects:`)
+# Body content is hand-authored markdown — facts only, no fabricated quotes.
+
+items:
+
+  # Existing items already in _archive/ — listed so the seed is the full
+  # source-of-truth (re-running is a no-op on these because the script
+  # is idempotent on existing files).
+
+  - slug: florence-intermodal-2022
+    date: 2022-05-02
+    type: talk
+    role: speaker
+    source: "10th Florence Intermodal Forum"
+    original_url: "https://fsr.eui.eu/event/10th-florence-intermodal-forum-towards-eu-wide-intermodal-ticketing/"
+    tags: [MaaS, standards, EU, ticketing]
+    projects: [maas-standards]
+    detail: true
+    en:
+      title: "Towards an aggiornamento of European standardisation in MDMS"
+      excerpt: "Talk at the 10th Florence Intermodal Forum (EC / DG MOVE / Florence School of Regulation) on the renewal of European Multimodal Distribution and Mobility Services standardisation."
+    fr:
+      title: "Vers un aggiornamento de la standardisation européenne en MDMS"
+      excerpt: "Intervention au 10e Florence Intermodal Forum (CE / DG MOVE / Florence School of Regulation) sur le renouvellement de la standardisation européenne MDMS (Multimodal Distribution and Mobility Services)."
+    body_en: |
+      ## Context
+
+      The 10th Florence Intermodal Forum was the European Commission / DG MOVE
+      annual gathering hosted by the Florence School of Regulation, focused
+      that year on the prospects for EU-wide intermodal ticketing. The room
+      was a mix of regulators, infrastructure managers, mobility operators,
+      and standards-body representatives.
+
+      ## What I argued
+
+      The European MDMS (Multimodal Distribution and Mobility Services)
+      standardisation framework was approaching the moment where the gap
+      between the regulatory ambition (a continent-wide, accessible,
+      interoperable mobility service layer) and the on-the-ground
+      implementation (fragmented local stacks, brittle bilateral agreements,
+      under-specified interfaces) needed an explicit *aggiornamento* — a
+      deliberate refresh of the technical, contractual and governance
+      conventions, not yet another patch.
+
+      ## Why it matters here
+
+      The Florence audience is the room where European mobility-data policy
+      is rehearsed before it lands in regulation. Bringing the
+      Fabrique des Mobilités' work on MaaS standards (CMS, OCSS, Mon Compte
+      Mobilité) into that conversation is part of what the **MaaS standards**
+      project is for. The talk frames the rationale for the work catalogued
+      in the linked case study.
+    body_fr: |
+      ## Contexte
+
+      Le 10e Florence Intermodal Forum était la rencontre annuelle organisée
+      par la Commission européenne / DG MOVE et hébergée par la Florence
+      School of Regulation, consacrée cette année-là aux perspectives d'une
+      billettique intermodale à l'échelle de l'UE. La salle réunissait
+      régulateurs, gestionnaires d'infrastructure, opérateurs de mobilité et
+      représentants des organismes de normalisation.
+
+      ## Ce que j'ai défendu
+
+      Le cadre de standardisation européen MDMS (Multimodal Distribution and
+      Mobility Services) approchait du moment où l'écart entre l'ambition
+      réglementaire (une couche de services de mobilité interopérable,
+      accessible, à l'échelle du continent) et la réalité de terrain (stacks
+      locaux fragmentés, accords bilatéraux fragiles, interfaces sous-
+      spécifiées) demandait un *aggiornamento* explicite — un renouvellement
+      délibéré des conventions techniques, contractuelles et de gouvernance,
+      pas un énième correctif.
+
+      ## Pourquoi c'est ici
+
+      La salle de Florence est celle où la politique européenne de la donnée
+      mobilité se répète avant d'atterrir dans la réglementation. Y porter
+      le travail de la Fabrique des Mobilités sur les standards MaaS (CMS,
+      OCSS, Mon Compte Mobilité) fait partie de ce à quoi sert le projet
+      **MaaS standards**. Cette intervention pose le pourquoi du travail
+      catalogué dans l'étude de cas liée.
+
+  - slug: cerema-observatoire-maas-2022
+    date: 2022-11-15
+    type: quoted
+    role: facilitator
+    source: "Cerema"
+    original_url: "https://www.cerema.fr/fr/actualites/retour-rencontres-observatoire-du-maas-du-8-novembre-2022"
+    tags: [MaaS, observatoire, France]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Cerema writeup of the 2022 MaaS Observatory annual meeting"
+      excerpt: "Cerema's writeup of the 2022 MaaS Observatory annual meeting names me as facilitator of the 'Business models' working group."
+    fr:
+      title: "Retour sur les Rencontres de l'Observatoire du MaaS du 8 novembre 2022"
+      excerpt: "L'article du Cerema sur les Rencontres 2022 de l'Observatoire du MaaS me cite comme animateur du groupe de travail « Modèles économiques »."
+
+  # ---------------------------------------------------------------------
+  # Items below are pulled from research/press_catalog.md (§3, §3.5, §4)
+  # — only those where date + URL + role are confirmed. Items missing one
+  # of these (Forbes France, Les Échos start-up profile, France Mobilités
+  # Benchmark, Flowbird redirect, TF1 20H presence non confirmée) are
+  # held back for a follow-up batch once URLs/dates are verified.
+  # ---------------------------------------------------------------------
+
+  - slug: medium-waubant-maas-policies-2019
+    date: 2019-03-08
+    type: quoted
+    role: quoted
+    source: "Medium · OuiShare"
+    original_url: "https://medium.com/ouishare-connecting-the-collaborative-economy/mettre-le-maas-au-service-des-politiques-publiques-5f88bfbd9cc7"
+    tags: [MaaS, mobilité, politique-publique]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Putting MaaS at the service of public policy (Charles Waubant cites Delabie)"
+      excerpt: "Charles Waubant's Medium piece on MaaS as a public-policy tool quotes me on the gap between an 'achieved' MaaS and the conventional notion of extended public transport."
+    fr:
+      title: "Mettre le MaaS au service des politiques publiques (Charles Waubant me cite)"
+      excerpt: "Article de Charles Waubant sur le MaaS comme levier de politique publique, qui me cite sur l'écart entre un MaaS « achevé » et la notion classique de transports publics étendus."
+
+  - slug: medium-marin-autonomy-paris-2017
+    date: 2017-10-16
+    type: quoted
+    role: moderator
+    source: "Medium · Le Lab OuiShare x Chronos"
+    original_url: "https://medium.com/le-lab/miles-instead-of-cars-ross-douglas-from-autonomy-on-the-future-of-mobility-85d080f3cd39"
+    tags: [MaaS, données, événement]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Miles instead of cars — Fernanda Marin's Autonomy Paris recap mentions me as panel moderator"
+      excerpt: "Fernanda Marin's recap of Ross Douglas' Autonomy Paris keynote credits me as moderator of the 'Data, MaaS and how to build a great and open ecosystem' panel."
+    fr:
+      title: "Miles instead of cars — récap d'Autonomy Paris par Fernanda Marin où je suis modérateur du panel"
+      excerpt: "Le récap par Fernanda Marin du keynote Ross Douglas à Autonomy Paris me crédite comme modérateur du panel « Data, MaaS and how to build a great and open ecosystem »."
+
+  - slug: cerema-observatoire-maas-2025
+    date: 2025-01-22
+    type: quoted
+    role: facilitator
+    source: "Cerema"
+    original_url: "https://www.cerema.fr/fr/evenements/rencontres-observatoire-maas-3e-edition"
+    tags: [MaaS, observatoire, France, interopérabilité]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "MaaS Observatory — 3rd annual meeting (Cerema event page)"
+      excerpt: "The Cerema event page for the 3rd MaaS Observatory annual meeting names me as facilitator of the interoperability session."
+    fr:
+      title: "Les Rencontres de l'Observatoire des MaaS : 3e édition (page événement Cerema)"
+      excerpt: "La page événement du Cerema pour les 3e Rencontres de l'Observatoire du MaaS me cite comme animateur de la session interopérabilité."
+
+  - slug: cerema-atec-its-2025
+    date: 2025-01-29
+    type: quoted
+    role: speaker
+    source: "Cerema"
+    original_url: "https://www.cerema.fr/fr/actualites/mobilite-intelligente-retour-interventions-du-cerema-au-52"
+    tags: [MaaS, ATEC-ITS, France]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Smart mobility — Cerema's recap of the 52nd ATEC ITS Congress"
+      excerpt: "Cerema's writeup of its interventions at the 52nd ATEC ITS Congress mentions me as a speaker on the MaaS Observatory session."
+    fr:
+      title: "Mobilité intelligente — retour du Cerema sur le 52e congrès ATEC ITS"
+      excerpt: "Le retour du Cerema sur ses interventions au 52e congrès ATEC ITS me cite comme intervenant sur la session de l'Observatoire du MaaS."
+
+  - slug: fabmob-numerique-mobilite-2024
+    date: 2024-06-01
+    type: video
+    role: speaker
+    source: "La Fabrique des Mobilités · YouTube"
+    original_url: "https://www.youtube.com/watch?v=vT3-LKlNADA"
+    tags: [FabMob, numérique, mobilité, vidéo]
+    projects: [mob, maas-standards]
+    detail: false
+    en:
+      title: "Digital & Mobility — FabMob's June 2024 event (introduction video)"
+      excerpt: "Recording of the introduction I gave at FabMob's 'Digital & Mobility' event — framing the year's work on commons, standards, and Mon Compte Mobilité."
+    fr:
+      title: "Numérique & Mobilité — événement FabMob de juin 2024 (vidéo d'introduction)"
+      excerpt: "Captation de l'introduction que j'ai faite à l'événement « Numérique & Mobilité » de la Fabrique des Mobilités — cadrage du travail de l'année sur les communs, les standards et Mon Compte Mobilité."
+
+  # Maddyness 2025-10-02 — held back: URL not verified in press_catalog,
+  # the typical pattern returned 404 on the import attempt. Add once the
+  # actual article URL is captured from alien.club/press.
+
+  # Out of scope under the refined criterion (memory `project_archive_scope.md`):
+  # op-eds by colleagues (Primavera De Filippi, Charlotte) where the company
+  # is at most context, not subject. Concretely dropped:
+  #   - Le Monde 2025-11-06 "Le développement de l'IA réduit..." (Primavera, idées)
+  #   - Forbes France "L'Europe doit bâtir un modèle de données IA" (Charlotte op-ed)
+  #   - Maddyness 2025-10-02 "L'AI Act..." (Primavera, AI Act theme)
+  #   - 5 La Tribune tribunes (Primavera op-eds)
+  # Future Alien Intelligence items in scope: Les Échos start-up profile,
+  # Challenges "100 startups où investir 2026" (Alien named).

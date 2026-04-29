@@ -28,82 +28,95 @@ test.describe("Archive item detail", () => {
     }
   });
 
-  // Discover any archive item URL at runtime — these specs assert template
-  // invariants, not specific items, so they survive content churn.
-  async function pickAnyArchiveItemUrl(page: import("@playwright/test").Page) {
+  // Discover an archive item URL at runtime by `kind`. The index links
+  // detail:true items via the "Notes" detail-link (data-test) and links
+  // detail:false items externally — for the latter, the only on-page
+  // signal is that the row has NO detail-link, and we resolve the
+  // permalink via sitemap.xml so tests stay decoupled from specific slugs.
+  async function pickArchiveItemUrl(
+    page: import("@playwright/test").Page,
+    kind: "any" | "detail-true" | "detail-false",
+  ) {
     await page.goto("/archive/");
-    // Title link: external when detail:false, internal when detail:true.
-    // For these template tests we want any item's permalink (always
-    // /archive/<year>/<slug>/), reachable via the per-row "Notes" link
-    // when present, otherwise we synthesize from the data-* attributes.
-    const detailLinks = page.locator('[data-test="archive-row-detail-link"]');
-    if ((await detailLinks.count()) > 0) {
-      return (await detailLinks.first().getAttribute("href")) || "";
+    if (kind === "detail-true" || kind === "any") {
+      const detailLinks = page.locator('[data-test="archive-row-detail-link"]');
+      if ((await detailLinks.count()) > 0) {
+        return (await detailLinks.first().getAttribute("href")) || "";
+      }
+      if (kind === "detail-true") return "";
     }
-    // No detail links — pull the first row's data-year and pick its title
-    // text + check the href if internal, or fall back to the row's URL by
-    // navigating to the permalink Jekyll generates from filename slug.
-    const firstRow = page.locator('[data-test="archive-row"]').first();
-    const year = await firstRow.getAttribute("data-year");
-    // The rendered <a> on detail:false items points at the external original;
-    // we still want the permalink. Read sitemap.xml for the slug list.
-    const sitemap = await (await page.request.get("/sitemap.xml")).text();
-    const re = new RegExp(`(/archive/${year}/[^/<]+/)`);
-    const match = sitemap.match(re);
-    return match ? match[1] : "";
+    // detail-false (or any, when no detail-true present): find a row
+    // whose row-detail-link is absent, then resolve via sitemap.
+    const rows = page.locator('[data-test="archive-row"]');
+    const n = await rows.count();
+    for (let i = 0; i < n; i++) {
+      const row = rows.nth(i);
+      const dl = await row.locator('[data-test="archive-row-detail-link"]').count();
+      if (dl === 0) {
+        const year = await row.getAttribute("data-year");
+        const sitemap = await (await page.request.get("/sitemap.xml")).text();
+        const re = new RegExp(`(/archive/${year}/[^/<]+/)`);
+        const match = sitemap.match(re);
+        if (match) return match[1];
+      }
+    }
+    return "";
   }
 
   test("a detail:false item renders without body block", async ({ page }) => {
-    // Visit any archive item that lacks a "Notes" detail link on the
-    // index — that's a detail:false item by construction.
-    const detailLinks = await page.goto("/archive/").then(() =>
-      page.locator('[data-test="archive-row-detail-link"]').count(),
-    );
-    const rows = await page.locator('[data-test="archive-row"]').count();
-    test.skip(
-      detailLinks === rows,
-      "all current items are detail:true; nothing exercises this branch",
-    );
-
-    const url = await pickAnyArchiveItemUrl(page);
-    test.skip(!url, "no archive item URL discoverable");
+    const url = await pickArchiveItemUrl(page, "detail-false");
+    test.skip(!url, "no detail:false item present");
     const r = await page.goto(url);
     expect(r?.status()).toBe(200);
     await expect(page.locator('[data-test="archive-item"]')).toHaveCount(1);
     await expect(page.locator('[data-test="archive-item-type"]')).toHaveCount(1);
-    // detail:false → no body block.
     await expect(page.locator('[data-test="archive-item-body"]')).toHaveCount(0);
-    // Outward link to the original is always present.
     await expect(page.locator('[data-test="archive-item-original"]')).toHaveCount(1);
   });
 
-  test("FR sibling resolves at the /fr/-prefixed permalink", async ({ page }) => {
-    const enUrl = await pickAnyArchiveItemUrl(page);
-    test.skip(!enUrl, "no archive item URL discoverable");
-    const frUrl = "/fr" + enUrl;
-    const r = await page.goto(frUrl);
+  test("a detail:true item renders the body block", async ({ page }) => {
+    const url = await pickArchiveItemUrl(page, "detail-true");
+    test.skip(!url, "no detail:true item present");
+    const r = await page.goto(url);
     expect(r?.status()).toBe(200);
-    await expect(page.locator('[data-test="archive-item"]')).toHaveCount(1);
-    expect(await page.locator("html").getAttribute("lang")).toBe("fr");
+    await expect(page.locator('[data-test="archive-item-body"]')).toHaveCount(1);
+    const bodyText =
+      (await page.locator('[data-test="archive-item-body"]').textContent()) || "";
+    expect(bodyText.trim().length).toBeGreaterThan(0);
   });
 
-  test("language switcher present on detail pages", async ({ page }) => {
-    const url = await pickAnyArchiveItemUrl(page);
-    test.skip(!url, "no archive item URL discoverable");
-    await page.goto(url);
-    await expect(page.locator('[data-test="lang-switcher"]')).toHaveCount(1);
-  });
+  // Run these template-level invariants against BOTH detail branches
+  // (true and false) so a regression that only breaks one branch's
+  // <head>/switcher rendering still gets caught.
+  for (const kind of ["detail-true", "detail-false"] as const) {
+    test(`FR sibling resolves at /fr/ permalink (${kind})`, async ({ page }) => {
+      const enUrl = await pickArchiveItemUrl(page, kind);
+      test.skip(!enUrl, `no ${kind} item present`);
+      const frUrl = "/fr" + enUrl;
+      const r = await page.goto(frUrl);
+      expect(r?.status()).toBe(200);
+      await expect(page.locator('[data-test="archive-item"]')).toHaveCount(1);
+      expect(await page.locator("html").getAttribute("lang")).toBe("fr");
+    });
 
-  test("hreflang en + fr + x-default present", async ({ page }) => {
-    const url = await pickAnyArchiveItemUrl(page);
-    test.skip(!url, "no archive item URL discoverable");
-    await page.goto(url);
-    const hreflang = page.locator('link[rel="alternate"][hreflang]');
-    const langs = await hreflang.evaluateAll((els) =>
-      els.map((el) => (el as HTMLLinkElement).getAttribute("hreflang")),
-    );
-    expect(langs).toContain("en");
-    expect(langs).toContain("fr");
-    expect(langs).toContain("x-default");
-  });
+    test(`language switcher present (${kind})`, async ({ page }) => {
+      const url = await pickArchiveItemUrl(page, kind);
+      test.skip(!url, `no ${kind} item present`);
+      await page.goto(url);
+      await expect(page.locator('[data-test="lang-switcher"]')).toHaveCount(1);
+    });
+
+    test(`hreflang en + fr + x-default (${kind})`, async ({ page }) => {
+      const url = await pickArchiveItemUrl(page, kind);
+      test.skip(!url, `no ${kind} item present`);
+      await page.goto(url);
+      const hreflang = page.locator('link[rel="alternate"][hreflang]');
+      const langs = await hreflang.evaluateAll((els) =>
+        els.map((el) => (el as HTMLLinkElement).getAttribute("hreflang")),
+      );
+      expect(langs).toContain("en");
+      expect(langs).toContain("fr");
+      expect(langs).toContain("x-default");
+    });
+  }
 });
