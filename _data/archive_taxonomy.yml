@@ -1,0 +1,37 @@
+# Single source of truth for the archive `type` axis used on /archive/.
+# Drives the filter pills (_includes/archive-filters.html) and the
+# per-row visible type tag (_includes/archive-row.html).
+#
+# Order matters — keys render in document order. Adding a new type
+# requires: update this file AND the allow-list in
+# tests/structural/archive_collection_spec.rb (ARCHIVE_ALLOWED_TYPES).
+#
+# Filter pills are rendered only for types present in the current language
+# (hide-empty). The full set is kept here so labels stay consistent across
+# the site as items are imported.
+
+types:
+  article:
+    en: "Article"
+    fr: "Article"
+  oped:
+    en: "Op-ed"
+    fr: "Tribune"
+  interview:
+    en: "Interview"
+    fr: "Entretien"
+  quoted:
+    en: "Quoted"
+    fr: "Citation"
+  talk:
+    en: "Talk"
+    fr: "Conférence"
+  video:
+    en: "Video"
+    fr: "Vidéo"
+  podcast:
+    en: "Podcast"
+    fr: "Podcast"
+  report:
+    en: "Report"
+    fr: "Rapport"

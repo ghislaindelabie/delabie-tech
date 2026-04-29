@@ -30,7 +30,7 @@ test.describe("Sidebar nav", () => {
     expect(frTabAnchors).toBeGreaterThanOrEqual(2);
     // EN-only tab URLs must not appear in the nav specifically.
     const enOnlyInFrNav = nav.locator(
-      'a[href="/about/"], a[href="/archives/"], a[href="/categories/"], a[href="/tags/"]',
+      'a[href="/about/"], a[href="/archive/"], a[href="/categories/"], a[href="/tags/"]',
     );
     await expect(enOnlyInFrNav).toHaveCount(0);
   });

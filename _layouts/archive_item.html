@@ -1,0 +1,74 @@
+---
+layout: page
+---
+
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- assign strings = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+{%- assign taxonomy = site.data.archive_taxonomy -%}
+{%- assign type_label = taxonomy.types[page.type][page.lang] | default: page.type -%}
+
+{%- comment -%}
+  Archive item detail layout. Renders metadata + outward links for every
+  item, body content only when frontmatter has `detail: true`.
+  Visual language mirrors `_includes/publication-item.html` /
+  `_sass/addon/phase-4.scss` — sober dense list, no decorative chrome.
+{%- endcomment -%}
+
+<article class="archive-detail" data-test="archive-item">
+
+  <header class="archive-detail__meta">
+    <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{{ page.date | date: '%Y-%m-%d' }}</time>
+    <span data-test="archive-item-type">{{ type_label }}</span>
+    {%- if page.role -%}
+      <span data-test="archive-item-role">{{ page.role }}</span>
+    {%- endif -%}
+  </header>
+
+  {%- if page.source -%}
+    <p class="archive-detail__venue" data-test="archive-item-source">{{ page.source }}</p>
+  {%- endif -%}
+
+  {%- if page.cover -%}
+    <figure class="archive-detail__cover">
+      <img src="{{ page.cover | relative_url }}" alt="{{ page.title | escape }}" loading="lazy">
+    </figure>
+  {%- endif -%}
+
+  {%- if page.excerpt -%}
+    <p class="archive-detail__summary" data-test="archive-item-excerpt">{{ page.excerpt }}</p>
+  {%- endif -%}
+
+  {%- if page.detail -%}
+    <div class="archive-detail__body" data-test="archive-item-body">
+      {{ content }}
+    </div>
+  {%- endif -%}
+
+  <p class="archive-detail__actions" data-test="archive-item-links">
+    {%- if page.original_url -%}
+      <a href="{{ page.original_url }}" rel="noopener noreferrer" target="_blank" data-test="archive-item-original">
+        {{ strings.archive_read_original | default: "Read original" }} →
+      </a>
+    {%- endif -%}
+    {%- if page.pdf -%}
+      <a href="{{ page.pdf | relative_url }}" rel="noopener" data-test="archive-item-pdf">
+        {{ strings.archive_download_pdf | default: "Download local copy" }} ↓
+      </a>
+    {%- endif -%}
+    {%- if page.wayback_url -%}
+      <a href="{{ page.wayback_url }}" rel="noopener noreferrer" target="_blank" data-test="archive-item-wayback">
+        {{ strings.archive_view_wayback | default: "View on Wayback Machine" }} ↗
+      </a>
+    {%- endif -%}
+  </p>
+
+  {%- if page.tags and page.tags.size > 0 -%}
+    <ul class="archive-detail__tags" data-test="archive-item-tags">
+      <li class="tag tag--type">{{ type_label }}</li>
+      {%- for tag in page.tags -%}
+        <li class="tag tag--theme">{{ tag }}</li>
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+
+</article>

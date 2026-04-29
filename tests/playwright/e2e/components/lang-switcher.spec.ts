@@ -45,9 +45,12 @@ test.describe("Language switcher (Phase 1)", () => {
     await expect(brokenLinks).toHaveCount(0);
   });
 
-  // Addresses [REVIEW-9]: archive-shaped pages get no switcher at all.
-  test("archive/tag/category pages do not render the switcher", async ({ page }) => {
-    for (const path of ["/archives/", "/categories/", "/tags/", "/fr/archives/"]) {
+  // Addresses [REVIEW-9]: Chirpy's auto-generated archive-family pages
+  // (categories/tags/per-tag/per-category indexes) get no switcher.
+  // The new `/archive/` collection page is a real bilingual tab and DOES
+  // get a switcher — see the bilingual nav tests above.
+  test("Chirpy auto-archive pages do not render the switcher", async ({ page }) => {
+    for (const path of ["/categories/", "/tags/"]) {
       await page.goto(path);
       await expect(page.locator('[data-test="lang-switcher"]')).toHaveCount(0);
     }

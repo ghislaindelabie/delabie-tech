@@ -1,0 +1,25 @@
+{%- comment -%}
+  Auto-discovered cross-link from a case study (or any page that declares
+  `ref:`) to archive items that point back via `projects: [<ref>]`.
+
+  Distinct from `_includes/related.html`, which renders manually-declared
+  related lists. This one is a reverse lookup: archive items annotate the
+  projects they belong to, the case-study page picks them up.
+
+  Renders nothing when there are no matches.
+{%- endcomment -%}
+
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- assign strings = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+{%- assign related_archive = site.archive | where: 'lang', page_lang | where_exp: 'i', 'i.projects contains page.ref' | sort: 'date' | reverse -%}
+
+{%- if related_archive.size > 0 -%}
+<aside class="archive-related" data-test="archive-related" aria-labelledby="archive-related-heading">
+  <h2 class="archive-related__heading" id="archive-related-heading">{{ strings.archive_related_heading | default: "Mentions, talks & coverage" }}</h2>
+  <ul class="archive-list">
+    {%- for item in related_archive -%}
+      {% include archive-row.html item=item strings=strings %}
+    {%- endfor -%}
+  </ul>
+</aside>
+{%- endif -%}
