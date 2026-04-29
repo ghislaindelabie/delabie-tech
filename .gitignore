@@ -31,3 +31,6 @@ test-results/
 # Local test artifacts
 tmp/
 *.log
+
+# Migration reports — regenerated on each `_migration/*.rb` run
+_migration/*.report.md

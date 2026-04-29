@@ -1,0 +1,86 @@
+# Seed data for `_migration/archive_import.rb`. Curated by hand from
+# `research/press_catalog.md` (gitignored — lives in the sibling al-folio
+# repo). One block per item; the script generates a paired
+# `_archive/<slug>.md` (EN) + `_archive/<slug>.fr.md` (FR).
+#
+# **Bilingual content is authored here directly** — no LLM call at import
+# time. If a future scope needs scale (DE/ES/IT, hundreds of items), wire
+# in an Anthropic call then.
+#
+# `detail: true` items get hand-authored body content via a `body_en` /
+# `body_fr` block (Markdown). `detail: false` items skip the body entirely.
+#
+# `wayback_url` is the manual override; the script does NOT ping Wayback
+# automatically. Look it up via web.archive.org if you want a fallback.
+#
+# `pdf:` is omitted from the seed by default. The script attempts a
+# fetch on `original_url`; if `Content-Type: application/pdf`, saves to
+# `/assets/pdf/archive/<slug>.pdf` and writes the field. Force-skip with
+# `pdf_fetch: false` per item.
+
+items:
+
+  # Existing items already in _archive/ — listed so the seed is the full
+  # source-of-truth (re-running is a no-op on these because the script
+  # is idempotent on existing files).
+
+  - slug: florence-intermodal-2022
+    date: 2022-05-02
+    type: talk
+    role: speaker
+    source: "10th Florence Intermodal Forum"
+    original_url: "https://fsr.eui.eu/event/10th-florence-intermodal-forum-towards-eu-wide-intermodal-ticketing/"
+    tags: [MaaS, standards, EU, ticketing]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Towards an aggiornamento of European standardisation in MDMS"
+      excerpt: "Talk at the 10th Florence Intermodal Forum (EC / DG MOVE / Florence School of Regulation) on the renewal of European Multimodal Distribution and Mobility Services standardisation."
+    fr:
+      title: "Vers un aggiornamento de la standardisation européenne en MDMS"
+      excerpt: "Intervention au 10e Florence Intermodal Forum (CE / DG MOVE / Florence School of Regulation) sur le renouvellement de la standardisation européenne MDMS (Multimodal Distribution and Mobility Services)."
+
+  - slug: cerema-observatoire-maas-2022
+    date: 2022-11-15
+    type: quoted
+    role: facilitator
+    source: "Cerema"
+    original_url: "https://www.cerema.fr/fr/actualites/retour-rencontres-observatoire-du-maas-du-8-novembre-2022"
+    tags: [MaaS, observatoire, France]
+    projects: [maas-standards]
+    detail: false
+    en:
+      title: "Cerema writeup of the 2022 MaaS Observatory annual meeting"
+      excerpt: "Cerema's writeup of the 2022 MaaS Observatory annual meeting names me as facilitator of the 'Business models' working group."
+    fr:
+      title: "Retour sur les Rencontres de l'Observatoire du MaaS du 8 novembre 2022"
+      excerpt: "L'article du Cerema sur les Rencontres 2022 de l'Observatoire du MaaS me cite comme animateur du groupe de travail « Modèles économiques »."
+
+  # New items — uncomment / append to import. Pulled from
+  # research/press_catalog.md §3, §3.5, §4 and the institutional citations
+  # in the 5 thematic files.
+  #
+  # Skeleton block (uncomment, fill in, run import):
+  #
+  # - slug: <kebab-case-unique>
+  #   date: YYYY-MM-DD
+  #   type: talk | article | oped | interview | report | video | podcast | quoted
+  #   role: author | co-author | contributor | speaker | interviewee | quoted | facilitator | moderator
+  #   source: "<publisher / venue>"
+  #   original_url: "https://..."
+  #   wayback_url: "https://web.archive.org/web/.../"   # optional
+  #   tags: [<freeform>, <strings>]
+  #   projects: [<case-study-ref>, ...]                   # for cross-link
+  #   detail: false                                        # default
+  #   en:
+  #     title: "..."
+  #     excerpt: "..."
+  #   fr:
+  #     title: "..."
+  #     excerpt: "..."
+  #
+  # When detail: true, append body_en + body_fr (Markdown):
+  #   body_en: |
+  #     Personal notes, key quotes, why-it-matters paragraph, optional reprint.
+  #   body_fr: |
+  #     Notes personnelles, citations clés, paragraphe contextuel, reprise éventuelle.
