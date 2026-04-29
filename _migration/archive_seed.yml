@@ -212,22 +212,12 @@ items:
   # the typical pattern returned 404 on the import attempt. Add once the
   # actual article URL is captured from alien.club/press.
 
-  # Alien-Intelligence-tagged items leave `projects:` empty until an
-  # `alien-intelligence` case study is created (none exists today).
-  # When the case study lands, add `projects: [alien-intelligence]` here
-  # to wire the cross-link from /case-studies/alien-intelligence/.
-  - slug: lemonde-ai-creators-data-2025
-    date: 2025-11-06
-    type: quoted
-    role: quoted
-    source: "Le Monde"
-    original_url: "https://www.lemonde.fr/idees/article/2025/11/06/le-developpement-de-l-ia-reduit-le-travail-des-createurs-de-contenu-a-une-donnee-brute-libre-d-etre-exploitee_6652452_3232.html"
-    tags: [Alien-Intelligence, IA, créateurs, droits-données]
-    projects: []
-    detail: false
-    en:
-      title: "Le Monde — 'AI development reduces creators' work to raw, free-to-exploit data' (mentions Alien Intelligence)"
-      excerpt: "Le Monde idées tribune calling out how generative AI strips creators' work down to raw exploitable data. Alien Intelligence is referenced as one of the European responses building rights-respecting data infrastructure for AI."
-    fr:
-      title: "Le Monde — « Le développement de l'IA réduit le travail des créateurs de contenu à une donnée brute, libre d'être exploitée » (mention Alien Intelligence)"
-      excerpt: "Tribune des idées du Monde sur la réduction du travail des créateurs à une donnée brute exploitable par l'IA. Alien Intelligence y est citée parmi les réponses européennes qui construisent une infrastructure de données respectueuse des droits."
+  # Out of scope under the refined criterion (memory `project_archive_scope.md`):
+  # op-eds by colleagues (Primavera De Filippi, Charlotte) where the company
+  # is at most context, not subject. Concretely dropped:
+  #   - Le Monde 2025-11-06 "Le développement de l'IA réduit..." (Primavera, idées)
+  #   - Forbes France "L'Europe doit bâtir un modèle de données IA" (Charlotte op-ed)
+  #   - Maddyness 2025-10-02 "L'AI Act..." (Primavera, AI Act theme)
+  #   - 5 La Tribune tribunes (Primavera op-eds)
+  # Future Alien Intelligence items in scope: Les Échos start-up profile,
+  # Challenges "100 startups où investir 2026" (Alien named).
