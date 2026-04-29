@@ -75,6 +75,9 @@ def fetch_pdf(url, dest, max_bytes: 30 * 1024 * 1024, timeout: 10)
                   use_ssl: uri.scheme == "https",
                   open_timeout: timeout, read_timeout: timeout) do |http|
     response = http.request(Net::HTTP::Get.new(uri))
+    # We deliberately do not follow redirects — most are paywall walls
+    # or canonical landing-page rewrites, not the artefact. Logged for
+    # manual seed update.
     return [:redirect, response["Location"]] if response.is_a?(Net::HTTPRedirection)
     return [:fail, "HTTP #{response.code}"] unless response.is_a?(Net::HTTPSuccess)
     ctype = response["Content-Type"].to_s
@@ -121,9 +124,13 @@ def write_pair(item)
     path = ARCHIVE_DIR / "#{item["slug"]}#{suffix}"
     fm = front_matter(item, lang)
     body = item["body_#{lang}"].to_s.strip
+    # Whole-hash dump (per-key `each` mis-indents arrays). `header: false`
+    # is silently ignored on this Psych version, so we strip the leading
+    # `---\n` ourselves and add our own front-matter fence below.
+    yaml = YAML.dump(fm).sub(/\A---\s*\n/, "")
     File.open(path, "w") do |f|
       f.puts "---"
-      fm.each { |k, v| f.puts "#{k}: #{YAML.dump(v).sub(/\A---\s*/, '').chomp}" }
+      f.write yaml
       f.puts "---"
       f.puts
       f.puts body unless body.empty?
@@ -169,8 +176,10 @@ items.each do |item|
   end
 
   en_path = ARCHIVE_DIR / "#{item["slug"]}.md"
-  if en_path.exist?
-    log(:skip_existing, item["slug"], "_archive/#{item["slug"]}.md already present")
+  fr_path = ARCHIVE_DIR / "#{item["slug"]}.fr.md"
+  if en_path.exist? || fr_path.exist?
+    side = en_path.exist? ? (fr_path.exist? ? "EN+FR" : "EN") : "FR"
+    log(:skip_existing, item["slug"], "_archive/#{item["slug"]}* already present (#{side})")
     next
   end
 
