@@ -8,10 +8,11 @@ lang: en
 timezone: Europe/Paris
 
 title: Ghislain Delabie
-tagline: AI engineer building data infrastructure for mobility, science, media and energy
+tagline: Connecting AI agents to premium, rights-respecting knowledge sources
 description: >-
-  Personal site of Ghislain Delabie — AI Solutions lead at Alien Intelligence,
-  connecting AI agents to premium knowledge sources.
+  Personal site of Ghislain Delabie — Head of AI Solutions at Alien
+  Intelligence, building the data infrastructure that connects AI agents
+  to premium knowledge sources: science, heritage, media.
 
 url: "https://v2.delabie.tech"
 baseurl: ""

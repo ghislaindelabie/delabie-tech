@@ -7,9 +7,14 @@ ref: contact
 permalink: /fr/contact/
 ---
 
-Un formulaire de contact hébergé arrive — le choix du prestataire est
-documenté dans les notes de raffinement du projet. En attendant, le
-moyen le plus fiable pour me joindre passe par LinkedIn :
+Vous pouvez me solliciter pour :
+
+- **Infrastructure de données pour l'IA** — vous détenez des contenus ou des données de valeur (bibliothèque, archive, éditeur, infrastructure de recherche, institution publique) et vous voulez qu'ils travaillent *avec* l'IA plutôt que d'être pillés par elle.
+- **Conseil et accompagnement** sur la donnée mobilité, les standards ouverts et le MaaS.
+- **Conférences et enseignement** — interventions, formation continue, écoles d'ingénieurs.
+- **Presse** — IA et données, mobilité, science ouverte.
+
+Le canal le plus fiable est LinkedIn :
 
 <p class="lead">
   <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a>

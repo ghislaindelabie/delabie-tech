@@ -31,13 +31,13 @@ url: "https://www.delabie.tech"
 #      use Schema.org's `additionalRole` / a separate Person.role block).
 #   2. Add ORCID + Google Scholar URLs to `same_as` below.
 job_title:
-  en: "Head of AI projects and Partnerships"
-  fr: "Responsable des projets IA et partenariats"
+  en: "Head of AI Solutions"
+  fr: "Responsable des solutions IA"
 
 # Short description. Sourced from the About page lede; refine as needed.
 description:
-  en: "AI engineer building data infrastructure for mobility, science, media and energy. 18 years in mobility product, now Head of AI projects and Partnerships at Alien Intelligence."
-  fr: "Ingénieur IA, je construis l'infrastructure de données pour la mobilité, la science, les médias et l'énergie. 18 ans d'expérience produit en mobilité, aujourd'hui responsable des projets IA et partenariats chez Alien Intelligence."
+  en: "Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years in mobility data and product before that."
+  fr: "Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans d'expérience produit et données en mobilité auparavant."
 
 # Current employer (Schema.org `Person.worksFor`). Inline — keep to
 # name + url only; we are not declaring a full Organization entity here.

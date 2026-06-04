@@ -7,9 +7,14 @@ ref: contact
 permalink: /contact/
 ---
 
-A hosted contact form is on its way — see the project refinement notes
-for the provider pick. In the meantime, the most reliable way to reach
-me is via LinkedIn:
+I'm glad to hear about:
+
+- **AI data infrastructure** — you hold valuable content or data (a library, an archive, a publisher, a research infrastructure, a public institution) and want it to work *with* AI rather than be consumed by it.
+- **Consulting and advisory** on mobility data, open standards and MaaS.
+- **Speaking and teaching** — conferences, executive education, engineering schools.
+- **Press** — AI and data, mobility, open science.
+
+The most reliable channel is LinkedIn:
 
 <p class="lead">
   <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a>

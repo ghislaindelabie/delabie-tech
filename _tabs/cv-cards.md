@@ -10,7 +10,7 @@ translated: false
 
 <header class="cv-hero">
   <h2 class="cv-hero__name">Ghislain Delabie</h2>
-  <p class="cv-hero__tagline">AI engineer building data infrastructure for mobility, science, media and energy — 18 years in mobility product, now leading AI Solutions at Alien Intelligence.</p>
+  <p class="cv-hero__tagline">Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years in mobility data and product before that.</p>
   <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
 </header>
 
