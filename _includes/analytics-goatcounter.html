@@ -1,0 +1,16 @@
+{%- comment -%}
+  GoatCounter analytics — banner-free, GDPR-compliant, lightweight (~1 KB).
+  https://www.goatcounter.com
+
+  Renders only when:
+    1. `analytics.goatcounter.code` is set in `_config.yml`
+    2. The site URL is the production domain (not v2.delabie.tech / localhost)
+
+  No cookies. No PII. No consent banner needed.
+{%- endcomment -%}
+
+{%- assign code = site.analytics.goatcounter.code -%}
+{%- if code and code != "" and site.url contains 'www.delabie.tech' -%}
+<script data-goatcounter="{{ code }}"
+        async src="//gc.zgo.at/count.js"></script>
+{%- endif -%}

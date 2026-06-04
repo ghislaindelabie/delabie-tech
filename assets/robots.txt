@@ -1,0 +1,24 @@
+---
+permalink: /robots.txt
+sitemap: false
+---
+# robots.txt for {{ site.url }}
+#
+# Stance: open to all crawlers — regular search engines AND AI training
+# crawlers. Discoverability matters more for the writing on this site
+# than private control.
+#
+# Licensing is the right place to set the rules of engagement, not
+# crawler blocking. Current default: CC-BY 4.0 (or as noted on a given
+# page). The CC Signals framework — purpose-built for declaring AI
+# training rights granularly — is being watched; this site will adopt
+# it once the spec is stable enough for production use.
+#
+# If a specific path needs to be hidden later, add a `User-agent: *` +
+# `Disallow: /the-path/` block. Avoid blanket `Disallow: /` blocks; a
+# regression test enforces this.
+
+User-agent: *
+Disallow: /norobots/
+
+Sitemap: {{ site.url }}/sitemap.xml

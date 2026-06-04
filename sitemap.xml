@@ -1,0 +1,72 @@
+---
+layout: null
+permalink: /sitemap.xml
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+{%- comment -%}
+  Custom sitemap that augments jekyll-sitemap's default with `<xhtml:link
+  rel="alternate">` hreflang annotations. When a page declares a `ref:`,
+  we emit one `<url>` block per language pairing the EN/FR siblings via
+  the same `translation_of` filter used elsewhere on the site.
+
+  Pages without a `ref:` (jekyll-archives auto-pages, blog category /
+  tag archives) emit a single `<url>` block with no hreflang.
+
+  Items with `sitemap: false` are excluded (carryover for legacy
+  pages — none today, future-proofing).
+{%- endcomment -%}
+
+{%- assign all = site.pages -%}
+{%- assign all = all | concat: site.posts -%}
+{%- assign all = all | concat: site.case_studies -%}
+{%- assign all = all | concat: site.archive -%}
+
+{%- for item in all -%}
+  {%- if item.sitemap == false -%}{%- continue -%}{%- endif -%}
+  {%- unless item.url -%}{%- continue -%}{%- endunless -%}
+  {%- comment -%}
+    Restrict to HTML content pages: trailing-slash URLs are canonical
+    page paths (`/`, `/about/`, `/archive/2022/foo/`). Asset URLs end in
+    a file extension and are excluded; jekyll-sitemap behaves the same
+    way by default.
+  {%- endcomment -%}
+  {%- assign url_tail = item.url | slice: -1, 1 -%}
+  {%- unless url_tail == '/' -%}{%- continue -%}{%- endunless -%}
+  <url>
+    <loc>{{ item.url | absolute_url | xml_escape }}</loc>
+    {%- if item.date %}
+    <lastmod>{{ item.date | date_to_xmlschema }}</lastmod>
+    {%- elsif item.last_modified_at %}
+    <lastmod>{{ item.last_modified_at | date_to_xmlschema }}</lastmod>
+    {%- endif -%}
+    {%- if item.ref and item.ref != empty -%}
+      {%- assign current_lang = item.lang | default: site.lang -%}
+      {%- for lang in site.data.i18n.languages -%}
+        {%- if lang.code == current_lang -%}
+    <xhtml:link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ item.url | absolute_url | xml_escape }}"/>
+        {%- else -%}
+          {%- assign alt = item | translation_of: lang.code -%}
+          {%- if alt -%}
+    <xhtml:link rel="alternate" hreflang="{{ lang.hreflang }}" href="{{ alt.url | absolute_url | xml_escape }}"/>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- comment -%} x-default points at the default-language version. {%- endcomment -%}
+      {%- assign default_lang = nil -%}
+      {%- for lang in site.data.i18n.languages -%}
+        {%- if lang.default -%}{%- assign default_lang = lang.code -%}{%- endif -%}
+      {%- endfor -%}
+      {%- if default_lang == current_lang -%}
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ item.url | absolute_url | xml_escape }}"/>
+      {%- else -%}
+        {%- assign default_alt = item | translation_of: default_lang -%}
+        {%- if default_alt -%}
+    <xhtml:link rel="alternate" hreflang="x-default" href="{{ default_alt.url | absolute_url | xml_escape }}"/>
+        {%- endif -%}
+      {%- endif -%}
+    {%- endif %}
+  </url>
+{%- endfor -%}
+</urlset>

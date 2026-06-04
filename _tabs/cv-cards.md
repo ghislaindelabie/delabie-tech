@@ -11,7 +11,7 @@ translated: false
 <header class="cv-hero">
   <h2 class="cv-hero__name">Ghislain Delabie</h2>
   <p class="cv-hero__tagline">AI engineer building data infrastructure for mobility, science, media and energy — 18 years in mobility product, now leading AI Solutions at Alien Intelligence.</p>
-  <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="mailto:ghislain@alien.club">ghislain@alien.club</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
+  <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
 </header>
 
 <h2 class="cv-cards__section-title">Current role</h2>
@@ -195,7 +195,7 @@ translated: false
 
 <div class="cv-cards__block">
 <ul>
-<li>Email: <a href="mailto:ghislain@alien.club">ghislain@alien.club</a></li>
+<li><a href="/contact/">Contact form</a></li>
 <li>GitHub: <a href="https://github.com/ghislaindelabie">github.com/ghislaindelabie</a></li>
 <li>LinkedIn: <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a></li>
 <li>Based in Chambéry, France — available for remote and on-site work across Europe.</li>

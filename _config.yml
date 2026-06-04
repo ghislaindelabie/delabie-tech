@@ -21,7 +21,10 @@ github:
 
 social:
   name: Ghislain Delabie
-  email: ghislain@alien.club
+  # `email:` deliberately omitted — see memory `feedback_email_privacy.md`.
+  # Email and phone never appear in any web-served file. Contact lives at
+  # /contact/, a hosted-form page where the destination address sits in the
+  # service config, not in HTML.
   links:
     - https://github.com/ghislaindelabie
     - https://www.linkedin.com/in/ghislaindelabie
@@ -30,16 +33,30 @@ social:
 theme_mode: # left blank for user toggle
 img_cdn: ""
 avatar: /assets/img/ghislain-delabie.jpg
+
+# Open Graph / Twitter social preview image. Chirpy's head.html reads
+# `site.social_preview_image` (not jekyll-seo-tag's `site.image`).
+# Intentionally unset in V1 — the avatar (a 1:1 portrait) renders badly
+# in Twitter / Facebook 1.91:1 card previews. Add a 1200×630 banner with
+# legible text per Open Graph guidelines and uncomment when ready
+# (refinement tracked in docs/phase-5-refinements.md §7).
+# social_preview_image: /assets/img/og-banner-1200x630.jpg
 toc: true
 
 # ---- Comments (OFF in v1 per §9.3.c) ----
 comments:
   provider: ""
 
-# ---- Analytics (picked in Phase 5 per §9.3.a) ----
+# ---- Analytics — Phase 5 ----
+# GoatCounter — banner-free, GDPR-compliant, free for personal sites.
+# Renders nothing when `code` is empty. Set the value (the URL from your
+# GoatCounter site, e.g. https://yoursite.goatcounter.com/count) once
+# you've created the site at https://www.goatcounter.com. The snippet
+# only fires on the production domain, never on preview / localhost.
+# See docs/phase-5-refinements.md §1.
 analytics:
-  plausible:
-    domain:
+  goatcounter:
+    code: ""
 
 # ---- Pageviews ----
 pageviews:
@@ -47,6 +64,14 @@ pageviews:
 
 # ---- Preview-site SEO precaution — §3.8.5 ----
 robots_noindex: true
+
+# ---- SEO meta tags — Phase 5 ----
+# Google Search Console verification. Paste the `content="..."` value
+# from Search Console's HTML-tag verification flow. See
+# docs/phase-5-refinements.md §4 for setup steps. Renders nothing
+# when blank.
+seo:
+  google_site_verification: ""
 
 # ---- Paginate ----
 paginate: 10
@@ -229,6 +254,8 @@ exclude:
   - .claude
   - CLAUDE.md
   - CHIRPY_MIGRATION_PLAN.md
+  - WEBSITE_AUDIT.md
+  - docs
 
 jekyll-archives:
   enabled: [categories, tags]

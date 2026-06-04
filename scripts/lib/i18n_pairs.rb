@@ -9,6 +9,7 @@
 # Addresses [REVIEW-14]: module-level constants, safe on reload.
 
 require "yaml"
+require "date"
 require "pathname"
 
 module I18nPairs

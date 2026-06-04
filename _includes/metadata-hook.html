@@ -13,3 +13,37 @@
 {%- if site.robots_noindex -%}
 <meta name="robots" content="noindex, nofollow">
 {%- endif -%}
+
+{%- comment -%}
+  Phase 5 — Schema.org Person on the homepage and About page only.
+  Subject of the site is the Person; organizations Ghislain is
+  associated with (Alien, FabMob, AFNOR, etc.) are declared inline
+  on the Person via worksFor / memberOf / affiliation. No standalone
+  Organization entity — see docs/phase-5-refinements.md §2.
+{%- endcomment -%}
+{%- if page.layout == 'home' or page.ref == 'about' -%}
+  {%- include schema-person.html -%}
+{%- endif -%}
+
+{%- comment -%}
+  Per-archive-item JSON-LD — emits a type-specific Schema.org block
+  (NewsArticle / VideoObject / PodcastEpisode / etc.) for every page in
+  the `archive` collection.
+{%- endcomment -%}
+{%- if page.layout == 'archive_item' -%}
+  {%- include archive-jsonld.html -%}
+{%- endif -%}
+
+{%- comment -%}
+  Phase 5 — Google Search Console verification. Renders only when set.
+  See `docs/phase-5-refinements.md` §4 for setup steps.
+{%- endcomment -%}
+{%- if site.seo.google_site_verification and site.seo.google_site_verification != "" -%}
+<meta name="google-site-verification" content="{{ site.seo.google_site_verification }}">
+{%- endif -%}
+
+{%- comment -%}
+  Phase 5 — GoatCounter analytics. Self-suppresses on preview + localhost
+  (see _includes/analytics-goatcounter.html for the conditional).
+{%- endcomment -%}
+{%- include analytics-goatcounter.html -%}

@@ -1,0 +1,134 @@
+{%- comment -%}
+  Schema.org `Person` JSON-LD for Ghislain Delabie. Emit on the homepage
+  and About page only — search engines treat repeated Person blocks across
+  every page as noise / potential spam.
+
+  Subject of this site is the Person; organisations are inline
+  relationships (worksFor, memberOf), not top-level entities.
+
+  Consumed by `_includes/metadata-hook.html` via a page-flag check.
+  Data sourced from `_data/schema_person.yml`.
+{%- endcomment -%}
+
+{%- assign person = site.data.schema_person -%}
+{%- assign page_lang = page.lang | default: site.lang -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ person.name }}",
+  "givenName": "{{ person.given_name }}",
+  "familyName": "{{ person.family_name }}",
+  "url": "{{ person.url }}",
+  "jobTitle": "{{ person.job_title[page_lang] | default: person.job_title.en }}",
+  "description": "{{ person.description[page_lang] | default: person.description.en }}",
+  {%- if person.works_for %}
+  "worksFor": {
+    "@type": "Organization",
+    "name": "{{ person.works_for.name }}",
+    "url": "{{ person.works_for.url }}"
+  },
+  {%- endif %}
+  {%- if person.affiliation and person.affiliation.size > 0 %}
+  "affiliation": [
+    {%- for aff in person.affiliation -%}
+    {
+      "@type": "Role",
+      "roleName": "{{ aff.role_name }}"{%- if aff.start_date %},
+      "startDate": "{{ aff.start_date }}"{%- endif -%}
+      {%- if aff.end_date %},
+      "endDate": "{{ aff.end_date }}"{%- endif %},
+      "affiliation": {
+        "@type": "EducationalOrganization",
+        "name": "{{ aff.organization.name }}",
+        "url": "{{ aff.organization.url }}"
+      }
+    }{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  {%- if person.has_credential and person.has_credential.size > 0 %}
+  "hasCredential": [
+    {%- for cred in person.has_credential -%}
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "{{ cred.name }}",
+      "credentialCategory": "{{ cred.category }}"{%- if cred.educational_level %},
+      "educationalLevel": "{{ cred.educational_level }}"{%- endif -%}
+      {%- if cred.recognized_by %},
+      "recognizedBy": {
+        "@type": "EducationalOrganization",
+        "name": "{{ cred.recognized_by.name }}"{%- if cred.recognized_by.url %},
+        "url": "{{ cred.recognized_by.url }}"{%- endif %}
+      }
+      {%- endif -%}
+      {%- if cred.competency_required and cred.competency_required.size > 0 %},
+      "competencyRequired": [
+        {%- for comp in cred.competency_required -%}
+        "{{ comp }}"{%- unless forloop.last -%},{%- endunless %}
+        {%- endfor %}
+      ]
+      {%- endif %}
+    }{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  {%- if person.member_of and person.member_of.size > 0 %}
+  "memberOf": [
+    {%- for org in person.member_of -%}
+    {
+      "@type": "Organization",
+      "name": "{{ org.name }}",
+      "url": "{{ org.url }}"
+    }{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  {%- if person.has_occupation and person.has_occupation.size > 0 %}
+  "hasOccupation": [
+    {%- for occ in person.has_occupation -%}
+    {
+      "@type": "Occupation",
+      "name": "{{ occ.name }}"{%- if occ.description %},
+      "description": "{{ occ.description }}"{%- endif -%}
+      {%- if occ.occupational_category %},
+      "occupationalCategory": "{{ occ.occupational_category }}"{%- endif %}
+    }{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  {%- if person.alumni_of and person.alumni_of.size > 0 %}
+  "alumniOf": [
+    {%- for inst in person.alumni_of -%}
+    {
+      "@type": "EducationalOrganization",
+      "name": "{{ inst.name }}"{%- if inst.alternate_name %},
+      "alternateName": "{{ inst.alternate_name }}"{%- endif %},
+      "url": "{{ inst.url }}"
+    }{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  {%- if person.knows_about and person.knows_about.size > 0 %}
+  "knowsAbout": [
+    {%- for topic in person.knows_about -%}
+    "{{ topic }}"{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ],
+  {%- endif %}
+  "homeLocation": {
+    "@type": "Place",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "{{ person.home_location.city }}",
+      "addressCountry": "{{ person.home_location.country }}"
+    }
+  },
+  "sameAs": [
+    {%- for url in person.same_as -%}
+    "{{ url }}"{%- unless forloop.last -%},{%- endunless %}
+    {%- endfor %}
+  ]
+}
+</script>

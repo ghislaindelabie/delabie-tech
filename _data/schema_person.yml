@@ -1,0 +1,208 @@
+# Schema.org `Person` data for Ghislain Delabie.
+# Consumed by `_includes/schema-person.html` and emitted as JSON-LD on
+# the homepage and the About page.
+#
+# Subject of this site is the Person (Ghislain). Organizations are
+# declared inline as relationships (worksFor, memberOf) — NOT as
+# top-level Organization entities, because this is not Alien's site
+# nor FabMob's nor AFNOR's. See docs/phase-5-refinements.md §3.
+#
+# `sameAs` is the property search engines use to consolidate identity
+# signals across the web — list every canonical profile / author page
+# you actively maintain.
+#
+# IMPORTANT: never put email or phone here — see memory
+# `feedback_email_privacy.md`.
+
+name: "Ghislain Delabie"
+given_name: "Ghislain"
+family_name: "Delabie"
+url: "https://www.delabie.tech"
+
+# Job title + employer at time of publication. Update when role changes.
+#
+# Current confirmed title (2026-05-19): "Head of AI projects and Partnerships" at Alien.
+#
+# DEFERRED — "independent researcher" framing. Ghislain plans to add this
+# once his academic identity infra is in place (ORCID + Google Scholar).
+# Tracked in Vault/personal/projects/research-career/ — see
+# research-profile-strategy.md. When ready, two changes:
+#   1. Append " · Independent researcher (AI + mobility)" to job_title (or
+#      use Schema.org's `additionalRole` / a separate Person.role block).
+#   2. Add ORCID + Google Scholar URLs to `same_as` below.
+job_title:
+  en: "Head of AI projects and Partnerships"
+  fr: "Responsable des projets IA et partenariats"
+
+# Short description. Sourced from the About page lede; refine as needed.
+description:
+  en: "AI engineer building data infrastructure for mobility, science, media and energy. 18 years in mobility product, now Head of AI projects and Partnerships at Alien Intelligence."
+  fr: "Ingénieur IA, je construis l'infrastructure de données pour la mobilité, la science, les médias et l'énergie. 18 ans d'expérience produit en mobilité, aujourd'hui responsable des projets IA et partenariats chez Alien Intelligence."
+
+# Current employer (Schema.org `Person.worksFor`). Inline — keep to
+# name + url only; we are not declaring a full Organization entity here.
+works_for:
+  name: "Alien Intelligence"
+  url: "https://alien.club"
+
+# Institutional affiliations beyond employment (Schema.org `Person.affiliation`).
+# Rich form — each entry uses the Role wrapper so role_name and start_date
+# (and end_date when applicable) emit as schema. Renders as:
+#   { "@type": "Role", "roleName": "...", "startDate": "...",
+#     "affiliation": { "@type": "EducationalOrganization", "name": "...", "url": "..." } }
+#
+# Don't put past teaching here — past institutional ties belong on the CV
+# page, not in identity schema. End an affiliation by setting end_date,
+# don't delete the entry (preserves the history within the schema).
+affiliation:
+  - role_name: "Industry Lecturer (Adjunct)"
+    start_date: "2014"
+    organization:
+      name: "ESTACA"
+      url: "https://www.estaca.fr"
+    # 12 years teaching, professional background ("vacataire extérieur").
+  - role_name: "Industry Lecturer (Adjunct)"
+    start_date: "2021"
+    organization:
+      name: "Télécom Paris"
+      url: "https://www.telecom-paris.fr"
+    # Two engagements consolidated under the parent (no separate web
+    # identity for exec ed):
+    #   1. Mastère Smart Mobility (co-owned with École des Ponts).
+    #   2. Executive Education — "Smart City & Mobility" programme,
+    #      5 years (https://executive-education.telecom-paris.fr/fr/mobilite-smart-city).
+  - role_name: "Industry Lecturer (Adjunct)"
+    start_date: "2021"   # ASSUMED same start as Télécom Paris (Mastère is co-owned). Verify with Ghislain.
+    organization:
+      name: "École des Ponts ParisTech"
+      url: "https://www.enpc.fr"
+    # Mastère Smart Mobility (co-owned with Télécom Paris).
+  - role_name: "Lead Instructor & Programme Designer"
+    start_date: "2023"
+    organization:
+      name: "Ponts Formation Continue"
+      url: "https://formation-continue.enpc.fr"
+    # Designed full programme "Déployer un système MaaS"; second
+    # programme on AI + mobility in development. Distinct affiliation
+    # from École des Ponts parent because of program-design depth +
+    # distinct public URL.
+  - role_name: "Industry Lecturer (Adjunct)"
+    start_date: "2026"
+    organization:
+      name: "INSA Lyon"
+      url: "https://www.insa-lyon.fr"
+    # New this year (2026).
+
+# Voluntary affiliations (Schema.org `Person.memberOf`). Lists
+# organisations Ghislain belongs to, sits on a committee of, or
+# volunteers for. Should be publicly verifiable.
+#
+# Inclusion rules:
+#  - Yes if there is an external page that names Ghislain as a member /
+#    participant (volunteer profile, committee member list, etc.).
+#  - No for sister-companies or commercial partners (advertising, not
+#    affiliation) — e.g., Aleph Studios is intentionally excluded.
+member_of:
+  - name: "La Fabrique des Mobilités"
+    url: "https://lafabriquedesmobilites.fr"
+  - name: "AFNOR — CN IA (French AI standardisation committee)"
+    url: "https://www.afnor.org"
+
+# Occupations Ghislain practices, beyond the singular `worksFor` employment.
+# Schema.org `Person.hasOccupation` (array of Occupation). Scales naturally
+# — add an entry when a new occupation starts being practiced; remove when
+# it stops. Don't conflate with worksFor (that's the employer relationship).
+has_occupation:
+  - name: "Head of AI projects and Partnerships"
+    description: "Leading AI solutions and partnerships at Alien Intelligence — connecting AI agents to premium knowledge sources across mobility, science, media and energy."
+  - name: "AI engineering consultant"
+    description: "Independent advisory on AI data infrastructure, MCP (Model Context Protocol), data sovereignty, and mobility data integration. Selective engagements alongside the Alien role."
+  # DEFERRED — append once academic identity is in place (see research-career
+  # project in the Vault):
+  # - name: "Independent researcher"
+  #   description: "AI engineering + mobility data infrastructure. Industry-academic bridge."
+  #   occupational_category: "researcher"
+
+# Past educational institutions (Schema.org `Person.alumniOf`).
+# Use institution name + URL — program detail lives on the CV page,
+# not in the schema entity tie.
+alumni_of:
+  - name: "IMT Atlantique"
+    alternate_name: "Télécom Bretagne"
+    url: "https://www.imt-atlantique.fr"
+    # Degree: Diplôme d'ingénieur (Master-level engineering degree).
+    # Majors: computer science, networks, mathematics.
+    # Note on naming: school was called "Télécom Bretagne" when Ghislain
+    # studied there. It became "IMT Atlantique" in 2017 after merger
+    # with Mines Nantes. Declaring both names via alternate_name helps
+    # Google reconcile old references with the current entity.
+  - name: "University of Bristol"
+    url: "https://www.bristol.ac.uk"
+    # Degree: MSc Communication Systems & Signal Processing.
+    # The programme has since been renamed "Communications Networks &
+    # Signal Processing" — same programme, same institution. The
+    # historical degree title is what Ghislain holds (no rename on the
+    # institution itself, so no alternate_name needed).
+    # Current programme page (for reference):
+    # https://www.bristol.ac.uk/study/postgraduate/taught/msc-communication-networks-and-signal-processing/
+  - name: "ESSEC Business School"
+    url: "https://www.essec.edu"
+    # Program: ESSEC Grande École — MBA programme. Both names refer to
+    # the same diploma per Ghislain (documented here, not emitted).
+
+# Academic credentials (Schema.org `Person.hasCredential`). Each entry
+# emits as an EducationalOccupationalCredential cross-referencing the
+# institution declared in `alumni_of` above.
+#
+# competency_required is optional but useful — it ties the credential
+# to expertise areas in `knows_about`. Keep names exactly as they
+# appeared on the diploma (Bristol's MSc is the historical title).
+has_credential:
+  - name: "Diplôme d'ingénieur"
+    category: "degree"
+    educational_level: "Master's degree"
+    competency_required:
+      - "computer science"
+      - "networks"
+      - "mathematics"
+    recognized_by:
+      name: "IMT Atlantique"
+      url: "https://www.imt-atlantique.fr"
+  - name: "MSc Communication Systems & Signal Processing"
+    category: "degree"
+    educational_level: "Master's degree"
+    recognized_by:
+      name: "University of Bristol"
+      url: "https://www.bristol.ac.uk"
+  - name: "MBA — ESSEC Grande École"
+    category: "MBA"
+    educational_level: "Master's degree"
+    recognized_by:
+      name: "ESSEC Business School"
+      url: "https://www.essec.edu"
+
+# Expertise areas (Schema.org `Person.knowsAbout`). Tight list — extending
+# this dilutes signal. Each entry should be a topic Ghislain has actually
+# operated in deeply enough to be cited on.
+knows_about:
+  - "AI"
+  - "MCP (Model Context Protocol)"
+  - "data infrastructure"
+  - "data sovereignty"
+  - "mobility"
+  - "low-carbon mobility"
+  - "scientific publishing"
+
+# Profile / author URLs across the web. Strong-include list confirmed
+# 2026-04-29; refinement candidates parked in docs/phase-5-refinements.md.
+same_as:
+  - "https://www.linkedin.com/in/ghislaindelabie/"
+  - "https://github.com/ghislaindelabie"
+  - "https://medium.com/@ghislaindelabie"
+  - "https://www.youtube.com/channel/UCNRJeN9T__EEzoa0N_rgkKw"
+  - "https://fr.slideshare.net/ghislaindelabie"
+
+# Geographic anchor. Only the city + country, no street address.
+home_location:
+  city: "Chambéry"
+  country: "France"
