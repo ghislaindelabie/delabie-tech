@@ -1,5 +1,6 @@
 require "rspec"
 require "yaml"
+require "date"
 require "pathname"
 
 ROOT = Pathname.new(File.expand_path("../..", __dir__))

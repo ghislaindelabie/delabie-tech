@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { activateNoMatchCombination } from "../helpers/filters";
 
 test.describe("Teaching index", () => {
   test("EN /teaching/ returns 200 with items", async ({ page }) => {
@@ -68,13 +69,10 @@ test.describe("Teaching index", () => {
 
   test("empty-state message appears when no item matches", async ({ page }) => {
     await page.goto("/teaching/");
-    // Pick a combination that should produce no matches:
-    // "academic" format AND no theme filter still returns items, so pair a
-    // narrow theme with a mismatched format. (Data-AI themed items are
-    // tagged `academic`, so Data-AI + Executive should yield zero.)
-    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]').click();
-    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="executive"]').click();
-    const empty = page.locator('[data-test="teaching-empty"]');
-    await expect(empty).toBeVisible();
+    // Derive a no-match theme×format pair from the rendered DOM instead of
+    // hardcoding one — adding content must never break this test.
+    const found = await activateNoMatchCombination(page, "teaching-filters");
+    test.skip(!found, "every theme×format combination currently has a matching item");
+    await expect(page.locator('[data-test="teaching-empty"]')).toBeVisible();
   });
 });

@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { activateNoMatchCombination } from "../helpers/filters";
 
 // Template-level: adding a publication is a pure content operation.
 
@@ -73,11 +74,10 @@ test.describe("Publications index", () => {
 
   test("empty-state appears when no item matches", async ({ page }) => {
     await page.goto("/publications/");
-    // No current entry carries format=talk, so selecting it alone should
-    // empty the list.
-    await page
-      .locator('[data-test="publications-filters"] .filter-pill[data-filter="talk"]')
-      .click();
+    // Derive a no-match theme×format pair from the rendered DOM instead of
+    // hardcoding one — adding content must never break this test.
+    const found = await activateNoMatchCombination(page, "publications-filters");
+    test.skip(!found, "every theme×format combination currently has a matching item");
     await expect(page.locator('[data-test="publications-empty"]')).toBeVisible();
   });
 });

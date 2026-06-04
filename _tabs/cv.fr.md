@@ -12,7 +12,7 @@ permalink: /fr/cv/
   <header class="cv-hero">
     <h2 class="cv-hero__name">Ghislain Delabie</h2>
     <p class="cv-hero__tagline">Ingénieur IA, je construis l'infrastructure de données pour la mobilité, la science, les médias et l'énergie — 18 ans d'expérience produit en mobilité, aujourd'hui responsable des solutions IA chez Alien Intelligence.</p>
-    <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="mailto:ghislain@alien.club">ghislain@alien.club</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
+    <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/fr/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
   </header>
 
   <div class="cv-split__grid">
@@ -172,7 +172,7 @@ permalink: /fr/cv/
       <section class="cv-split__card">
         <h2 class="cv-split__h3">Contact</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
-          <li>Email : <a href="mailto:ghislain@alien.club">ghislain@alien.club</a></li>
+          <li><a href="/fr/contact/">Formulaire de contact</a></li>
           <li>GitHub : <a href="https://github.com/ghislaindelabie">github.com/ghislaindelabie</a></li>
           <li>LinkedIn : <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a></li>
           <li>Basé à Chambéry, France — disponible en remote et sur site partout en Europe.</li>
