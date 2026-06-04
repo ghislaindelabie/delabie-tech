@@ -14,14 +14,14 @@ related_case_studies: [lds-copyfair, gallica-bnf]
 
 ## Overview
 
-Content coming — stub placeholder for the Phase 2 framework. This page will describe the OpenAIRE MCP project: what it does, the architecture, my role at Alien Intelligence, the collaboration model with OpenAIRE, and measurable outcomes once live.
+**Scientific knowledge is the highest-value corpus an AI agent can draw on — and one of the hardest to reach well.** The [OpenAIRE Research Graph](https://www.openaire.eu) aggregates 150M+ publications, datasets and software records from European and global open-science infrastructure, with the metadata that makes research *navigable*: authorship, funding, citations, organisations, projects. Search engines surface fragments of it. AI agents, until recently, saw none of it in a form they could reason over.
 
-{{ site.data.i18n.strings[page.lang].content_coming }}
+At Alien Intelligence we build and operate an [MCP (Model Context Protocol)](https://modelcontextprotocol.io) server that exposes the Research Graph to AI agents as a typed tool surface: search and retrieval across research products, author and organisation profiles, project and funding lookups, citation networks, bibliometric impact classes. An agent can go from *"find the key papers on this topic"* to *"map who funds this field in Europe"* in a handful of tool calls — every answer traceable to graph records rather than scraped snippets.
 
-## Planned sections
+## My role
 
-- Problem statement — why AI agents couldn't reach the OpenAIRE Research Graph before MCP.
-- Approach — tool surface design, authentication, caching.
-- Stack — MCP SDK, OpenAIRE APIs, deployment topology.
-- Impact — usage, agent integrations, EU open-science relevance.
-- Lessons — what transferred to the BnF and LDS work.
+I lead the project end to end at Alien Intelligence: the partnership with OpenAIRE, the tool-surface design — what an agent should be able to ask of a research graph, and what it shouldn't have to know about the underlying APIs — and the path from prototype to operated service.
+
+## Where it stands
+
+A first version of the server is operational and in use with AI agents. A full write-up — architecture, tool-surface design choices, and what we learned about agent-shaped access to scholarly data — will follow as the project matures. The same principles drive the [Gallica / BnF](/case-studies/gallica-bnf/) and [LDS / Copyfair](/case-studies/lds-copyfair/) work.

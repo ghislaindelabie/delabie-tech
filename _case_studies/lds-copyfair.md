@@ -14,14 +14,14 @@ related_case_studies: [openaire-mcp]
 
 ## Overview
 
-Content coming — stub placeholder for the Phase 2 framework. This page will describe Alien Intelligence's role in the LDS consortium: the Data Reservation Layer concept, Copyfair contracts, standardization work, and early adopters.
+**AI ingestion runs on a missing legal-technical layer.** Today a rights-holder's options are roughly binary: leave the doors open and get scraped, or lock everything down and disappear from the AI-mediated world. What's missing is infrastructure — machine-readable contracts that travel with the data, attribution that survives processing, and payment hooks that make access sustainable for the institutions producing the content.
 
-{{ site.data.i18n.strings[page.lang].content_coming }}
+That is what the LDS consortium is building: a **European Data Reservation Layer**. Alien Intelligence contributes the contract-first data infrastructure — content exposed under **Copyfair** licences, with copyright and provenance preserved through the pipeline, so AI agents and platforms consume rights-managed content under explicit terms instead of legal grey zones.
 
-## Planned sections
+## My role
 
-- Problem statement — AI ingestion vs. copyright: the missing infrastructure.
-- Approach — contract-first data exposure; Copyfair licences; per-token attribution.
-- Consortium — partners, policy stakeholders, pilot sectors.
-- Stack — contract registry, data pipelines, enforcement hooks.
-- Outcomes — pilots, standardization progress, policy uptake.
+I represent Alien Intelligence in the consortium and work on the infrastructure design: how contracts attach to data, how provenance and attribution persist downstream, and how the model fits European policy frameworks on data and AI.
+
+## Where it stands
+
+Consortium work is in progress, with the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [Gallica / BnF](/case-studies/gallica-bnf/) projects serving as living test beds for the same principles. A full write-up — the Data Reservation Layer concept, Copyfair contracts, pilots — will follow as the work is made public.
