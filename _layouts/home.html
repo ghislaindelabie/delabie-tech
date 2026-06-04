@@ -35,6 +35,23 @@ layout: default
   Both degrade gracefully if their source collection is empty.
 {%- endcomment -%}
 {%- assign i18n = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+
+{%- comment -%}
+  delabie-tech: hero lede + CTA (content launch sprint). Value proposition
+  above the fold; strings live in _data/i18n.yml per language. Degrades
+  gracefully (section omitted) when home_intro is unset.
+{%- endcomment -%}
+{%- if i18n.home_intro -%}
+<section class="home-section home-hero" data-test="home-hero">
+  <p class="lead">{{ i18n.home_intro }}</p>
+  <p class="home-hero__links">
+    <a href="{{ i18n.home_cta_url | relative_url }}" data-test="home-hero-cta">{{ i18n.home_cta }} →</a>
+    <span aria-hidden="true"> · </span>
+    <a href="{{ i18n.home_about_url | relative_url }}">{{ i18n.home_about_link }}</a>
+  </p>
+</section>
+{%- endif -%}
+
 {%- assign activity_items = site.activity | where: 'lang', page_lang | sort: 'date' | reverse -%}
 {%- if activity_items.size > 0 -%}
 <section class="home-section home-activity" data-test="home-activity">

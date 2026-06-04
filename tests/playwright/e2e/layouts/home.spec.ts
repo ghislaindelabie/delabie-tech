@@ -22,6 +22,26 @@ test.describe("Homepage (Phase 0 smoke)", () => {
   });
 });
 
+test.describe("Homepage — hero lede + CTA", () => {
+  test("renders hero with non-empty lede and a CTA link on EN home", async ({ page }) => {
+    await page.goto("/");
+    const hero = page.locator('[data-test="home-hero"]');
+    await expect(hero).toBeVisible();
+    const lede = (await hero.locator("p.lead").textContent())?.trim() || "";
+    expect(lede.length).toBeGreaterThan(0);
+    const cta = hero.locator('[data-test="home-hero-cta"]');
+    await expect(cta).toHaveAttribute("href", "/contact/");
+  });
+
+  test("FR hero CTA links to the FR contact page", async ({ page }) => {
+    await page.goto("/fr/");
+    const hero = page.locator('[data-test="home-hero"]');
+    await expect(hero).toBeVisible();
+    const cta = hero.locator('[data-test="home-hero-cta"]');
+    await expect(cta).toHaveAttribute("href", "/fr/contact/");
+  });
+});
+
 test.describe("Homepage — Recent Activity (Phase 3)", () => {
   test("renders Recent Activity section with ≥ 1 entry on EN home", async ({ page }) => {
     await page.goto("/");
