@@ -35,22 +35,22 @@
   "@type": "{{ jsonld_type }}",
   "headline": {{ page.title | jsonify }},
   "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
-  "url": "{{ page.url | absolute_url }}",
-  "inLanguage": "{{ page.lang }}",
+  "url": {{ page.url | absolute_url | jsonify }},
+  "inLanguage": {{ page.lang | jsonify }},
   "publisher": {
     "@type": "Organization",
     "name": {{ page.source | jsonify }}
   },
   {%- if page.original_url %}
-  "isBasedOn": "{{ page.original_url }}",
+  "isBasedOn": {{ page.original_url | jsonify }},
   {%- endif %}
   {%- if page.excerpt %}
   "description": {{ page.excerpt | jsonify }},
   {%- endif %}
   "about": {
     "@type": "Person",
-    "name": "{{ site.data.schema_person.name }}",
-    "url": "{{ site.data.schema_person.url }}"
+    "name": {{ site.data.schema_person.name | jsonify }},
+    "url": {{ site.data.schema_person.url | jsonify }}
   }
 }
 </script>
