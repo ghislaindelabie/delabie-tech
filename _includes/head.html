@@ -48,6 +48,21 @@
     {% assign seo_tags = seo_tags | replace: old_meta_clip, new_meta_clip %}
   {% endif %}
 
+  {%- comment -%}
+    Archive items emit their own typed JSON-LD (archive-jsonld.html via
+    metadata-hook). Strip jekyll-seo-tag's generic BlogPosting block here so
+    each item declares exactly one entity type — two competing @type
+    declarations for one URL confuse structured-data consumers. seo-tag has
+    no per-page off switch, so remove its single JSON-LD script from the
+    captured output (same capture-and-rewrite pattern as the OG image above).
+  {%- endcomment -%}
+  {% if page.layout == 'archive_item' %}
+    {% assign jsonld_open = '<script type="application/ld+json">' %}
+    {% assign jsonld_body = seo_tags | split: jsonld_open | last | split: '</script>' | first %}
+    {% assign jsonld_full = jsonld_open | append: jsonld_body | append: '</script>' %}
+    {% assign seo_tags = seo_tags | remove_first: jsonld_full %}
+  {% endif %}
+
   {{ seo_tags }}
 
   {%- if site.social.fediverse_handle %}

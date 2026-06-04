@@ -1,7 +1,8 @@
 {%- comment -%}
   Per-archive-item Schema.org JSON-LD. Switches by `page.type` to emit the
   most-specific Schema.org type for each artefact. Replaces the generic
-  `BlogPosting` jekyll-seo-tag would otherwise produce — so search engines
+  `BlogPosting` jekyll-seo-tag would otherwise produce (head.html strips
+  seo-tag's JSON-LD block on archive_item pages) — so search engines
   index a press citation as a NewsArticle, a recorded talk as a VideoObject,
   a podcast guest spot as a PodcastEpisode, etc.
 

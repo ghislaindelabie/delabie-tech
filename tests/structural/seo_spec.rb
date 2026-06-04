@@ -159,6 +159,21 @@ describe "SEO invariants (built site)" do
     expect(violations).to be_empty, "Archive JSON-LD type mismatches:\n#{violations.join("\n")}"
   end
 
+  it "archive items do not also emit jekyll-seo-tag's generic BlogPosting block" do
+    # head.html strips seo-tag's JSON-LD on archive_item pages so each item
+    # declares exactly one entity type — two competing @type declarations
+    # for one URL confuse structured-data consumers.
+    violations = []
+    # Items render at [fr/]archive/:year/:slug/ — the two-level glob skips
+    # the archive index tabs, which legitimately keep seo-tag's JSON-LD.
+    Dir.glob(SEO_SITE / "**" / "archive" / "*" / "*" / "index.html").each do |file|
+      types = jsonld_types(file)
+      next unless types.include?("BlogPosting")
+      violations << Pathname.new(file).relative_path_from(SEO_SITE).to_s
+    end
+    expect(violations).to be_empty, "Archive items leaking BlogPosting JSON-LD:\n#{violations.join("\n")}"
+  end
+
   # ---- Person + Organization JSON-LD must be valid JSON --------------
 
   it "every JSON-LD block parses as valid JSON" do

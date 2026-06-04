@@ -4,13 +4,26 @@
 
   Renders only when:
     1. `analytics.goatcounter.code` is set in `_config.yml`
-    2. The site URL is the production domain (not v2.delabie.tech / localhost)
+    2. `site.url` is the production host — exact match on apex or www,
+       never v2.delabie.tech / localhost. Exact match, not substring:
+       `contains 'www.delabie.tech'` would silently never fire if cutover
+       lands on the apex, and substring checks fail in surprising ways.
+
+  Deliberately keyed on `analytics.goatcounter.code`, NOT Chirpy's native
+  `analytics.goatcounter.id`: Chirpy's own loader (head.html analytics
+  loop) gates on `jekyll.environment == 'production'`, which is true for
+  the PREVIEW deploy too (both workflows build with JEKYLL_ENV=production)
+  — it would fire analytics on v2.delabie.tech. This include gates on the
+  production host instead. Never set `analytics.goatcounter.id`, or both
+  loaders fire after cutover.
 
   No cookies. No PII. No consent banner needed.
 {%- endcomment -%}
 
 {%- assign code = site.analytics.goatcounter.code -%}
-{%- if code and code != "" and site.url contains 'www.delabie.tech' -%}
+{%- if code and code != "" -%}
+  {%- if site.url == 'https://delabie.tech' or site.url == 'https://www.delabie.tech' -%}
 <script data-goatcounter="{{ code }}"
-        async src="//gc.zgo.at/count.js"></script>
+        async src="https://gc.zgo.at/count.js"></script>
+  {%- endif -%}
 {%- endif -%}
