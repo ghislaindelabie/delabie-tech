@@ -13,7 +13,7 @@ gem "jekyll-theme-chirpy", "~> 7.5.0"
 group :jekyll_plugins do
   gem "jekyll-redirect-from", "~> 0.16"
   gem "jekyll-sitemap", "~> 1.4"
-  gem "jekyll-seo-tag", "~> 2.8"
+  gem "jekyll-seo-tag", "~> 2.9"
   # jekyll-feed deliberately omitted — Chirpy ships its own feed.xml.
   gem "jekyll-paginate", "~> 1.1"
 end
