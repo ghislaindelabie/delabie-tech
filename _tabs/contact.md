@@ -5,6 +5,7 @@ order: 11
 lang: en
 ref: contact
 permalink: /contact/
+description: "Reach out about AI data infrastructure, mobility-data advisory, speaking, teaching and press — LinkedIn is the fastest channel."
 ---
 
 I'm glad to hear about:

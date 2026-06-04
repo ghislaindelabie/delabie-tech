@@ -5,6 +5,7 @@ order: 11
 lang: fr
 ref: contact
 permalink: /fr/contact/
+description: "Me contacter pour l'infrastructure de données IA, le conseil en données de mobilité, les conférences, l'enseignement et la presse — LinkedIn est le canal le plus rapide."
 ---
 
 Vous pouvez me solliciter pour :

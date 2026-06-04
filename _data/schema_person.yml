@@ -113,8 +113,8 @@ member_of:
 # — add an entry when a new occupation starts being practiced; remove when
 # it stops. Don't conflate with worksFor (that's the employer relationship).
 has_occupation:
-  - name: "Head of AI projects and Partnerships"
-    description: "Leading AI solutions and partnerships at Alien Intelligence — connecting AI agents to premium knowledge sources across mobility, science, media and energy."
+  - name: "Head of AI Solutions"
+    description: "Leading AI solutions and partnerships at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources."
   - name: "AI engineering consultant"
     description: "Independent advisory on AI data infrastructure, MCP (Model Context Protocol), data sovereignty, and mobility data integration. Selective engagements alongside the Alien role."
   # DEFERRED — append once academic identity is in place (see research-career
