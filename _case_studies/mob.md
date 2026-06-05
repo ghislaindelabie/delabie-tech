@@ -3,6 +3,8 @@ title: "moB — My Mobility Account"
 lang: en
 ref: mob
 slug: mob
+redirect_from:
+  - /projects/mob/
 date_start: 2021
 date_end: 2024
 category: mobility

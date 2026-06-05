@@ -3,6 +3,8 @@ title: "MaaS — Open standards and models for digital mobility"
 lang: en
 ref: maas-standards
 slug: maas-standards
+redirect_from:
+  - /projects/maas-standards/
 date_start: 2021
 date_end: 2025
 category: mobility

@@ -5,6 +5,8 @@ order: 2
 lang: en
 ref: case-studies
 permalink: /case-studies/
+redirect_from:
+  - /projects/
 ---
 
 {%- assign page_lang = page.lang | default: site.lang -%}

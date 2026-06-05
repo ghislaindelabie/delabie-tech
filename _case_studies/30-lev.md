@@ -3,6 +3,8 @@ title: "30 LEV — A national field trial of light electric vehicles"
 lang: en
 ref: 30-lev
 slug: 30-lev
+redirect_from:
+  - /projects/30-lev/
 date_start: 2023
 date_end: 2026
 category: mobility
