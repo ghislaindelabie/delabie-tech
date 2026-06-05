@@ -92,6 +92,24 @@ permalink: /fr/cv/
           <p class="cv-split__role-dates"><em>(2012 – 2014)</em></p>
           <p>Pilotage de projets d'innovation avec PSA, La Poste et Renault.</p>
         </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Consultant · Greenovia (groupe La Poste)</h3>
+          <p class="cv-split__role-dates"><em>(2011 – 2012)</em></p>
+          <p>Conseil au sein de la filiale flottes et mobilité durable du groupe La Poste.</p>
+        </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Apprentissage · La Poste</h3>
+          <p class="cv-split__role-dates"><em>(2009 – 2011)</em></p>
+          <p>Deux ans en apprentissage — mon premier vrai poste.</p>
+        </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Stage · Solucom (aujourd'hui Wavestone)</h3>
+          <p class="cv-split__role-dates"><em>(2006 – 2007)</em></p>
+          <p>Stage long d'un an en conseil, avant le diplôme de Télécom Bretagne en 2008.</p>
+        </article>
       </section>
 
       <section class="cv-split__section">
