@@ -4,6 +4,9 @@ title: AI & Mobility
 lang: en
 ref: ia-mobilite
 permalink: /ia-mobilite/
+redirect_from:
+  - /ia-mobilite/guide-mistral-vibe/
+  - /ia-mobilite/vibe-workshop/
 ---
 
 Standalone landing page used by external references (course descriptions, workshop materials). Not shown in the site nav.

@@ -3,11 +3,15 @@ title: "moB — My Mobility Account"
 lang: en
 ref: mob
 slug: mob
+redirect_from:
+  - /projects/mob/
 date_start: 2021
 date_end: 2024
 category: mobility
 summary: "An open-source French digital platform linking mobility services, incentives, and users — project-directed through its maturity phase and wind-down."
-cover: /assets/img/case-studies/mob/cover.jpg
+cover: /assets/img/case-studies/mob/cover.webp
+cover_width: 200
+cover_height: 122
 cover_alt: "moB logo over a muted city backdrop"
 external_url: https://wiki.lafabriquedesmobilites.fr/wiki/Mon_Compte_Mobilit%C3%A9
 tags: [mobility, open-source, product-direction, public-private]

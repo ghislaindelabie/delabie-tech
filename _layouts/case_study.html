@@ -19,7 +19,17 @@ layout: page
 
   {%- if page.cover -%}
     <figure class="case-study__cover">
-      <img src="{{ page.cover | relative_url }}" alt="{{ page.cover_alt | default: page.title }}" loading="lazy">
+      {%- comment -%}
+        width/height reserve the image's box before it loads — without
+        them the cover was the page's whole CLS budget (~0.2, Phase 6).
+        addon/case-studies.scss keeps it responsive (width:100%, height:auto).
+      {%- endcomment -%}
+      <img
+        src="{{ page.cover | relative_url }}"
+        alt="{{ page.cover_alt | default: page.title }}"
+        {% if page.cover_width and page.cover_height %}width="{{ page.cover_width }}" height="{{ page.cover_height }}"{% endif %}
+        loading="lazy"
+      >
     </figure>
   {%- endif -%}
 

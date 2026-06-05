@@ -8,7 +8,9 @@ date_start: 2021
 date_end: 2024
 category: mobilité
 summary: "Plateforme numérique open-source française reliant services, aides et usagers — direction de projet pendant sa phase de maturité puis sa fermeture."
-cover: /assets/img/case-studies/mob/cover.jpg
+cover: /assets/img/case-studies/mob/cover.webp
+cover_width: 200
+cover_height: 122
 cover_alt: "Logo moB sur un fond urbain"
 external_url: https://wiki.lafabriquedesmobilites.fr/wiki/Mon_Compte_Mobilit%C3%A9
 tags: [mobilité, open-source, direction-produit, public-privé]

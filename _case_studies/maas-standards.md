@@ -3,11 +3,15 @@ title: "MaaS — Open standards and models for digital mobility"
 lang: en
 ref: maas-standards
 slug: maas-standards
+redirect_from:
+  - /projects/maas-standards/
 date_start: 2021
 date_end: 2025
 category: mobility
 summary: "A multi-year programme at La Fabrique des Mobilités defining the open standards, data flows, and business models that underpin Mobility-as-a-Service in France."
-cover: /assets/img/case-studies/maas-standards/cover.png
+cover: /assets/img/case-studies/maas-standards/cover.webp
+cover_width: 1200
+cover_height: 730
 cover_alt: "Diagram of the mobility standards lifecycle"
 external_url: https://lafabriquedesmobilites.fr
 tags: [mobility, standards, maas, open-data, public-policy]

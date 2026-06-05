@@ -33,7 +33,10 @@ social:
 # ---- Appearance ----
 theme_mode: # left blank for user toggle
 img_cdn: ""
-avatar: /assets/img/ghislain-delabie.jpg
+# 224×224 WebP (2× the 112px render size) — the original 512px JPEG cost
+# 64 KB for a 112px slot; this is 5.7 KB. Original kept at
+# assets/img/ghislain-delabie.jpg for print/CV/social use.
+avatar: /assets/img/ghislain-delabie-224.webp
 
 # Open Graph / Twitter social preview image. Chirpy's head.html reads
 # `site.social_preview_image` (not jekyll-seo-tag's `site.image`).

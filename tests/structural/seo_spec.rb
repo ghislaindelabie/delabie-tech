@@ -15,11 +15,18 @@ describe "SEO invariants (built site)" do
 
   # jekyll-seo-tag (shipped with Chirpy) emits OG + Twitter automatically.
   # Verify it actually fires on every content page, both languages.
+  # jekyll-redirect-from stubs are bare meta-refresh pages, not content —
+  # the OG / Twitter-card invariants don't apply to them.
+  def redirect_stub?(html)
+    html.include?('http-equiv="refresh"')
+  end
+
   it "every content page emits og:title, og:description, og:type, og:url" do
     required = %w[og:title og:description og:type og:url]
     violations = []
     Dir.glob(SEO_SITE / "**" / "index.html").each do |file|
       html = File.read(file)
+      next if redirect_stub?(html)
       missing = required.reject { |prop| html.include?(%(property="#{prop}")) }
       next if missing.empty?
       rel = Pathname.new(file).relative_path_from(SEO_SITE).to_s
@@ -32,6 +39,7 @@ describe "SEO invariants (built site)" do
     violations = []
     Dir.glob(SEO_SITE / "**" / "index.html").each do |file|
       html = File.read(file)
+      next if redirect_stub?(html)
       next if html.match?(/<meta\s+name=["']twitter:card["']/i)
       rel = Pathname.new(file).relative_path_from(SEO_SITE).to_s
       violations << rel

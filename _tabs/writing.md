@@ -5,6 +5,8 @@ order: 3
 lang: en
 ref: writing
 permalink: /writing/
+redirect_from:
+  - /blog/
 ---
 
 {%- assign page_lang = page.lang | default: site.lang -%}

@@ -58,6 +58,14 @@
     p {
       margin: 0.25rem 0;
     }
+
+    // Links in muted prose were color-only distinguishable (Lighthouse
+    // link-in-text-block, Phase 6) — underline keeps them identifiable
+    // regardless of color perception.
+    a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   }
 
   @media (max-width: 576px) {

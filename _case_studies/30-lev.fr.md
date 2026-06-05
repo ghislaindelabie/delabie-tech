@@ -8,7 +8,9 @@ date_start: 2023
 date_end: 2026
 category: mobilité
 summary: "Programme ADEME × La Fabrique des Mobilités : 30 véhicules légers intermédiaires déployés, instrumentés et analysés sur plusieurs territoires — préfiguration d'un programme élargi."
-cover: /assets/img/case-studies/30-lev/cover.png
+cover: /assets/img/case-studies/30-lev/cover.webp
+cover_width: 1099
+cover_height: 903
 cover_alt: "Tableau de bord des données d'usage des 30 VELI"
 external_url: https://wikixd.fabmob.io/wiki/Organiser_les_exp%C3%A9rimentations_des_v%C3%A9hicules_interm%C3%A9diaires
 tags: [mobilité, télématique, données, open-source, expérimentation]
