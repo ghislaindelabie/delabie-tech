@@ -9,7 +9,9 @@ date_start: 2023
 date_end: 2026
 category: mobility
 summary: "ADEME-backed programme with La Fabrique des Mobilités: 30 light electric vehicles deployed across pilot sites, instrumented, and analysed — paving the way for scale-up."
-cover: /assets/img/case-studies/30-lev/cover.png
+cover: /assets/img/case-studies/30-lev/cover.webp
+cover_width: 1099
+cover_height: 903
 cover_alt: "Dashboard showing 30 LEV usage data"
 external_url: https://wikixd.fabmob.io/wiki/Organiser_les_exp%C3%A9rimentations_des_v%C3%A9hicules_interm%C3%A9diaires
 tags: [mobility, telematics, data, open-source, field-trial]

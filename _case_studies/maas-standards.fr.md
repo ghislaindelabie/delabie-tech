@@ -8,7 +8,9 @@ date_start: 2021
 date_end: 2025
 category: mobilité
 summary: "Programme pluriannuel à La Fabrique des Mobilités : standards ouverts, flux de données et modèles économiques qui fondent la Mobility-as-a-Service en France."
-cover: /assets/img/case-studies/maas-standards/cover.png
+cover: /assets/img/case-studies/maas-standards/cover.webp
+cover_width: 1200
+cover_height: 730
 cover_alt: "Schéma du cycle de vie des standards de mobilité"
 external_url: https://lafabriquedesmobilites.fr
 tags: [mobilité, standards, maas, open-data, politique-publique]

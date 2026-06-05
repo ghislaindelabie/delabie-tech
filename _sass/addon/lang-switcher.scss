@@ -21,8 +21,10 @@
   }
 
   .lang-switcher__link {
+    // No opacity dimming: --text-muted-color alone keeps WCAG AA contrast
+    // (4.5:1); blending 0.8 opacity onto the topbar dropped it to 3.15:1
+    // (Lighthouse color-contrast failure, Phase 6).
     color: var(--text-muted-color);
-    opacity: 0.8;
     text-decoration: none;
     padding: 0.125rem 0.25rem;
     border-radius: 0.25rem;

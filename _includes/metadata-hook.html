@@ -47,3 +47,21 @@
   (see _includes/analytics-goatcounter.html for the conditional).
 {%- endcomment -%}
 {%- include analytics-goatcounter.html -%}
+
+{%- comment -%}
+  Phase 6 a11y — Chirpy's content refactorer emits icon-only heading
+  anchors (<a class="anchor"><i class="fas fa-hashtag"></i></a>) with no
+  accessible name (Lighthouse `link-name`). Label them after parse; the
+  string is per-language in _data/i18n.yml.
+{%- endcomment -%}
+{%- assign page_lang = page.lang | default: site.lang -%}
+{%- assign anchor_i18n = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('a.anchor').forEach(function (a) {
+      if (!a.hasAttribute('aria-label')) {
+        a.setAttribute('aria-label', {{ anchor_i18n.heading_anchor_label | jsonify }});
+      }
+    });
+  });
+</script>
