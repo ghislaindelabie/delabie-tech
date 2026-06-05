@@ -11,7 +11,7 @@ permalink: /fr/cv/
 
   <header class="cv-hero">
     <h2 class="cv-hero__name">Ghislain Delabie</h2>
-    <p class="cv-hero__tagline">Ingénieur IA, je construis l'infrastructure de données pour la mobilité, la science, les médias et l'énergie — 18 ans d'expérience produit en mobilité, aujourd'hui responsable des solutions IA chez Alien Intelligence.</p>
+    <p class="cv-hero__tagline">Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans d'expérience produit et données en mobilité auparavant.</p>
     <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/fr/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
   </header>
 

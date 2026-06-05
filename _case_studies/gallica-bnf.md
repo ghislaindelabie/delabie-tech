@@ -14,14 +14,14 @@ related_case_studies: [openaire-mcp, lds-copyfair]
 
 ## Overview
 
-Content coming — stub placeholder for the Phase 2 framework. This page will describe the BnF / Gallica partnership: the three-year contract, the "diffuseur" model, and what becomes possible when a national library is accessible to AI agents with rights and provenance preserved.
+**National libraries hold centuries of digitised knowledge that AI systems either ignore or scrape badly.** [Gallica](https://gallica.bnf.fr), the digital library of the Bibliothèque nationale de France, serves millions of digitised documents — press archives, books, maps, manuscripts, images — with deep catalogue metadata and IIIF imaging. None of it was designed with AI agents in mind, and bulk licensing is the wrong tool: it hands over the corpus and severs the link to the institution.
 
-{{ site.data.i18n.strings[page.lang].content_coming }}
+Alien Intelligence works with the BnF in a three-year partnership built on a different premise — the **"diffuseur" model**. Instead of shipping a corpus to whoever asks, the library exposes its collections to AI agents through controlled, instrumented access: catalogue and full-text search, document and page-level reading, IIIF imagery — with identification, usage metering and rights signalling designed in from the start. The library stays in charge of its terms; agents get heritage-grade sources instead of web scrapings.
 
-## Planned sections
+## My role
 
-- Problem statement — AI access to heritage, on the library's terms.
-- The diffuseur model — what it is, why it's new, how it differs from bulk licensing.
-- Stack — APIs, identification, usage metering, rights-holder dashboards.
-- Outcomes — early integrations, cultural-sector adoption signals.
-- Lessons — transferable to other national libraries and archives.
+I lead the partnership for Alien Intelligence: shaping the diffuseur model with the BnF teams, designing the agent-facing tool surface over Gallica's APIs, and demonstrating it on real corpora — including historical French press archives.
+
+## Where it stands
+
+The partnership is active and a first agent-facing access layer is operational. A full write-up — the diffuseur model in detail, the stack, and what it suggests for other national libraries and archives — will follow. The same principles drive the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [LDS / Copyfair](/case-studies/lds-copyfair/) work.
