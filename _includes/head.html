@@ -112,10 +112,36 @@
   <link rel="stylesheet" href="{{ '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url }}">
 
   <!-- Web Font -->
+  {%- comment -%}
+    delabie-tech (Phase 6 perf + privacy): fonts are SELF-HOSTED — see
+    _sass/addon/fonts.scss and the forked _data/origin/cors.yml (webfonts
+    key removed there, so the upstream stylesheet link below renders
+    nothing). Preload the three above-the-fold faces so the
+    `font-display: optional` policy resolves to the real fonts at first
+    paint with zero layout shift. `crossorigin` is required on font
+    preloads even same-origin (CORS-mode fetch), else the preload is
+    double-downloaded.
+  {%- endcomment -%}
+  {%- if site.data.origin[type].webfonts -%}
   <link rel="stylesheet" href="{{ site.data.origin[type].webfonts | relative_url }}">
+  {%- endif -%}
+  <link rel="preload" href="{{ '/assets/fonts/source-sans-pro-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/source-sans-pro-700.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ '/assets/fonts/lato-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
 
   <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="{{ site.data.origin[type].fontawesome.css | relative_url }}">
+  {%- comment -%}
+    delabie-tech (Phase 6 perf): FontAwesome was the largest render-blocking
+    request (~1s on simulated 4G). Load it async via the media-swap pattern;
+    icons appear a beat after first paint. <noscript> keeps JS-off rendering.
+  {%- endcomment -%}
+  <link
+    rel="stylesheet"
+    href="{{ site.data.origin[type].fontawesome.css | relative_url }}"
+    media="print"
+    onload="this.media='all'"
+  >
+  <noscript><link rel="stylesheet" href="{{ site.data.origin[type].fontawesome.css | relative_url }}"></noscript>
 
   <!-- 3rd-party Dependencies -->
 
