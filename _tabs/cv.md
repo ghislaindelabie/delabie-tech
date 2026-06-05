@@ -92,6 +92,24 @@ permalink: /cv/
           <p class="cv-split__role-dates"><em>(2012 – 2014)</em></p>
           <p>Led innovation projects with PSA, La Poste and Renault.</p>
         </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Consultant · Greenovia (La Poste group)</h3>
+          <p class="cv-split__role-dates"><em>(2011 – 2012)</em></p>
+          <p>Consulting at the La Poste group's fleet and sustainable-mobility subsidiary.</p>
+        </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Apprenticeship · La Poste</h3>
+          <p class="cv-split__role-dates"><em>(2009 – 2011)</em></p>
+          <p>Two-year work-study apprenticeship — my first full role.</p>
+        </article>
+
+        <article class="cv-split__role">
+          <h3 class="cv-split__role-title">Intern · Solucom (now Wavestone)</h3>
+          <p class="cv-split__role-dates"><em>(2006 – 2007)</em></p>
+          <p>Year-long consulting internship, before graduating from Télécom Bretagne in 2008.</p>
+        </article>
       </section>
 
       <section class="cv-split__section">
