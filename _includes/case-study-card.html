@@ -9,7 +9,15 @@
 
 <li class="case-study-card" data-test="case-study-card" data-category="{{ include.cs.category }}">
   <div class="case-study-card__meta">
-    {%- if include.cs.category -%}<span class="case-study-card__category">{{ include.cs.category }}</span>{%- endif -%}
+    {%- if include.cs.category -%}
+      {%- comment -%} UX-12: humanized label + icon from _data/case_study_categories.yml — raw slugs don't reach the page. {%- endcomment -%}
+      {%- assign card_lang = include.cs.lang | default: site.lang -%}
+      {%- assign cat = site.data.case_study_categories[include.cs.category] -%}
+      <span class="case-study-card__category">
+        {%- if cat.icon %}<i class="fas {{ cat.icon }} fa-fw" aria-hidden="true"></i> {% endif -%}
+        {{- cat.label[card_lang] | default: cat.label.en | default: include.cs.category -}}
+      </span>
+    {%- endif -%}
     {%- if include.cs.date_start -%}
       <span class="case-study-card__dates">
         {{ include.cs.date_start }}{% if include.cs.date_end %}–{{ include.cs.date_end }}{% elsif include.cs.ongoing %} →{% endif %}

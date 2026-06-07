@@ -1,6 +1,19 @@
 /* Case-study layouts — used by individual case-study pages and the index grid. */
 
 .case-study {
+  /* UX-12/UX-3: visible page H1 (layout previously opened at the meta row;
+     the title only lived in the topbar/breadcrumb — invisible on mobile). */
+  &__title {
+    font-size: 1.625rem;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0 0 0.5rem;
+    /* UX-2: long em-dash titles must wrap gracefully on small screens. */
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    text-wrap: balance;
+  }
+
   &__meta {
     display: flex;
     gap: 0.75rem;
@@ -14,7 +27,8 @@
 
   &__category {
     font-weight: 600;
-    color: var(--link-color);
+    /* UX-16: static label, not a link — muted, so "blue = clickable" holds. */
+    color: var(--text-muted-highlight-color);
   }
 
   &__cover {
@@ -27,17 +41,45 @@
   }
 
   &__summary {
+    /* UX-3: roman lede (italics dropped in the layout) with comfortable leading. */
     font-size: 1.0625rem;
+    line-height: 1.55;
     color: var(--text-muted-color);
     margin: 0.5rem 0 1.25rem;
   }
 
   &__body {
     // Inherits Chirpy post-style typography.
+
+    // Prose links must not rely on color alone (WCAG link-in-text-block —
+    // same treatment as the activity feed).
+    a {
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
   }
 
   &__external {
     margin-top: 1.5rem;
+  }
+
+  /* UX-14: in-content way back to the index — the breadcrumb is hidden on
+     mobile, so without this the only route back is the hamburger. */
+  &__back {
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--main-border-color);
+    font-size: 0.9rem;
+
+    a {
+      color: var(--text-muted-color);
+      text-decoration: none;
+
+      &:hover,
+      &:focus {
+        color: var(--link-color);
+      }
+    }
   }
 }
 
@@ -69,7 +111,10 @@
 
   &__meta {
     display: flex;
-    justify-content: space-between;
+    /* UX-12: two children with space-between flung them to opposite card
+       edges; a start-aligned eyebrow strip reads tidier. */
+    justify-content: flex-start;
+    flex-wrap: wrap;
     gap: 0.5rem;
     font-size: 0.75rem;
     text-transform: uppercase;
@@ -80,13 +125,19 @@
 
   &__category {
     font-weight: 600;
-    color: var(--link-color);
+    /* UX-16: muted, not link-blue (see .case-study__category). */
+    color: var(--text-muted-highlight-color);
   }
 
   &__title {
     font-size: 1.0625rem;
     line-height: 1.35;
     margin: 0 0 0.375rem;
+    /* UX-2: graceful wrapping for long em-dash titles in ~358px cards. */
+    overflow-wrap: anywhere;
+    hyphens: auto;
+    text-wrap: balance;
+
     a {
       color: var(--text-color);
       text-decoration: none;
@@ -101,6 +152,18 @@
     margin: 0;
     font-size: 0.875rem;
     color: var(--text-muted-color);
+  }
+}
+
+/* UX-16: dark-mode card finish — the light rgba shadow is invisible on the
+   near-black background, and the resting border nearly merges with the page. */
+html[data-mode='dark'] .case-study-card {
+  border-color: rgb(60 61 63);
+
+  &:hover,
+  &:focus-within {
+    border-color: var(--link-color);
+    box-shadow: var(--card-shadow);
   }
 }
 

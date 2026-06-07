@@ -6,9 +6,19 @@ layout: page
 {%- assign strings = site.data.i18n.strings[page_lang] | default: site.data.i18n.strings[site.lang] -%}
 
 <article class="case-study" data-test="case-study">
+  {%- comment -%}
+    UX-3: visible H1 — the title previously lived only in the topbar /
+    breadcrumb, which is hidden on mobile.
+  {%- endcomment -%}
+  <h1 class="case-study__title">{{ page.title }}</h1>
+
   <header class="case-study__meta">
     {%- if page.category -%}
-      <span class="case-study__category" data-test="case-study-category">{{ page.category }}</span>
+      {%- assign cat = site.data.case_study_categories[page.category] -%}
+      <span class="case-study__category" data-test="case-study-category">
+        {%- if cat.icon %}<i class="fas {{ cat.icon }} fa-fw" aria-hidden="true"></i> {% endif -%}
+        {{- cat.label[page_lang] | default: cat.label.en | default: page.category -}}
+      </span>
     {%- endif -%}
     {%- if page.date_start -%}
       <span class="case-study__dates" data-test="case-study-dates">
@@ -34,7 +44,8 @@ layout: page
   {%- endif -%}
 
   {%- if page.summary -%}
-    <p class="case-study__summary" data-test="case-study-summary"><em>{{ page.summary }}</em></p>
+    {%- comment -%} UX-3: roman lede, not italics — matches the archive detail. {%- endcomment -%}
+    <p class="case-study__summary" data-test="case-study-summary">{{ page.summary }}</p>
   {%- endif -%}
 
   <div class="case-study__body">
@@ -43,7 +54,8 @@ layout: page
 
   {%- if page.external_url -%}
     <p class="case-study__external">
-      <a href="{{ page.external_url }}" rel="noopener">{{ strings.external_link | default: "Open external reference" }} →</a>
+      {%- comment -%} UX-15: FA glyph instead of a literal arrow in link text. {%- endcomment -%}
+      <a href="{{ page.external_url }}" rel="noopener">{{ strings.external_link | default: "Open external reference" }} <i class="fas fa-up-right-from-square" aria-hidden="true"></i></a>
     </p>
   {%- endif -%}
 
@@ -52,4 +64,14 @@ layout: page
 
   {%- comment -%} Archive items pointing at this case study via `projects: [<ref>]`. {%- endcomment -%}
   {% include archive-related.html %}
+
+  {%- comment -%}
+    UX-14: in-content route back to the index — the breadcrumb is hidden
+    on mobile, leaving no way back except the hamburger.
+  {%- endcomment -%}
+  {%- assign cs_index = '/case-studies/' -%}
+  {%- if page_lang == 'fr' -%}{%- assign cs_index = '/fr/case-studies/' -%}{%- endif -%}
+  <p class="case-study__back">
+    <a href="{{ cs_index }}"><i class="fas fa-arrow-left fa-fw" aria-hidden="true"></i> {{ strings.case_studies_title | default: 'Case studies' }}</a>
+  </p>
 </article>

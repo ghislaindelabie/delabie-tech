@@ -1,0 +1,28 @@
+# Humanized labels + icons for case-study category slugs (UX-12).
+# Both card and detail surfaces and both languages read from here —
+# raw slugs like "ai-data-infrastructure" no longer reach the page.
+# FR content uses its own slugs (e.g. "mobilité") — map them too.
+
+ai-data-infrastructure:
+  icon: fa-database
+  label:
+    en: "AI & data infrastructure"
+    fr: "IA & infrastructure de données"
+
+media-culture:
+  icon: fa-landmark
+  label:
+    en: "Media & culture"
+    fr: "Médias & culture"
+
+mobility:
+  icon: fa-route
+  label:
+    en: "Mobility"
+    fr: "Mobilité"
+
+mobilité:
+  icon: fa-route
+  label:
+    en: "Mobility"
+    fr: "Mobilité"
