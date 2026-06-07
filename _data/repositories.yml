@@ -1,49 +1,50 @@
-# /repositories/ data — three curated sections per plan §3.1.
-# Source of truth for both EN and FR pages. Adding/removing a repo = one
-# edit here; no template or test change required.
+# /repositories/ data — curated sections per plan §3.1.
+# Source of truth for both EN and FR pages. Adding/removing a repo or a
+# section = one edit here; no template or test change required.
 #
-# Section keys are stable identifiers (used in Playwright + as DOM anchors).
+# Section keys are stable identifiers (DOM anchors only — tests are
+# data-driven and never hardcode them).
 # Labels render per-language from the `label.en` / `label.fr` fields.
 # Repos keep a single `description` field; keep it short (≤ 140 chars).
+#
+# Order rationale (owner feedback 2026-06-07): professional work first,
+# coursework last with a graduating-soon framing.
 
 sections:
-  - key: oc_ai_engineering
+  - key: alien
     label:
-      en: OpenClassrooms — AI Engineering
-      fr: OpenClassrooms — Ingénierie IA
+      en: Alien Intelligence
+      fr: Alien Intelligence
     blurb:
-      en: Coursework and assignments from the AI Engineer path.
-      fr: Travaux et projets du parcours Ingénieur IA.
+      en: Public repositories from my work at Alien — test beds and integrations; more open up as they mature.
+      fr: Dépôts publics issus de mon travail chez Alien — bancs d'essai et intégrations ; d'autres s'ouvriront en mûrissant.
     repos:
-      - name: oc4-hr-attrition
-        url: https://github.com/ghislaindelabie/oc4-hr-attrition
-        description: HR-attrition classifier — exploratory data analysis, feature engineering, baseline model comparison.
-      - name: Classifiez_automatiquement_des_informations_DELABIE_Ghislain
-        url: https://github.com/ghislaindelabie/Classifiez_automatiquement_des_informations_DELABIE_Ghislain
-        description: Auto-classification of tickets into categories — NLP pipeline with embeddings + supervised head.
-
-  - key: tech
-    label:
-      en: Tech
-      fr: Tech
-    blurb:
-      en: Personal technical projects and experiments.
-      fr: Projets techniques personnels et expérimentations.
-    repos:
-      - name: delabie-tech
-        url: https://github.com/ghislaindelabie/delabie-tech
-        description: This site's source — Jekyll + Chirpy + a custom plugin-free bilingual layer.
-      - name: ghislaindelabie.github.com
-        url: https://github.com/ghislaindelabie/ghislaindelabie.github.com
-        description: The legacy Jekyll site (al-folio). Archived at cutover.
+      - name: alien-crm
+        url: https://github.com/ghislaindelabie/alien-crm
+        description: MCP server integrations for Folk CRM and Lemlist — agent-driven CRM and outreach workflows.
 
   - key: ai_enhanced_pro
     label:
       en: AI-enhanced professional
       fr: Pro augmentée par l'IA
     blurb:
-      en: Public repositories from my professional work where AI accelerates the loop.
-      fr: Dépôts publics issus de mon travail professionnel où l'IA accélère la boucle.
+      en: Repositories where AI agents accelerate my own working loop — built and maintained agent-first.
+      fr: Dépôts où les agents IA accélèrent ma propre boucle de travail — construits et maintenus « agent-first ».
+    repos:
+      - name: delabie-tech
+        url: https://github.com/ghislaindelabie/delabie-tech
+        description: This site's source — Jekyll + Chirpy + a custom plugin-free bilingual layer, built with an agentic workflow.
+      - name: ghislaindelabie.github.com
+        url: https://github.com/ghislaindelabie/ghislaindelabie.github.com
+        description: The legacy Jekyll site (al-folio). Archived at cutover.
+
+  - key: mobility
+    label:
+      en: Mobility
+      fr: Mobilité
+    blurb:
+      en: Open-source mobility projects I helped shape as contributor and designer (not the main coder) at La Fabrique des Mobilités.
+      fr: Projets open-source de mobilité que j'ai contribué à concevoir (contributeur / designer, pas codeur principal) à La Fabrique des Mobilités.
     repos:
       - name: fabmob/mob
         url: https://github.com/fabmob/mob
@@ -51,3 +52,36 @@ sections:
       - name: fabmob/dataviz-30-veli
         url: https://github.com/fabmob/dataviz-30-veli
         description: Dashboards and notebooks for the 30 LEV field trial — telematics pipeline + usage analytics.
+
+  - key: oc_ai_engineering
+    label:
+      en: OpenClassrooms — AI Engineering
+      fr: OpenClassrooms — Ingénierie IA
+    blurb:
+      en: "Coursework from the OpenClassrooms AI Engineer path — graduating in 2026: the formal engineering credential behind the practice above."
+      fr: "Projets du parcours Ingénieur IA d'OpenClassrooms — diplôme en 2026 : le socle formel derrière la pratique ci-dessus."
+    repos:
+      - name: oc12-checkit-pipeline
+        url: https://github.com/ghislaindelabie/oc12-checkit-pipeline
+        description: Multimodal fake-news detection data pipeline (capstone).
+      - name: oc11-rl-eagle1
+        url: https://github.com/ghislaindelabie/oc11-rl-eagle1
+        description: Reinforcement learning — DQN agents through to a LunarLander-v3 mission.
+      - name: OC10-brainscan-ai-semi-supervised
+        url: https://github.com/ghislaindelabie/OC10-brainscan-ai-semi-supervised
+        description: Semi-supervised brain-tumour detection from MRI.
+      - name: OC7-RAG
+        url: https://github.com/ghislaindelabie/OC7-RAG
+        description: RAG system for cultural-event recommendations (Savoie, Haute-Savoie, Isère).
+      - name: oc6-linkedin-lead-scoring
+        url: https://github.com/ghislaindelabie/oc6-linkedin-lead-scoring
+        description: MLOps — LinkedIn lead scoring with FastAPI, MLflow, automated deployment.
+      - name: oc5-deploy-ml
+        url: https://github.com/ghislaindelabie/oc5-deploy-ml
+        description: Deploying an ML model to production.
+      - name: oc4-hr-attrition
+        url: https://github.com/ghislaindelabie/oc4-hr-attrition
+        description: HR-attrition classifier — EDA, feature engineering, model comparison.
+      - name: Classifiez_automatiquement_des_informations_DELABIE_Ghislain
+        url: https://github.com/ghislaindelabie/Classifiez_automatiquement_des_informations_DELABIE_Ghislain
+        description: Auto-classification of tickets — NLP pipeline with embeddings + supervised head.
