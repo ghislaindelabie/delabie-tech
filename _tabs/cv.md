@@ -11,7 +11,7 @@ permalink: /cv/
 
   <header class="cv-hero">
     <h2 class="cv-hero__name">Ghislain Delabie</h2>
-    <p class="cv-hero__tagline">Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years in mobility data and product before that.</p>
+    <p class="cv-hero__tagline">Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years building digital services and shared data infrastructure — mostly in mobility — before that.</p>
     <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
   </header>
 
@@ -30,8 +30,8 @@ permalink: /cv/
           <p>Building the data infrastructure that connects AI agents to premium knowledge sources. Principal case studies:</p>
           <ul>
             <li><a href="/case-studies/openaire-mcp/"><strong>OpenAIRE MCP</strong></a> — exposing 150M+ scientific publications, datasets and software records to AI agents via the Model Context Protocol.</li>
-            <li><a href="/case-studies/gallica-bnf/"><strong>Gallica / BnF</strong></a> — three-year partnership with the Bibliothèque nationale de France to make digitised heritage consumable by AI agents on the library's terms (the "diffuseur" model).</li>
-            <li><a href="/case-studies/lds-copyfair/"><strong>LDS / Copyfair</strong></a> — European Data Reservation Layer: contract-first data infrastructure preserving copyright and provenance when AI agents ingest rights-holders' content.</li>
+            <li><a href="/case-studies/gallica-bnf/"><strong>Gallica / BnF</strong></a> — making Gallica usable by AI with the Bibliothèque nationale de France: MCP access, AI-extracted corpuses, agentic services for the library's B2B clients.</li>
+            <li><a href="/case-studies/lds-copyfair/"><strong>LDS</strong></a> — core AI technology of the European legal data space: legal MCP servers, AI gateway and data contracts serving legal professionals, starting with the CNB ecosystem.</li>
           </ul>
         </article>
       </section>
@@ -43,7 +43,7 @@ permalink: /cv/
           <h3 class="cv-split__role-title">
             Data &amp; AI expert — Mobility &amp; Transportation · <a href="https://www.lafabriquedesmobilites.fr">La Fabrique des Mobilités</a>
           </h3>
-          <p class="cv-split__role-dates cv-ongoing"><em>2025 – ongoing</em></p>
+          <p class="cv-split__role-dates"><em>(2025)</em></p>
           <p>Independent contractor delivering thematic workshops, webinars and technical expertise on mobility data and AI projects. Continuing the <a href="/case-studies/30-lev/"><strong>30 LEV / 30 VELI</strong></a> programme (ADEME-backed field trial, 2023–2026) and standards-level work on MaaS and mobility data.</p>
         </article>
 
@@ -51,7 +51,7 @@ permalink: /cv/
           <h3 class="cv-split__role-title">
             Board Advisor · <a href="https://www.moovance.fr">Moovance</a>
           </h3>
-          <p class="cv-split__role-dates cv-ongoing"><em>2024 – ongoing</em></p>
+          <p class="cv-split__role-dates"><em>(2024 – 2025)</em></p>
           <p>Advisor on business development and public-sector product strategy. Leading B2G business development, stakeholder engagement, and Product Ownership of the B2G offering — roadmap, feature prioritisation, pilot supervision.</p>
         </article>
 
@@ -90,7 +90,7 @@ permalink: /cv/
         <article class="cv-split__role">
           <h3 class="cv-split__role-title">Innovation Director · Deways</h3>
           <p class="cv-split__role-dates"><em>(2012 – 2014)</em></p>
-          <p>Led innovation projects with PSA, La Poste and Renault.</p>
+          <p>Led innovation projects with <a href="https://www.stellantis.com">PSA</a>, <a href="https://www.laposte.fr">La Poste</a> and <a href="https://www.renaultgroup.com">Renault</a>.</p>
         </article>
 
         <article class="cv-split__role">
@@ -100,13 +100,13 @@ permalink: /cv/
         </article>
 
         <article class="cv-split__role">
-          <h3 class="cv-split__role-title">Apprenticeship · La Poste</h3>
+          <h3 class="cv-split__role-title">Apprenticeship · <a href="https://www.laposte.fr">La Poste</a></h3>
           <p class="cv-split__role-dates"><em>(2009 – 2011)</em></p>
           <p>Two-year work-study apprenticeship — my first full role.</p>
         </article>
 
         <article class="cv-split__role">
-          <h3 class="cv-split__role-title">Intern · Solucom (now Wavestone)</h3>
+          <h3 class="cv-split__role-title">Intern · Solucom (now <a href="https://www.wavestone.com">Wavestone</a>)</h3>
           <p class="cv-split__role-dates"><em>(2006 – 2007)</em></p>
           <p>Year-long consulting internship, before graduating from Télécom Bretagne in 2008.</p>
         </article>
@@ -180,10 +180,9 @@ permalink: /cv/
       <section class="cv-split__card">
         <h2 class="cv-split__h3">Credentials &amp; affiliations</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
-          <li><strong>AFNOR</strong> — contributor to mobility standards working groups.</li>
-          <li><strong>ESTACA</strong> — teaching assignments, see <a href="/teaching/">Teaching</a>.</li>
-          <li><strong>Challenges Top 100</strong> — industry recognition.</li>
-          <li><strong>GFII</strong> — speaking engagements on AI and information-industry topics.</li>
+          <li><strong><a href="https://www.afnor.org">AFNOR</a></strong> — member of the CN IA (French AI standardisation committee); contributor to mobility standards working groups.</li>
+          <li><strong><a href="https://lafabriquedesmobilites.fr">La Fabrique des Mobilités</a></strong> — long-standing member of the open-mobility commons community.</li>
+          <li><strong>Teaching</strong> — ESTACA, Télécom Paris, École des Ponts and others: see <a href="/teaching/">Teaching</a>.</li>
         </ul>
       </section>
 

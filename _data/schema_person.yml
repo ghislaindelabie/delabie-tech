@@ -36,8 +36,8 @@ job_title:
 
 # Short description. Sourced from the About page lede; refine as needed.
 description:
-  en: "Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years in mobility data and product before that."
-  fr: "Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans d'expérience produit et données en mobilité auparavant."
+  en: "Head of AI Solutions at Alien Intelligence — building the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources. Eighteen years building digital services and shared data infrastructure, mostly for mobility, before that."
+  fr: "Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans à construire des services numériques et des infrastructures de données partagées, surtout pour la mobilité, auparavant."
 
 # Current employer (Schema.org `Person.worksFor`). Inline — keep to
 # name + url only; we are not declaring a full Organization entity here.

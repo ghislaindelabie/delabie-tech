@@ -11,7 +11,7 @@ permalink: /fr/cv/
 
   <header class="cv-hero">
     <h2 class="cv-hero__name">Ghislain Delabie</h2>
-    <p class="cv-hero__tagline">Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans d'expérience produit et données en mobilité auparavant.</p>
+    <p class="cv-hero__tagline">Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans à construire des services numériques et des infrastructures de données partagées — surtout en mobilité — auparavant.</p>
     <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/fr/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
   </header>
 
@@ -30,8 +30,8 @@ permalink: /fr/cv/
           <p>Je construis l'infrastructure de données qui connecte les agents IA à des sources de connaissance premium. Études de cas principales :</p>
           <ul>
             <li><a href="/fr/case-studies/openaire-mcp/"><strong>OpenAIRE MCP</strong></a> — exposition de plus de 150 millions de publications scientifiques, jeux de données et logiciels aux agents IA via le Model Context Protocol.</li>
-            <li><a href="/fr/case-studies/gallica-bnf/"><strong>Gallica / BnF</strong></a> — partenariat de trois ans avec la Bibliothèque nationale de France pour rendre le patrimoine numérisé consommable par les agents IA selon les termes de l'institution (modèle « diffuseur »).</li>
-            <li><a href="/fr/case-studies/lds-copyfair/"><strong>LDS / Copyfair</strong></a> — Data Reservation Layer européenne : une infrastructure de données pilotée par contrats, préservant droits d'auteur et provenance lors de l'ingestion par les agents IA.</li>
+            <li><a href="/fr/case-studies/gallica-bnf/"><strong>Gallica / BnF</strong></a> — rendre Gallica exploitable par l'IA avec la Bibliothèque nationale de France : accès MCP, corpus extraits par IA, services agentiques pour les clients B2B de la bibliothèque.</li>
+            <li><a href="/fr/case-studies/lds-copyfair/"><strong>LDS</strong></a> — technologie IA cœur du data space juridique européen : serveurs MCP juridiques, passerelle IA et contrats de données au service des professionnels du droit, à commencer par l'écosystème du CNB.</li>
           </ul>
         </article>
       </section>
@@ -43,7 +43,7 @@ permalink: /fr/cv/
           <h3 class="cv-split__role-title">
             Expert Data &amp; IA — Mobilité et Transports · <a href="https://www.lafabriquedesmobilites.fr">La Fabrique des Mobilités</a>
           </h3>
-          <p class="cv-split__role-dates cv-ongoing"><em>2025 – en cours</em></p>
+          <p class="cv-split__role-dates"><em>(2025)</em></p>
           <p>Contractant indépendant : ateliers thématiques, webinaires et expertise technique sur les projets de données et d'IA pour la mobilité. Je poursuis le programme <a href="/fr/case-studies/30-lev/"><strong>30 LEV / 30 VELI</strong></a> (expérimentation ADEME, 2023–2026) et les travaux sur les standards MaaS et données mobilité.</p>
         </article>
 
@@ -51,7 +51,7 @@ permalink: /fr/cv/
           <h3 class="cv-split__role-title">
             Conseiller au conseil · <a href="https://www.moovance.fr">Moovance</a>
           </h3>
-          <p class="cv-split__role-dates cv-ongoing"><em>2024 – en cours</em></p>
+          <p class="cv-split__role-dates"><em>(2024 – 2025)</em></p>
           <p>Conseil sur le développement commercial et la stratégie produit secteur public. Pilotage du développement B2G, engagement des parties prenantes, et Product Ownership de l'offre B2G — roadmap, priorisation, supervision des pilotes.</p>
         </article>
 
@@ -90,7 +90,7 @@ permalink: /fr/cv/
         <article class="cv-split__role">
           <h3 class="cv-split__role-title">Directeur Innovation · Deways</h3>
           <p class="cv-split__role-dates"><em>(2012 – 2014)</em></p>
-          <p>Pilotage de projets d'innovation avec PSA, La Poste et Renault.</p>
+          <p>Pilotage de projets d'innovation avec <a href="https://www.stellantis.com">PSA</a>, <a href="https://www.laposte.fr">La Poste</a> et <a href="https://www.renaultgroup.com">Renault</a>.</p>
         </article>
 
         <article class="cv-split__role">
@@ -100,13 +100,13 @@ permalink: /fr/cv/
         </article>
 
         <article class="cv-split__role">
-          <h3 class="cv-split__role-title">Apprentissage · La Poste</h3>
+          <h3 class="cv-split__role-title">Apprentissage · <a href="https://www.laposte.fr">La Poste</a></h3>
           <p class="cv-split__role-dates"><em>(2009 – 2011)</em></p>
           <p>Deux ans en apprentissage — mon premier vrai poste.</p>
         </article>
 
         <article class="cv-split__role">
-          <h3 class="cv-split__role-title">Stage · Solucom (aujourd'hui Wavestone)</h3>
+          <h3 class="cv-split__role-title">Stage · Solucom (aujourd'hui <a href="https://www.wavestone.com">Wavestone</a>)</h3>
           <p class="cv-split__role-dates"><em>(2006 – 2007)</em></p>
           <p>Stage long d'un an en conseil, avant le diplôme de Télécom Bretagne en 2008.</p>
         </article>
@@ -180,10 +180,9 @@ permalink: /fr/cv/
       <section class="cv-split__card">
         <h2 class="cv-split__h3">Certifications &amp; affiliations</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
-          <li><strong>AFNOR</strong> — contributeur aux groupes de travail sur les standards mobilité.</li>
-          <li><strong>ESTACA</strong> — vacations d'enseignement, voir <a href="/fr/teaching/">Enseignement</a>.</li>
-          <li><strong>Challenges Top 100</strong> — reconnaissance sectorielle.</li>
-          <li><strong>GFII</strong> — interventions sur les sujets IA et industries de l'information.</li>
+          <li><strong><a href="https://www.afnor.org">AFNOR</a></strong> — membre de la CN IA (commission de normalisation française sur l'IA) ; contributeur aux groupes de travail sur les standards mobilité.</li>
+          <li><strong><a href="https://lafabriquedesmobilites.fr">La Fabrique des Mobilités</a></strong> — membre de longue date de la communauté des communs de la mobilité.</li>
+          <li><strong>Enseignement</strong> — ESTACA, Télécom Paris, École des Ponts et d'autres : voir <a href="/fr/teaching/">Enseignement</a>.</li>
         </ul>
       </section>
 
