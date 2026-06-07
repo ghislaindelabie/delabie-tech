@@ -7,7 +7,7 @@ ref: about
 permalink: /fr/about/
 ---
 
-**Je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits.**
+<p class="lead">Je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits.</p>
 
 Je suis responsable des solutions IA (Head of AI Solutions) chez [Alien Intelligence](https://alien.club). Mon métier : rendre les savoirs les plus précieux — recherche scientifique, patrimoine culturel, médias — utilisables par les agents IA *aux conditions de la source* : droits préservés, provenance intacte, institutions créditées et rémunérées.
 

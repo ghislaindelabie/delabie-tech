@@ -1,7 +1,7 @@
 ---
 title: Contact
 icon: fas fa-envelope
-order: 11
+order: 9
 lang: fr
 ref: contact
 permalink: /fr/contact/
@@ -17,10 +17,8 @@ Vous pouvez me solliciter pour :
 
 Le canal le plus fiable est LinkedIn :
 
-<p class="lead">
-  <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a>
-</p>
-
-Pour les questions open-source / code, <a href="https://github.com/ghislaindelabie">GitHub</a> fonctionne aussi.
-
-Une chaîne YouTube regroupe d'anciennes <a href="https://www.youtube.com/channel/UCNRJeN9T__EEzoa0N_rgkKw">interventions, tables rondes et interviews</a>.
+<ul class="contact-channels">
+  <li class="contact-channels__primary"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a></li>
+  <li><i class="fab fa-github fa-fw" aria-hidden="true"></i> <a href="https://github.com/ghislaindelabie">GitHub</a> — questions open-source et code</li>
+  <li><i class="fab fa-youtube fa-fw" aria-hidden="true"></i> <a href="https://www.youtube.com/channel/UCNRJeN9T__EEzoa0N_rgkKw">YouTube</a> — interventions, tables rondes et interviews</li>
+</ul>

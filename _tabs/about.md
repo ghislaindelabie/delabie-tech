@@ -7,7 +7,7 @@ ref: about
 permalink: /about/
 ---
 
-**I build the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources.**
+<p class="lead">I build the data infrastructure that connects AI agents to premium, rights-respecting knowledge sources.</p>
 
 I'm Head of AI Solutions at [Alien Intelligence](https://alien.club). My job is to make the world's most valuable knowledge — scientific research, cultural heritage, media — usable by AI agents *on the source's terms*: rights preserved, provenance intact, institutions credited and compensated.
 

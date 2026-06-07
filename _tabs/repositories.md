@@ -13,7 +13,7 @@ permalink: /repositories/
 
 {%- for section in site.data.repositories.sections -%}
   <section class="repos-section" data-test="repos-section" data-key="{{ section.key }}">
-    <h2>{{ section.label[page_lang] | default: section.label.en }}</h2>
+    <h2>{%- if section.icon %}<i class="fas {{ section.icon }} fa-fw home-section__icon" aria-hidden="true"></i>{% endif -%}{{ section.label[page_lang] | default: section.label.en }}</h2>
     {%- if section.blurb -%}
       <p class="repos-section__blurb">{{ section.blurb[page_lang] | default: section.blurb.en }}</p>
     {%- endif -%}

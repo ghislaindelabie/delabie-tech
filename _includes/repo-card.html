@@ -6,8 +6,11 @@
 {%- endcomment -%}
 
 <li class="repo-card" data-test="repo-card">
+  {%- comment -%} UX-17: GitHub glyph + external-jump cue (links open a new tab). {%- endcomment -%}
   <a class="repo-card__link" href="{{ include.repo.url }}" target="_blank" rel="noopener noreferrer">
+    <i class="fab fa-github" aria-hidden="true"></i>
     <span class="repo-card__name">{{ include.repo.name }}</span>
+    <i class="fas fa-arrow-up-right-from-square repo-card__ext" aria-hidden="true"></i>
   </a>
   <p class="repo-card__description">{{ include.repo.description }}</p>
 </li>

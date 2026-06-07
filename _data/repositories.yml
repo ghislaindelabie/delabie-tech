@@ -12,6 +12,7 @@
 
 sections:
   - key: alien
+    icon: fa-cubes
     label:
       en: Alien Intelligence
       fr: Alien Intelligence
@@ -24,6 +25,7 @@ sections:
         description: MCP server integrations for Folk CRM and Lemlist — agent-driven CRM and outreach workflows.
 
   - key: ai_enhanced_pro
+    icon: fa-wand-magic-sparkles
     label:
       en: AI-enhanced professional
       fr: Pro augmentée par l'IA
@@ -39,6 +41,7 @@ sections:
         description: The legacy Jekyll site (al-folio). Archived at cutover.
 
   - key: mobility
+    icon: fa-route
     label:
       en: Mobility
       fr: Mobilité
@@ -54,6 +57,7 @@ sections:
         description: Dashboards and notebooks for the 30 LEV field trial — telematics pipeline + usage analytics.
 
   - key: oc_ai_engineering
+    icon: fa-graduation-cap
     label:
       en: OpenClassrooms — AI Engineering
       fr: OpenClassrooms — Ingénierie IA
