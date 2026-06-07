@@ -1,7 +1,7 @@
 ---
 title: Writing
 icon: fas fa-pen-nib
-order: 3
+order: 7
 lang: en
 ref: writing
 permalink: /writing/

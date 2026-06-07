@@ -1,0 +1,17 @@
+/* UX polish pass (2026-06-07) — cross-cutting fixes from the design review.
+ * Scoped overrides of gem styles live here, NOT in the per-phase addons. */
+
+/* UX-4: long page titles (case studies especially) overflowed the fixed
+ * mobile topbar — the gem gives #topbar-title width:70% with no overflow
+ * handling, so 60+-char titles wrapped to 2-3 lines into the icons.
+ * Single line + ellipsis; the full title remains in <title>, the page H1
+ * and the (desktop) breadcrumb. The gem only shows #topbar-title below lg,
+ * so scoping the override to the same breakpoint keeps desktop untouched. */
+@media (max-width: 991px) {
+  #topbar-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: normal;
+  }
+}

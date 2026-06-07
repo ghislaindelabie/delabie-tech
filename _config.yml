@@ -40,11 +40,9 @@ avatar: /assets/img/ghislain-delabie-224.webp
 
 # Open Graph / Twitter social preview image. Chirpy's head.html reads
 # `site.social_preview_image` (not jekyll-seo-tag's `site.image`).
-# Intentionally unset in V1 — the avatar (a 1:1 portrait) renders badly
-# in Twitter / Facebook 1.91:1 card previews. Add a 1200×630 banner with
-# legible text per Open Graph guidelines and uncomment when ready
-# (refinement tracked in docs/phase-5-refinements.md §7).
-# social_preview_image: /assets/img/og-banner-1200x630.jpg
+# 1200×630 typographic banner on the site palette (UX-5) — head.html
+# swaps twitter:card to summary_large_image when this is set.
+social_preview_image: /assets/img/og-banner-1200x630.jpg
 toc: true
 
 # ---- Comments (OFF in v1 per §9.3.c) ----
