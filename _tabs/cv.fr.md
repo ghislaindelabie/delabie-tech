@@ -1,7 +1,7 @@
 ---
 title: CV
 icon: fas fa-address-card
-order: 7
+order: 3
 lang: fr
 ref: cv
 permalink: /fr/cv/
@@ -13,13 +13,14 @@ permalink: /fr/cv/
     <h2 class="cv-hero__name">Ghislain Delabie</h2>
     <p class="cv-hero__tagline">Responsable des solutions IA chez Alien Intelligence — je construis l'infrastructure de données qui connecte les agents IA à des sources de savoir premium, respectueuses des droits. Dix-huit ans à construire des services numériques et des infrastructures de données partagées — surtout en mobilité — auparavant.</p>
     <p class="cv-hero__contact">Chambéry, France<span class="cv-hero__sep">·</span><a href="/fr/contact/">Contact</a><span class="cv-hero__sep">·</span><a href="https://github.com/ghislaindelabie">GitHub</a><span class="cv-hero__sep">·</span><a href="https://www.linkedin.com/in/ghislaindelabie">LinkedIn</a></p>
+    <button type="button" class="cv-print" onclick="window.print()"><i class="fas fa-file-pdf" aria-hidden="true"></i> Enregistrer en PDF</button>
   </header>
 
   <div class="cv-split__grid">
 
     <div class="cv-split__main">
 
-      <section class="cv-split__section">
+      <section class="cv-split__section cv-split__section--current">
         <h2 class="cv-split__h2">Poste actuel</h2>
 
         <article class="cv-split__role cv-split__role--current">
@@ -29,14 +30,14 @@ permalink: /fr/cv/
           <p class="cv-split__role-dates cv-ongoing"><em>en cours</em></p>
           <p>Je construis l'infrastructure de données qui connecte les agents IA à des sources de connaissance premium. Études de cas principales :</p>
           <ul>
-            <li><a href="/fr/case-studies/openaire-mcp/"><strong>OpenAIRE MCP</strong></a> — exposition de plus de 150 millions de publications scientifiques, jeux de données et logiciels aux agents IA via le Model Context Protocol.</li>
-            <li><a href="/fr/case-studies/gallica-bnf/"><strong>Gallica / BnF</strong></a> — rendre Gallica exploitable par l'IA avec la Bibliothèque nationale de France : accès MCP, corpus extraits par IA, services agentiques pour les clients B2B de la bibliothèque.</li>
-            <li><a href="/fr/case-studies/lds-copyfair/"><strong>LDS</strong></a> — technologie IA cœur du data space juridique européen : serveurs MCP juridiques, passerelle IA et contrats de données au service des professionnels du droit, à commencer par l'écosystème du CNB.</li>
+            <li><a href="/fr/case-studies/openaire-mcp/">OpenAIRE MCP</a> — exposition de plus de 150 millions de publications scientifiques, jeux de données et logiciels aux agents IA via le Model Context Protocol.</li>
+            <li><a href="/fr/case-studies/gallica-bnf/">Gallica / BnF</a> — rendre Gallica exploitable par l'IA avec la Bibliothèque nationale de France : accès MCP, corpus extraits par IA, services agentiques pour les clients B2B de la bibliothèque.</li>
+            <li><a href="/fr/case-studies/lds-copyfair/">LDS</a> — technologie IA cœur du data space juridique européen : serveurs MCP juridiques, passerelle IA et contrats de données au service des professionnels du droit, à commencer par l'écosystème du CNB.</li>
           </ul>
         </article>
       </section>
 
-      <section class="cv-split__section">
+      <section class="cv-split__section cv-split__section--experience">
         <h2 class="cv-split__h2">Expérience</h2>
 
         <article class="cv-split__role">
@@ -44,7 +45,7 @@ permalink: /fr/cv/
             Expert Data &amp; IA — Mobilité et Transports · <a href="https://www.lafabriquedesmobilites.fr">La Fabrique des Mobilités</a>
           </h3>
           <p class="cv-split__role-dates"><em>(2025)</em></p>
-          <p>Contractant indépendant : ateliers thématiques, webinaires et expertise technique sur les projets de données et d'IA pour la mobilité. Je poursuis le programme <a href="/fr/case-studies/30-lev/"><strong>30 LEV / 30 VELI</strong></a> (expérimentation ADEME, 2023–2026) et les travaux sur les standards MaaS et données mobilité.</p>
+          <p>Contractant indépendant : ateliers thématiques, webinaires et expertise technique sur les projets de données et d'IA pour la mobilité. Je poursuis le programme <a href="/fr/case-studies/30-lev/">30 LEV / 30 VELI</a> (expérimentation ADEME, 2023–2026) et les travaux sur les standards MaaS et données mobilité.</p>
         </article>
 
         <article class="cv-split__role">
@@ -62,8 +63,8 @@ permalink: /fr/cv/
           <p class="cv-split__role-dates"><em>(2021 – 2024)</em></p>
           <p>Direction de programmes d'open-innovation pour la mobilité durable. Encadrement d'une équipe transverse de cinq chefs de projet et experts senior. Conception et pilotage de projets de mobilité bas-carbone avec agences publiques, opérateurs, startups et ONG — adhésion des parties prenantes, mise en œuvre, mesure d'impact.</p>
           <ul>
-            <li><a href="/fr/case-studies/mob/"><strong>moB — Mon Compte Mobilité</strong></a> (2021–2024) : expert mobilité / standards, puis directeur de projet, puis product owner. Plateforme de services et aides à la mobilité coordonnés public/privé ; fermeture en janvier 2025 à la fin du financement ADEME / DGITM.</li>
-            <li><a href="/fr/case-studies/maas-standards/"><strong>Standards MaaS ouverts</strong></a> (2021–2025) : programme pluriannuel définissant les standards ouverts nationaux, flux de données et modèles économiques pour la Mobility-as-a-Service en France. Baromètres, groupes de travail, feuilles de route.</li>
+            <li><a href="/fr/case-studies/mob/">moB — Mon Compte Mobilité</a> (2021–2024) : expert mobilité / standards, puis directeur de projet, puis product owner. Plateforme de services et aides à la mobilité coordonnés public/privé ; fermeture en janvier 2025 à la fin du financement ADEME / DGITM.</li>
+            <li><a href="/fr/case-studies/maas-standards/">Standards MaaS ouverts</a> (2021–2025) : programme pluriannuel définissant les standards ouverts nationaux, flux de données et modèles économiques pour la Mobility-as-a-Service en France. Baromètres, groupes de travail, feuilles de route.</li>
           </ul>
         </article>
 
@@ -112,12 +113,12 @@ permalink: /fr/cv/
         </article>
       </section>
 
-      <section class="cv-split__section">
+      <section class="cv-split__section cv-split__section--work">
         <h2 class="cv-split__h2">Travaux sélectionnés</h2>
         <ul>
-          <li><a href="/fr/case-studies/"><strong>Études de cas</strong></a> — six travaux approfondis sur les projets ci-dessus.</li>
-          <li><a href="/fr/repositories/"><strong>Dépôts</strong></a> — parcours OpenClassrooms Ingénierie IA, projets techniques personnels, dépôts pro augmentés par l'IA.</li>
-          <li><a href="/fr/publications/"><strong>Publications</strong></a> — rapports, conférences, webinaires.</li>
+          <li><a href="/fr/case-studies/">Études de cas</a> — six travaux approfondis sur les projets ci-dessus.</li>
+          <li><a href="/fr/repositories/">Dépôts</a> — parcours OpenClassrooms Ingénierie IA, projets techniques personnels, dépôts pro augmentés par l'IA.</li>
+          <li><a href="/fr/publications/">Publications</a> — rapports, conférences, webinaires.</li>
         </ul>
       </section>
 
@@ -125,7 +126,7 @@ permalink: /fr/cv/
 
     <aside class="cv-split__sidebar" aria-label="Facts">
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--education">
         <h2 class="cv-split__h3">Formation</h2>
         <ul class="cv-split__facts">
           <li>
@@ -146,7 +147,7 @@ permalink: /fr/cv/
         </ul>
       </section>
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--skills">
         <h2 class="cv-split__h3">Compétences</h2>
         <dl class="cv-split__skills">
           <dt>Ingénierie IA</dt>
@@ -163,7 +164,7 @@ permalink: /fr/cv/
         </dl>
       </section>
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--languages">
         <h2 class="cv-split__h3">Langues</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
           <li><strong>Français</strong> — langue maternelle</li>
@@ -172,12 +173,12 @@ permalink: /fr/cv/
         </ul>
       </section>
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--speaking">
         <h2 class="cv-split__h3">Conférences &amp; interventions</h2>
         <p class="cv-split__card-body">Interventions publiques à l'intersection IA × mobilité × science ouverte — DSS26 (Madrid), Tech &amp; Fest (Grenoble), GFII et d'autres. Voir <a href="/fr/publications/">Publications</a> pour le catalogue.</p>
       </section>
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--credentials">
         <h2 class="cv-split__h3">Certifications &amp; affiliations</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
           <li><strong><a href="https://www.afnor.org">AFNOR</a></strong> — membre de la CN IA (commission de normalisation française sur l'IA) ; contributeur aux groupes de travail sur les standards mobilité.</li>
@@ -186,7 +187,7 @@ permalink: /fr/cv/
         </ul>
       </section>
 
-      <section class="cv-split__card">
+      <section class="cv-split__card cv-split__card--contact">
         <h2 class="cv-split__h3">Contact</h2>
         <ul class="cv-split__facts cv-split__facts--tight">
           <li><a href="/fr/contact/">Formulaire de contact</a></li>
@@ -202,6 +203,6 @@ permalink: /fr/cv/
 
   <hr class="cv-split__rule">
 
-  <p class="cv-split__footnote"><em>Version PDF : impression navigateur → « Enregistrer en PDF ». Une feuille de style optimisée pour l'impression arrivera dans une itération ultérieure.</em></p>
+  <p class="cv-split__footnote"><em>Le bouton « Enregistrer en PDF » (ou la boîte de dialogue d'impression du navigateur) produit un PDF optimisé de cette page.</em></p>
 
 </div>

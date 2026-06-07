@@ -22,5 +22,5 @@
       <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
     {%- endfor -%}
   </div>
-  <button type="button" class="filter-reset" data-filter-reset data-test="publications-filter-reset" hidden>{{ i18n.publications_filter_reset }}</button>
+  <button type="button" class="filter-reset" data-filter-reset data-test="publications-filter-reset" hidden><i class="fas fa-xmark" aria-hidden="true"></i> {{ i18n.publications_filter_reset }}</button>
 </section>
