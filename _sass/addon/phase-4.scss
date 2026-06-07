@@ -452,3 +452,11 @@
     }
   }
 }
+
+// Filter hint under the page lead — owner feedback 2026-06-07: the filter
+// explainer should read as a small subtitle, not compete with the lead.
+.page-filter-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+  margin: -0.5rem 0 1rem;
+}
