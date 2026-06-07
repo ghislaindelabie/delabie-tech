@@ -4,7 +4,7 @@ lang: fr
 ref: openaire-mcp
 slug: openaire-mcp
 permalink: /fr/case-studies/openaire-mcp/
-date_start: 2025
+date_start: 2026
 ongoing: true
 category: ai-data-infrastructure
 summary: "Serveur Model Context Protocol exposant le OpenAIRE Research Graph — plus de 150 M publications, jeux de données et logiciels scientifiques — aux agents IA via une interface d'outils typée."
@@ -25,4 +25,4 @@ Je pilote le projet de bout en bout chez Alien Intelligence : le partenariat ave
 
 ## Où en est le projet
 
-Une première version du serveur est opérationnelle et utilisée par des agents IA. Un article complet — architecture, choix de conception de l'interface d'outils, enseignements sur l'accès « agentique » aux données scientifiques — suivra à mesure que le projet mûrit. Les mêmes principes guident les travaux [Gallica / BnF](/fr/case-studies/gallica-bnf/) et [LDS / Copyfair](/fr/case-studies/lds-copyfair/).
+Une première version du serveur est opérationnelle et utilisée par des agents IA, et nous avons lancé un hackathon ouvert avec OpenAIRE pour le mettre entre les mains des chercheurs et des développeurs. Un article complet — architecture, choix de conception de l'interface d'outils, enseignements sur l'accès « agentique » aux données scientifiques — suivra à mesure que le projet mûrit. Les mêmes principes guident les travaux [Gallica / BnF](/fr/case-studies/gallica-bnf/) et [LDS / Copyfair](/fr/case-studies/lds-copyfair/).
