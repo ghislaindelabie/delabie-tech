@@ -45,7 +45,7 @@ layout: default
 <section class="home-section home-hero" data-test="home-hero">
   <p class="lead">{{ i18n.home_intro }}</p>
   <p class="home-hero__links">
-    <a href="{{ i18n.home_cta_url | relative_url }}" data-test="home-hero-cta">{{ i18n.home_cta }} →</a>
+    <a href="{{ i18n.home_cta_url | relative_url }}" data-test="home-hero-cta">{{ i18n.home_cta }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     <span aria-hidden="true"> · </span>
     <a href="{{ i18n.home_about_url | relative_url }}">{{ i18n.home_about_link }}</a>
   </p>

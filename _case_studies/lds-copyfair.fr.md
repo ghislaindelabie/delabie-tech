@@ -25,4 +25,4 @@ Je porte la technologie d'Alien dans le projet : déploiement et adaptation du s
 
 ## Où en est le projet
 
-Le data space est opérationnel et élargit son réseau de partenaires ; la couche d'infrastructure d'Alien y est déployée. Un article complet suivra avec l'ouverture des services publics. Les mêmes principes guident les travaux [OpenAIRE MCP](/fr/case-studies/openaire-mcp/) et [Gallica / BnF](/fr/case-studies/gallica-bnf/).
+Le data space est opérationnel et élargit son réseau de partenaires ; la couche d'infrastructure d'Alien y est déployée. Un article complet suivra à mesure que les services s'ouvrent au public. Les mêmes principes guident les travaux [OpenAIRE MCP](/fr/case-studies/openaire-mcp/) et [Gallica / BnF](/fr/case-studies/gallica-bnf/).

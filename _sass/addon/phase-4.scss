@@ -132,7 +132,7 @@
   &__institution {
     font-weight: 600;
     /* UX-16: static label, not a link — muted so "blue = clickable" holds. */
-    color: var(--text-muted-highlight-color);
+    color: var(--text-muted-color);
   }
 
   &__title {
