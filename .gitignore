@@ -34,3 +34,6 @@ tmp/
 
 # Migration reports — regenerated on each `_migration/*.rb` run
 _migration/*.report.md
+
+# SMB delete artifacts from network copies
+.smbdelete*

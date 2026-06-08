@@ -1,5 +1,6 @@
 # ----------------------------------------------------------
-# delabie.tech — Chirpy migration (v2 test site)
+# delabie.tech — production site (Chirpy). Cut over from the v2 preview
+# at Phase 8; serves at https://www.delabie.tech.
 # ----------------------------------------------------------
 
 theme: jekyll-theme-chirpy

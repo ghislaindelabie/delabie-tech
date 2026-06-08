@@ -68,4 +68,6 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Smoke test live site
-        run: bash scripts/verify-deploy.sh https://v2.delabie.tech
+        # Production host as of the Phase 8 cutover (was https://v2.delabie.tech
+        # while the preview served there).
+        run: bash scripts/verify-deploy.sh https://www.delabie.tech
