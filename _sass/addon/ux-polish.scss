@@ -15,3 +15,27 @@
     word-break: normal;
   }
 }
+
+/* Dark-mode toggle in the topbar (moved from the sidebar). Match the
+ * lang-switcher / search-trigger sizing so the trio reads as one group. */
+.topbar-mode-toggle {
+  padding: 0 0.4rem;
+  color: var(--text-muted-color);
+
+  &:hover,
+  &:focus {
+    color: var(--link-color);
+  }
+}
+
+/* Search is hidden for now: Chirpy's search only indexes `_posts`, which is
+ * empty, so it returns nothing for any query. The DOM is left in place so
+ * the theme's search JS still initialises without error — re-enabling is
+ * just removing this rule once a real, site-wide bilingual index exists.
+ * Tracked in KNOWN_ISSUES.md. */
+#search-trigger,
+#search,
+#search-cancel,
+#search-result-wrapper {
+  display: none !important;
+}

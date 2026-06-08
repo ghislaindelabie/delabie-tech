@@ -244,6 +244,7 @@ exclude:
   - docs
   - tools
   - README.md
+  - KNOWN_ISSUES.md
   - LICENSE
   - "*.config.js"
   - package*.json
