@@ -131,7 +131,8 @@
 
   &__institution {
     font-weight: 600;
-    color: var(--link-color);
+    /* UX-16: static label, not a link — muted so "blue = clickable" holds. */
+    color: var(--text-muted-color);
   }
 
   &__title {
@@ -226,8 +227,9 @@
   .filter-pill {
     display: inline-flex;
     align-items: center;
-    min-height: 2rem;
-    padding: 0.25rem 0.75rem;
+    /* UX-13: clear the 44px touch guideline (was 32px). */
+    min-height: 2.5rem;
+    padding: 0.4rem 0.8rem;
     font-size: 0.8125rem;
     line-height: 1.2;
     border: 1px solid var(--main-border-color);
@@ -239,6 +241,8 @@
     &:hover,
     &:focus-visible {
       border-color: var(--link-color, currentcolor);
+      /* UX-13: a fill signals these are tappable controls, unlike static tags. */
+      background: var(--main-bg);
     }
 
     &[aria-pressed='true'] {
@@ -250,7 +254,9 @@
 
   .filter-reset {
     margin-left: auto;
-    padding: 0.25rem 0.5rem;
+    /* UX-13: same touch-target treatment as the pills. */
+    min-height: 2.5rem;
+    padding: 0.4rem 0.6rem;
     font-size: 0.75rem;
     background: transparent;
     border: none;
@@ -438,17 +444,78 @@
 
   /* Responsive: stack below ~650px. The breakpoint has to be narrower than
      Chirpy's inner <main> width (≈ 747px at 1280 viewport), otherwise the
-     two columns collapse even on desktop. */
+     two columns collapse even on desktop.
+
+     UX-10: on the stack, interleave the highest-value sidebar facts into
+     the read order instead of sinking them below nine roles of history:
+     Current role → Skills → Education → Experience → rest. The two column
+     wrappers become display:contents so their sections join one flex flow;
+     desktop layout is untouched. */
   @media (max-width: 650px) {
     &__grid {
-      grid-template-columns: minmax(0, 1fr);
+      display: flex;
+      flex-direction: column;
       gap: 1.5rem;
     }
 
+    &__main,
     &__sidebar {
-      position: static;
-      max-height: none;
-      overflow-y: visible;
+      display: contents;
+    }
+
+    &__section--current { order: 1; }
+    &__card--skills { order: 2; }
+    &__card--education { order: 3; }
+    &__section--experience { order: 4; }
+    &__section--work { order: 5; }
+    &__card--languages { order: 6; }
+    &__card--speaking { order: 7; }
+    &__card--credentials { order: 8; }
+    &__card--contact { order: 9; }
+  }
+
+  /* UX-9: the Save-as-PDF button in the hero (hidden in print.scss). */
+  .cv-print {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1px solid var(--link-color);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--link-color);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+
+    &:hover,
+    &:focus-visible {
+      background: var(--link-color);
+      color: var(--card-bg, #fff);
     }
   }
+}
+
+// Filter hint under the page lead — owner feedback 2026-06-07: the filter
+// explainer should read as a small subtitle, not compete with the lead.
+.page-filter-hint {
+  font-size: 0.85rem;
+  color: var(--text-muted-color);
+  margin: -0.5rem 0 1rem;
+}
+
+/* UX-13: on wrapped mobile filter rows, Reset flows with the pills instead
+   of being flung to the far edge of whichever row it lands on. */
+@media (max-width: 576px) {
+  .list-filters .filter-reset {
+    margin-left: 0;
+  }
+}
+
+/* UX-2: long titles wrap gracefully in list rows. */
+.publication-item__title,
+.teaching-item__title {
+  overflow-wrap: break-word;
 }

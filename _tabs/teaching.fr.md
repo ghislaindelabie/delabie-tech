@@ -17,7 +17,8 @@ permalink: /fr/teaching/
 {%- endcomment -%}
 {%- assign items = site.teaching | where: 'lang', page_lang | sort: 'sort_key' | reverse -%}
 
-<p class="lead">Cours, ateliers et programmes sur-mesure que j'ai animés ou que j'anime. Filtrez par thème ou par format — tous les filtres sont optionnels, et les combiner resserre la liste.</p>
+<p class="lead">Cours, ateliers et programmes sur-mesure que j'ai animés ou que j'anime.</p>
+<p class="page-filter-hint">Filtrez par thème ou par format — tous les filtres sont optionnels, et les combiner resserre la liste.</p>
 
 <div data-filter-list>
 

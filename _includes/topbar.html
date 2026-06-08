@@ -118,6 +118,18 @@
     {%- comment -%} delabie-tech: language switcher (between title and search). {%- endcomment -%}
     {% include lang-switcher.html %}
 
+    {%- comment -%}
+      delabie-tech: dark-mode toggle moved here from the sidebar, beside the
+      language switcher (easier to reach). Keeps id="mode-toggle" so the
+      theme's flip handler binds to it; rendered only when theme_mode is
+      blank (i.e. the site follows the OS preference and offers a toggle).
+    {%- endcomment -%}
+    {%- unless site.theme_mode -%}
+    <button type="button" id="mode-toggle" class="btn btn-link topbar-mode-toggle" aria-label="Switch Mode">
+      <i class="fas fa-adjust fa-fw"></i>
+    </button>
+    {%- endunless -%}
+
     <button type="button" id="search-trigger" class="btn btn-link" aria-label="Search">
       <i class="fas fa-search fa-fw"></i>
     </button>

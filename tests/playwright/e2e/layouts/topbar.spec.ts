@@ -129,20 +129,21 @@ test.describe("Topbar — mobile viewport", () => {
     await expect(page.locator('[data-test="lang-switcher"]')).toBeVisible();
   });
 
-  test("switcher hidden when search is expanded on mobile", async ({ page }) => {
+  // (Removed) "switcher hidden when search is expanded on mobile": search is
+  // intentionally hidden until a real index exists (see KNOWN_ISSUES.md), so
+  // there is no search-expand interaction to collide with the switcher.
+
+  test("dark-mode toggle sits in the topbar beside the switcher", async ({ page }) => {
     await page.goto("/");
-    // Chirpy toggles .input-focus on <search id="search"> when search is
-    // activated; our SCSS uses that signal (and :has fallback) to hide
-    // the switcher so it doesn't collide with the expanded input.
-    await page.locator("#search-trigger").click();
-    // Give Chirpy's JS a moment to apply the class.
-    await page.waitForTimeout(150);
-    const switcher = page.locator('[data-test="lang-switcher"]');
-    // Either the switcher is hidden outright OR its width is 0 due to the
-    // topbar reclaiming space. Either is an acceptable outcome.
-    await expect(switcher).toBeHidden({ timeout: 2000 }).catch(async () => {
-      const box = await switcher.boundingBox();
-      expect(box?.width ?? 0).toBeLessThanOrEqual(2);
-    });
+    const toggle = page.locator("#mode-toggle");
+    await expect(toggle).toBeVisible();
+    // It must live inside the topbar, not the sidebar (where it used to be).
+    await expect(page.locator("#topbar #mode-toggle")).toHaveCount(1);
+    await expect(page.locator("#sidebar #mode-toggle")).toHaveCount(0);
+  });
+
+  test("search affordance is hidden (no index yet)", async ({ page }) => {
+    await page.goto("/");
+    await expect(page.locator("#search-trigger")).toBeHidden();
   });
 });

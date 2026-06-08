@@ -199,3 +199,14 @@
     }
   }
 }
+
+/* UX-2: long titles wrap gracefully in archive rows. */
+.archive-item__title {
+  overflow-wrap: break-word;
+}
+
+/* UX-15: FA action glyphs sit slightly smaller, aligned after the label. */
+.archive-item__actions a i {
+  margin-left: 0.3em;
+  font-size: 0.85em;
+}

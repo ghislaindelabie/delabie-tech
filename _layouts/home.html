@@ -45,7 +45,7 @@ layout: default
 <section class="home-section home-hero" data-test="home-hero">
   <p class="lead">{{ i18n.home_intro }}</p>
   <p class="home-hero__links">
-    <a href="{{ i18n.home_cta_url | relative_url }}" data-test="home-hero-cta">{{ i18n.home_cta }} →</a>
+    <a href="{{ i18n.home_cta_url | relative_url }}" data-test="home-hero-cta">{{ i18n.home_cta }} <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
     <span aria-hidden="true"> · </span>
     <a href="{{ i18n.home_about_url | relative_url }}">{{ i18n.home_about_link }}</a>
   </p>
@@ -55,7 +55,7 @@ layout: default
 {%- assign activity_items = site.activity | where: 'lang', page_lang | sort: 'date' | reverse -%}
 {%- if activity_items.size > 0 -%}
 <section class="home-section home-activity" data-test="home-activity">
-  <h2 class="home-section__heading">{{ i18n.home_recent_activity | default: 'Recent activity' }}</h2>
+  <h2 class="home-section__heading"><i class="fas fa-clock-rotate-left fa-fw home-section__icon" aria-hidden="true"></i>{{ i18n.home_recent_activity | default: 'Recent activity' }}</h2>
   <ul class="home-activity__list">
     {%- for entry in activity_items limit: 5 -%}
       {% include activity-item.html entry=entry %}
@@ -67,7 +67,7 @@ layout: default
 {%- assign featured_cs = site.case_studies | where: 'lang', page_lang | sort: 'date_start' | reverse -%}
 {%- if featured_cs.size > 0 -%}
 <section class="home-section home-featured-case-studies" data-test="home-featured-case-studies">
-  <h2 class="home-section__heading">{{ i18n.home_featured_case_studies | default: 'Featured case studies' }}</h2>
+  <h2 class="home-section__heading"><i class="fas fa-folder-open fa-fw home-section__icon" aria-hidden="true"></i>{{ i18n.home_featured_case_studies | default: 'Featured case studies' }}</h2>
   <ul class="case-studies-grid">
     {%- for cs in featured_cs limit: 3 -%}
       {% include case-study-card.html cs=cs heading_level='h3' %}

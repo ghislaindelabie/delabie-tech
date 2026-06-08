@@ -16,7 +16,8 @@ permalink: /teaching/
 {%- endcomment -%}
 {%- assign items = site.teaching | where: 'lang', page_lang | sort: 'sort_key' | reverse -%}
 
-<p class="lead">Courses, workshops and custom programs I teach or have taught. Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
+<p class="lead">Courses, workshops and custom programs I teach or have taught.</p>
+<p class="page-filter-hint">Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
 
 <div data-filter-list>
 

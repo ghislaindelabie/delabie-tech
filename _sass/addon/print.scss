@@ -1,0 +1,48 @@
+/* UX-9: print stylesheet — primarily for "Print → Save as PDF" on the CV.
+ * Hides site chrome, forces a single full-width column, keeps role cards
+ * unbroken across pages, and prints URLs after external links. */
+
+@media print {
+  /* stylelint-disable-next-line selector-id-pattern */
+  #sidebar,
+  #topbar-wrapper,
+  #search-result-wrapper,
+  .lang-switcher-compact,
+  footer,
+  .related,
+  .archive-related,
+  .case-study__back,
+  .cv-print {
+    display: none !important;
+  }
+
+  #main-wrapper,
+  .content,
+  main {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  body {
+    background: #fff;
+  }
+
+  /* CV: two-column grid flattens; keep each role on one page. */
+  .cv-split__grid {
+    display: block;
+  }
+
+  .cv-split__role,
+  .cv-split__card {
+    break-inside: avoid;
+  }
+
+  /* Print the target after external links (not internal ones). */
+  .content a[href^='http']::after {
+    content: ' (' attr(href) ')';
+    font-size: 0.8em;
+    color: #555;
+  }
+}

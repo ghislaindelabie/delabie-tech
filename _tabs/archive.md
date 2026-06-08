@@ -1,7 +1,7 @@
 ---
 title: Archive
 icon: fas fa-archive
-order: 10
+order: 8
 lang: en
 ref: archive
 permalink: /archive/

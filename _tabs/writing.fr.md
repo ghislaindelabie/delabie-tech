@@ -1,7 +1,7 @@
 ---
 title: Articles
 icon: fas fa-pen-nib
-order: 3
+order: 7
 lang: fr
 ref: writing
 permalink: /fr/writing/

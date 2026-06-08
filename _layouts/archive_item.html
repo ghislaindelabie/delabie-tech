@@ -52,12 +52,12 @@ layout: page
     {%- endif -%}
     {%- if page.pdf -%}
       <a href="{{ page.pdf | relative_url }}" rel="noopener" data-test="archive-item-pdf">
-        {{ strings.archive_download_pdf | default: "Download local copy" }} ↓
+        {{ strings.archive_download_pdf | default: "Download local copy" }}<i class="fas fa-arrow-down" aria-hidden="true"></i>
       </a>
     {%- endif -%}
     {%- if page.wayback_url -%}
       <a href="{{ page.wayback_url }}" rel="noopener noreferrer" target="_blank" data-test="archive-item-wayback">
-        {{ strings.archive_view_wayback | default: "View on Wayback Machine" }} ↗
+        {{ strings.archive_view_wayback | default: "View on Wayback Machine" }}<i class="fas fa-up-right-from-square" aria-hidden="true"></i>
       </a>
     {%- endif -%}
   </p>

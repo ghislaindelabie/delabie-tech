@@ -10,7 +10,8 @@ permalink: /publications/
 {%- assign page_lang = page.lang | default: site.lang -%}
 {%- assign items = site.publications | where: 'lang', page_lang | sort: 'date' | reverse -%}
 
-<p class="lead">Reports, talks and webinars I've produced or co-produced. Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
+<p class="lead">Reports, talks and webinars I've produced or co-produced.</p>
+<p class="page-filter-hint">Filter by theme or format — all filters are optional, and combining them narrows the list.</p>
 
 <div data-filter-list>
 

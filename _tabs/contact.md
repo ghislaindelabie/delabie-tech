@@ -1,7 +1,7 @@
 ---
 title: Contact
 icon: fas fa-envelope
-order: 11
+order: 9
 lang: en
 ref: contact
 permalink: /contact/
@@ -17,10 +17,8 @@ I'm glad to hear about:
 
 The most reliable channel is LinkedIn:
 
-<p class="lead">
-  <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a>
-</p>
-
-For open-source / code questions, <a href="https://github.com/ghislaindelabie">GitHub</a> works too.
-
-A YouTube channel collects past <a href="https://www.youtube.com/channel/UCNRJeN9T__EEzoa0N_rgkKw">talks, panels and interviews</a>.
+<ul class="contact-channels">
+  <li class="contact-channels__primary"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i> <a href="https://www.linkedin.com/in/ghislaindelabie">linkedin.com/in/ghislaindelabie</a></li>
+  <li><i class="fab fa-github fa-fw" aria-hidden="true"></i> <a href="https://github.com/ghislaindelabie">GitHub</a> — open-source and code questions</li>
+  <li><i class="fab fa-youtube fa-fw" aria-hidden="true"></i> <a href="https://www.youtube.com/channel/UCNRJeN9T__EEzoa0N_rgkKw">YouTube</a> — past talks, panels and interviews</li>
+</ul>

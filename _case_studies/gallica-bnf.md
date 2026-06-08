@@ -3,10 +3,10 @@ title: "Gallica / BnF — The French national library as a data partner for AI"
 lang: en
 ref: gallica-bnf
 slug: gallica-bnf
-date_start: 2024
+date_start: 2026
 ongoing: true
 category: media-culture
-summary: "Three-year partnership with the Bibliothèque nationale de France making Gallica's digitised heritage consumable by AI agents — the \"diffuseur\" model for cultural institutions."
+summary: "Working with the Bibliothèque nationale de France to make Gallica usable by AI: MCP access to the collections, AI-extracted corpuses, and agentic services for the BnF's B2B clients."
 external_url: https://gallica.bnf.fr
 tags: [ai-agents, heritage, libraries, digital-humanities, france]
 related_case_studies: [openaire-mcp, lds-copyfair]
@@ -14,14 +14,18 @@ related_case_studies: [openaire-mcp, lds-copyfair]
 
 ## Overview
 
-**National libraries hold centuries of digitised knowledge that AI systems either ignore or scrape badly.** [Gallica](https://gallica.bnf.fr), the digital library of the Bibliothèque nationale de France, serves millions of digitised documents — press archives, books, maps, manuscripts, images — with deep catalogue metadata and IIIF imaging. None of it was designed with AI agents in mind, and bulk licensing is the wrong tool: it hands over the corpus and severs the link to the institution.
+**National libraries hold centuries of digitised knowledge that AI systems either ignore or scrape badly.** [Gallica](https://gallica.bnf.fr), the digital library of the Bibliothèque nationale de France, serves millions of digitised documents — press archives, books, maps, manuscripts, images — none of it designed with AI agents in mind.
 
-Alien Intelligence works with the BnF in a three-year partnership built on a different premise — the **"diffuseur" model**. Instead of shipping a corpus to whoever asks, the library exposes its collections to AI agents through controlled, instrumented access: catalogue and full-text search, document and page-level reading, IIIF imagery — with identification, usage metering and rights signalling designed in from the start. The library stays in charge of its terms; agents get heritage-grade sources instead of web scrapings.
+With the BnF, Alien Intelligence builds three things:
+
+- **MCP access to the collections** — catalogue and full-text search, document and page-level reading, IIIF imagery, exposed to AI agents as a typed tool surface.
+- **AI-extracted corpuses** — turning raw digitised collections into useful, well-described corpuses (historical French press is the first ground).
+- **Agentic services for the BnF's B2B clients** — putting those corpuses and tools to work for the institutions and companies the library serves.
 
 ## My role
 
-I lead the partnership for Alien Intelligence: shaping the diffuseur model with the BnF teams, designing the agent-facing tool surface over Gallica's APIs, and demonstrating it on real corpora — including historical French press archives.
+I lead the partnership for Alien Intelligence: the work with the BnF teams, the agent-facing tool surface over Gallica's APIs, and the first corpus extractions.
 
 ## Where it stands
 
-The partnership is active and a first agent-facing access layer is operational. A full write-up — the diffuseur model in detail, the stack, and what it suggests for other national libraries and archives — will follow. The same principles drive the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [LDS / Copyfair](/case-studies/lds-copyfair/) work.
+A first agent-facing access layer is operational and corpus work is under way. A full write-up follows as services open to the BnF's clients. The same principles drive the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [LDS](/case-studies/lds-copyfair/) work.

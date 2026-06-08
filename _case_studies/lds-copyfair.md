@@ -1,27 +1,27 @@
 ---
-title: "LDS / Copyfair — Data contracts for the AI era"
+title: "LDS — AI infrastructure for the European legal data space"
 lang: en
 ref: lds-copyfair
 slug: lds-copyfair
-date_start: 2024
+date_start: 2026
 ongoing: true
 category: ai-data-infrastructure
-summary: "Building a European Data Reservation Layer — contract-first data infrastructure that preserves copyright and provenance when AI agents and platforms ingest rights-holders' content."
-external_url: https://alien.club
-tags: [ai-agents, copyright, data-contracts, policy, eu]
+summary: "Legal DataSpace: a sovereign European data space for legal data. Alien Intelligence provides the core AI technology — legal MCP servers, an AI gateway and data-contract tooling — serving legal professionals, starting with the CNB ecosystem."
+external_url: https://www.alien.club/use-case/lds/
+tags: [ai-agents, legal, dataspace, mcp, copyfair, eu]
 related_case_studies: [openaire-mcp]
 ---
 
 ## Overview
 
-**AI ingestion runs on a missing legal-technical layer.** Today a rights-holder's options are roughly binary: leave the doors open and get scraped, or lock everything down and disappear from the AI-mediated world. What's missing is infrastructure — machine-readable contracts that travel with the data, attribution that survives processing, and payment hooks that make access sustainable for the institutions producing the content.
+**Legal professionals need AI tools they control — grounded in verified legal data, not scraped approximations.** The [Legal DataSpace (LDS)](https://www.alien.club/use-case/lds/) is the first European data space dedicated to legal data: a sovereign digital commons federating lawyers, legal-tech companies, institutions and researchers, so the profession builds and controls its own AI tools rather than being displaced by them. The starting ecosystem is France's legal profession — beginning with the CNB (Conseil national des barreaux) — and widening from there.
 
-That is what the LDS consortium is building: a **European Data Reservation Layer**. Alien Intelligence contributes the contract-first data infrastructure — content exposed under **Copyfair** licences, with copyright and provenance preserved through the pipeline, so AI agents and platforms consume rights-managed content under explicit terms instead of legal grey zones.
+Alien Intelligence provides the core technology that makes LDS natively AI-ready: **legal MCP servers** giving agents unified, machine-readable access to French and European legal texts, case law and doctrine; an **AI gateway** connecting sovereign legal sources directly to agents; and **data-contract tooling** that enforces terms automatically — every answer auditable and traceable to verified legal data, with lawyers in the loop. Copyfair-style licences are one of the planned extensions for rights-holders contributing content.
 
 ## My role
 
-I represent Alien Intelligence in the consortium and work on the infrastructure design: how contracts attach to data, how provenance and attribution persist downstream, and how the model fits European policy frameworks on data and AI.
+I deliver Alien's technology inside the project: deploying and adapting the core stack — MCP access, gateway, contract tooling — to the data space's governance and the needs of its legal users.
 
 ## Where it stands
 
-Consortium work is in progress, with the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [Gallica / BnF](/case-studies/gallica-bnf/) projects serving as living test beds for the same principles. A full write-up — the Data Reservation Layer concept, Copyfair contracts, pilots — will follow as the work is made public.
+The data space is operational and growing its partner base; Alien's infrastructure layer is deployed within it. A full write-up follows as the public services open up. The same principles drive the [OpenAIRE MCP](/case-studies/openaire-mcp/) and [Gallica / BnF](/case-studies/gallica-bnf/) work.

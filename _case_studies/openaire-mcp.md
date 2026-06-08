@@ -3,7 +3,7 @@ title: "OpenAIRE MCP — Connecting AI agents to 150M+ scientific records"
 lang: en
 ref: openaire-mcp
 slug: openaire-mcp
-date_start: 2025
+date_start: 2026
 ongoing: true
 category: ai-data-infrastructure
 summary: "Model Context Protocol server exposing the OpenAIRE Research Graph — 150M+ scientific publications, datasets and software entities — to AI agents through a typed tool surface."
@@ -24,4 +24,4 @@ I lead the project end to end at Alien Intelligence: the partnership with OpenAI
 
 ## Where it stands
 
-A first version of the server is operational and in use with AI agents. A full write-up — architecture, tool-surface design choices, and what we learned about agent-shaped access to scholarly data — will follow as the project matures. The same principles drive the [Gallica / BnF](/case-studies/gallica-bnf/) and [LDS / Copyfair](/case-studies/lds-copyfair/) work.
+A first version of the server is operational and in use with AI agents, and we launched an open hackathon with OpenAIRE to put it in the hands of researchers and developers. A full write-up — architecture, tool-surface design choices, and what we learned about agent-shaped access to scholarly data — will follow as the project matures. The same principles drive the [Gallica / BnF](/case-studies/gallica-bnf/) and [LDS / Copyfair](/case-studies/lds-copyfair/) work.

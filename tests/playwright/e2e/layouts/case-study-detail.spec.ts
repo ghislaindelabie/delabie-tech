@@ -21,7 +21,10 @@ test.describe("Case-study detail pages (template)", () => {
         page.locator('[data-test="case-study"]'),
         `case-study block on ${url}`,
       ).toBeVisible();
-      // Title (h1 or h2) must exist.
+      // UX-3: a real page H1 is required (title used to live only in the
+      // topbar/breadcrumb, invisible on mobile).
+      const h1 = page.locator("h1.case-study__title");
+      await expect(h1).toHaveCount(1);
       const hasHeading = await page.locator("h1, h2").count();
       expect(hasHeading, `heading on ${url}`).toBeGreaterThan(0);
       // Category badge and date badge (both present on every port we ship).
