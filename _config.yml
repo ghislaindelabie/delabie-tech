@@ -1,6 +1,6 @@
 # ----------------------------------------------------------
 # delabie.tech — production site (Chirpy). Cut over from the v2 preview
-# at Phase 8; serves at https://www.delabie.tech.
+# at Phase 8; canonical host is the apex https://delabie.tech (www 301s to it).
 # ----------------------------------------------------------
 
 theme: jekyll-theme-chirpy
