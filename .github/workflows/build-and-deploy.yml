@@ -68,6 +68,7 @@ jobs:
         uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Smoke test live site
-        # Production host as of the Phase 8 cutover (was https://v2.delabie.tech
-        # while the preview served there).
-        run: bash scripts/verify-deploy.sh https://www.delabie.tech
+        # Production canonical host (apex). www.delabie.tech 301-redirects here,
+        # and verify-deploy.sh does not follow redirects, so it must target the
+        # 200-serving apex.
+        run: bash scripts/verify-deploy.sh https://delabie.tech

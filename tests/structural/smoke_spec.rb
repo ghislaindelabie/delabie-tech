@@ -44,13 +44,14 @@ describe "Build smoke" do
     expect(deny).to include(match(/gh pr merge/))
   end
 
-  # Cutover (Phase 8): the production host is the apex-canonical www domain.
+  # Cutover (Phase 8): the production host is the apex domain delabie.tech.
+  # The pre-existing apex A-records make GitHub Pages canonicalise to apex
+  # (www 301-redirects to it), so the canonical host is delabie.tech, not www.
   # CNAME, the configured url, and the indexing flag must agree — a mismatch
-  # would break GitHub Pages' custom-domain serving or the canonical/sitemap
-  # URLs. These flipped from the v2 preview values at cutover.
-  it "has CNAME pointing to the production host (www.delabie.tech)" do
+  # would break custom-domain serving or the canonical/sitemap URLs.
+  it "has CNAME pointing to the production host (delabie.tech)" do
     cname = (ROOT / "CNAME").read.strip
-    expect(cname).to eq("www.delabie.tech")
+    expect(cname).to eq("delabie.tech")
   end
 
   it "CNAME, _config url, and a non-noindex production config are consistent" do
