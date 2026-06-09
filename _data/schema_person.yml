@@ -17,7 +17,9 @@
 name: "Ghislain Delabie"
 given_name: "Ghislain"
 family_name: "Delabie"
-url: "https://www.delabie.tech"
+# Must match the canonical host (site.url) — it's the Person identity URL
+# Google uses to consolidate the entity. Apex per the Phase 8 cutover.
+url: "https://delabie.tech"
 
 # Job title + employer at time of publication. Update when role changes.
 #
