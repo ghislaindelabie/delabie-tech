@@ -44,14 +44,22 @@ describe "Build smoke" do
     expect(deny).to include(match(/gh pr merge/))
   end
 
-  it "has CNAME pointing to v2.delabie.tech" do
+  # Cutover (Phase 8): the production host is the apex-canonical www domain.
+  # CNAME, the configured url, and the indexing flag must agree — a mismatch
+  # would break GitHub Pages' custom-domain serving or the canonical/sitemap
+  # URLs. These flipped from the v2 preview values at cutover.
+  it "has CNAME pointing to the production host (www.delabie.tech)" do
     cname = (ROOT / "CNAME").read.strip
-    expect(cname).to eq("v2.delabie.tech")
+    expect(cname).to eq("www.delabie.tech")
   end
 
-  it "has robots_noindex true in _config.yml (preview precaution)" do
+  it "CNAME, _config url, and a non-noindex production config are consistent" do
     config = YAML.safe_load_file((ROOT / "_config.yml"), permitted_classes: [Date])
-    expect(config["robots_noindex"]).to be true
+    cname = (ROOT / "CNAME").read.strip
+    # url must be https://<CNAME> so canonical / og / sitemap / hreflang are correct.
+    expect(config["url"]).to eq("https://#{cname}")
+    # Production is indexable: the noindex precaution is off post-cutover.
+    expect(config["robots_noindex"]).to be_falsey
   end
 end
 

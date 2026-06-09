@@ -47,11 +47,16 @@ test.describe("hreflang + canonical", () => {
   });
 });
 
-test.describe("robots noindex (preview precaution)", () => {
-  // Addresses [REVIEW-12]: single-source emission.
-  test("robots noindex appears exactly once on home", async ({ page }) => {
+test.describe("robots indexability (production, post-cutover)", () => {
+  // Was a preview precaution asserting exactly one `noindex` meta. At cutover
+  // (Phase 8) the production site must be indexable: NO robots-noindex meta.
+  // (The single-source emission logic in metadata-hook is unchanged; it just
+  // renders nothing now that robots_noindex is false.) [REVIEW-12.]
+  test("home emits no robots-noindex meta", async ({ page }) => {
     await page.goto("/");
-    const metas = await page.locator('head meta[name="robots"]').count();
-    expect(metas).toBe(1);
+    const noindex = await page
+      .locator('head meta[name="robots"]')
+      .evaluateAll((els) => els.some((e) => /noindex/i.test(e.getAttribute("content") || "")));
+    expect(noindex).toBe(false);
   });
 });

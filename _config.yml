@@ -1,5 +1,6 @@
 # ----------------------------------------------------------
-# delabie.tech — Chirpy migration (v2 test site)
+# delabie.tech — production site (Chirpy). Cut over from the v2 preview
+# at Phase 8; serves at https://www.delabie.tech.
 # ----------------------------------------------------------
 
 theme: jekyll-theme-chirpy
@@ -14,7 +15,7 @@ description: >-
   Intelligence, building the data infrastructure that connects AI agents
   to premium knowledge sources: science, heritage, media.
 
-url: "https://v2.delabie.tech"
+url: "https://www.delabie.tech"
 baseurl: ""
 
 github:
@@ -58,14 +59,17 @@ comments:
 # See docs/phase-5-refinements.md §1.
 analytics:
   goatcounter:
-    code: ""
+    code: "https://delabie.goatcounter.com/count"
 
 # ---- Pageviews ----
 pageviews:
   provider: ""
 
-# ---- Preview-site SEO precaution — §3.8.5 ----
-robots_noindex: true
+# ---- Indexing — PRODUCTION (cutover, Phase 8) ----
+# Was `true` for the v2 preview to keep it out of search results. Flipped to
+# false at cutover so search engines index the production site. The
+# metadata-hook only emits the `noindex` meta when this is truthy.
+robots_noindex: false
 
 # ---- SEO meta tags — Phase 5 ----
 # Google Search Console verification. Paste the `content="..."` value
