@@ -13,8 +13,7 @@ tags:
 - MaaS
 - données
 - événement
-projects:
-- maas-standards
+projects: []
 excerpt: Fernanda Marin's recap of Ross Douglas' Autonomy Paris keynote credits me
   as moderator of the 'Data, MaaS and how to build a great and open ecosystem' panel.
 detail: false
