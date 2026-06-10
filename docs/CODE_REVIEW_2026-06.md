@@ -123,3 +123,13 @@
 2. **Guards & contracts (~half day):** #4, #6–#10, #13, #14, #15, archive type-map single-sourcing.
 3. **Hygiene sweep (~half day):** README, dead CSS/keys/gems/config, lato-300, CI playwright cache, double build, escape fix.
 4. **Structural (when convenient):** CV → `_data/cv.yml`, filter-include unification, spec constant/taxonomy derivation, i18n boilerplate include.
+
+---
+
+## Execution state (2026-06-10)
+
+- **Batch 1 (SEO hotfix, findings #1–#3): DONE** — PR #40 (`fix/code-review-high-medium`), implemented TDD by an Opus agent, independently verified by the lead reviewer. Sitemap 32 → 52 locs; +4 spec invariants.
+- **Batch 2 (guards & contracts, findings #4, #6–#10, #13 + goatcounter env gate): DEFERRED** (owner budget pause). Ground truth already recon'd for the agent brief: the 4 teaching files carry `source_url:` while the template reads `external_url` (finding #7); FR-permalink rule must require explicit `/fr/` permalinks for collections whose pattern lacks a lang prefix (finding #4).
+- **Batch 3 (test-quality, findings #11, #14, #15 + appendix spec fixes + README): DEFERRED.**
+- **Descoped pending owner decision:** finding #12 (hooks vs CLAUDE.md claims) — touching hook scripts/claims needs explicit owner approval.
+- Each deferred batch is a ~half-day Opus-agent TDD pass + lead-reviewer verification, same protocol as Batch A.
