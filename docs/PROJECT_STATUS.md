@@ -1,6 +1,8 @@
 # delabie.tech — project status & roadmap
 
 **Living record for resuming work.** Last updated: 2026-06-10.
+
+> **2026-06-10:** full-project code review done → [`docs/CODE_REVIEW_2026-06.md`](CODE_REVIEW_2026-06.md) (3 HIGH — sitemap omits all tab pages, live; fix batches at the end). A separate hub-vision strategy report (15 options, tiered) lives **in the vault** (`personal/projects/delabie-tech-website/`) — kept private because it touches career strategy.
 Build-excluded (`docs/` is in `_config.yml` `exclude`) — never served publicly.
 
 > Companion: the Claude project memory `delabie-tech-launch-plan.md` carries a
