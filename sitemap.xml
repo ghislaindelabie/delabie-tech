@@ -18,8 +18,16 @@ permalink: /sitemap.xml
   pages — none today, future-proofing).
 {%- endcomment -%}
 
+{%- comment -%}
+  Code review 2026-06: `site.tabs` (the `tabs` output:true collection — every
+  nav page: /about/, /cv/, /contact/, …, plus FR twins) was never concatenated,
+  and collection docs are not in `site.pages`, so zero tab pages shipped in the
+  sitemap. Include it here. The `sitemap == false` guard below still excludes
+  jekyll-redirect-from stubs (they live in `site.pages`, stamped `sitemap: false`).
+{%- endcomment -%}
 {%- assign all = site.pages -%}
 {%- assign all = all | concat: site.posts -%}
+{%- assign all = all | concat: site.tabs -%}
 {%- assign all = all | concat: site.case_studies -%}
 {%- assign all = all | concat: site.archive -%}
 
@@ -36,10 +44,23 @@ permalink: /sitemap.xml
   {%- unless url_tail == '/' -%}{%- continue -%}{%- endunless -%}
   <url>
     <loc>{{ item.url | absolute_url | xml_escape }}</loc>
-    {%- if item.date %}
+    {%- comment -%}
+      Code review 2026-06: emit lastmod ONLY from an explicit frontmatter
+      date, never from the build moment. Jekyll::Document#date defaults to
+      site.time for docs with no `date` key, and Jekyll promotes a real
+      `date` out of `item.data` onto the Document, so `item.data.date` is
+      empty for every collection doc — it cannot tell the two apart. The
+      reliable discriminator is `item.date == site.time`: case studies
+      (which carry `date_start`, a bare year, not a `date`) collapse onto
+      the build instant and are skipped (a bare year is not a meaningful
+      lastmod); archive items (real `date`) keep theirs. Pages and tabs
+      without a date already differ from site.time only by coincidence, so
+      we also require an explicit `date`/`last_modified_at` to be set.
+    {%- endcomment -%}
+    {%- if item.date and item.date != site.time %}
     <lastmod>{{ item.date | date_to_xmlschema }}</lastmod>
-    {%- elsif item.last_modified_at %}
-    <lastmod>{{ item.last_modified_at | date_to_xmlschema }}</lastmod>
+    {%- elsif item.data.last_modified_at %}
+    <lastmod>{{ item.data.last_modified_at | date_to_xmlschema }}</lastmod>
     {%- endif -%}
     {%- if item.ref and item.ref != empty -%}
       {%- assign current_lang = item.lang | default: site.lang -%}
