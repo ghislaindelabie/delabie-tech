@@ -94,21 +94,19 @@ test.describe("Topbar — title", () => {
     await page.goto(url);
 
     const topbarTitle = (await page.locator("#topbar-title").textContent())?.trim() || "";
-    const h2Title = (await page.locator(".case-study__body h2").first().textContent())?.trim() || "";
+    // The document title is the page H1 (`.case-study__title`), NOT a body
+    // section heading. The topbar title must inherit ITS casing verbatim,
+    // proving it is not munged by a Liquid `| capitalize` filter.
+    const docTitle = (await page.locator("h1.case-study__title").first().textContent())?.trim() || "";
 
-    // The real invariant: topbar title matches the original title (from the
-    // body h1/h2), not a lowercased / capitalised version. Works for any
-    // case study regardless of content.
     expect(topbarTitle.length).toBeGreaterThan(0);
+    expect(docTitle.length).toBeGreaterThan(0);
     expect(topbarTitle).not.toMatch(/^Case_study$/);
-    // Proves casing is inherited from the document, not munged by `| capitalize`.
-    // (We don't require exact equality because titles can be formatted differently
-    // in the body; we just require that topbar title is NOT all-lowercase-after-first.)
-    const lowercaseAfterFirst = topbarTitle.slice(1) === topbarTitle.slice(1).toLowerCase();
-    const allLower = topbarTitle === topbarTitle.toLowerCase();
-    if (lowercaseAfterFirst && !allLower) {
-      throw new Error(`topbar title '${topbarTitle}' looks capitalize-mangled`);
-    }
+    // The real invariant: the topbar carries the document's own title with
+    // its original casing intact. Works for any case study regardless of
+    // content; a `| capitalize` regression would change the casing and trip
+    // this exact-match assertion.
+    expect(topbarTitle).toBe(docTitle);
   });
 
   test("<title> tag is non-empty on tab pages (regression for empty-title bug)", async ({ page }) => {

@@ -23,13 +23,21 @@ describe "email + phone privacy invariants (built site)" do
   # catch the formats Ghislain has actually used in past assets.
   FR_PHONE_PATTERN = /(?:\+33[\s.-]?[1-9](?:[\s.-]?\d{2}){4}|0[6-7](?:[\s.-]?\d{2}){4})/
 
-  # Files we scan. HTML, XML (sitemap, feed), JSON (resume.json etc.),
-  # plus any text-y assets explicitly committed.
-  SCAN_GLOBS = %w[
-    **/*.html
-    **/*.xml
-    **/*.json
-    **/*.txt
+  # We scan EVERY text-like served file, not a hand-picked allow-list of
+  # extensions. The header invariant is "email/phone never in ANY
+  # web-served file" — a narrow glob (html/xml/json/txt) silently exempted
+  # JS bundles, CSS, SVG, the webmanifest, and sourcemaps, all of which a
+  # scraper or visitor can fetch verbatim. Instead we walk the whole built
+  # tree and skip only binaries (images, fonts, PDFs) by extension.
+  #
+  # Binary extensions are excluded because (a) they cannot leak a
+  # plaintext email/phone the way a text file can and (b) reading them as
+  # UTF-8 would raise or produce garbage. Everything else — including
+  # extension-less files like `CNAME` — is treated as text and scanned.
+  BINARY_EXTS = %w[
+    .woff .woff2 .ttf .otf .eot
+    .png .jpg .jpeg .gif .webp .ico .bmp .avif
+    .pdf .zip .gz .mp4 .webm .mp3 .ogg
   ].freeze
 
   # Allow-list for known-safe substrings inside otherwise-flagged files.
@@ -43,17 +51,22 @@ describe "email + phone privacy invariants (built site)" do
     raise "Run `bundle exec jekyll build` first; _site/ missing." unless SITE_DIR.exist?
   end
 
+  # Every served file except known binaries. Returns absolute paths.
+  def served_text_files
+    Dir.glob(SITE_DIR / "**/*").select do |path|
+      File.file?(path) && !BINARY_EXTS.include?(File.extname(path).downcase)
+    end
+  end
+
   def scan(pattern, label)
     violations = []
-    SCAN_GLOBS.each do |glob|
-      Dir.glob(SITE_DIR / glob).each do |file|
-        contents = File.read(file)
-        contents.scan(pattern) do |match|
-          hit = Regexp.last_match[0]
-          next if ALLOWED_HITS.any? { |allowed| allowed == hit }
-          rel = Pathname.new(file).relative_path_from(SITE_DIR).to_s
-          violations << "#{rel}: #{label} match #{hit.inspect}"
-        end
+    served_text_files.each do |file|
+      contents = File.read(file, encoding: "UTF-8", invalid: :replace, undef: :replace)
+      contents.scan(pattern) do |_match|
+        hit = Regexp.last_match[0]
+        next if ALLOWED_HITS.any? { |allowed| allowed == hit }
+        rel = Pathname.new(file).relative_path_from(SITE_DIR).to_s
+        violations << "#{rel}: #{label} match #{hit.inspect}"
       end
     end
     violations

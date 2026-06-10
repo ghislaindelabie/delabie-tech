@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { findUntranslatedPermalink } from "../helpers/content";
 
 test.describe("Language switcher (Phase 1)", () => {
   test("switcher is visible on the homepage", async ({ page }) => {
@@ -29,16 +30,26 @@ test.describe("Language switcher (Phase 1)", () => {
   });
 
   // Addresses [REVIEW-4]: genuinely exercise the unavailable branch.
+  // Derive the fixture from content at test time (scan for a
+  // `translated: false` doc) instead of hardcoding `/phase1-notes/` —
+  // adding/removing such a page must not require editing this test. Skip
+  // gracefully if no untranslated doc exists (no unavailable branch to
+  // exercise).
   test("translated:false page renders unavailable state for the missing lang", async ({ page }) => {
-    await page.goto("/phase1-notes/");
+    const fixture = findUntranslatedPermalink();
+    test.skip(!fixture, "no `translated: false` content doc to exercise the unavailable branch");
+
+    // The unavailable entry is for the OTHER language relative to the page.
+    const missingLang = fixture!.lang === "fr" ? "en" : "fr";
+
+    await page.goto(fixture!.url);
     const switcher = page.locator('[data-test="lang-switcher"]');
     await expect(switcher).toBeVisible();
 
-    // Current page is EN, so FR entry must be in the unavailable state.
     const unavailable = switcher.locator(".lang-switcher__unavailable");
     await expect(unavailable).toHaveCount(1);
     await expect(unavailable).toHaveAttribute("aria-disabled", "true");
-    await expect(unavailable).toHaveAttribute("lang", "fr");
+    await expect(unavailable).toHaveAttribute("lang", missingLang);
 
     // And no <a> in the switcher may be missing an href.
     const brokenLinks = switcher.locator("a:not([href])");

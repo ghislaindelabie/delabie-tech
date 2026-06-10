@@ -37,6 +37,7 @@
     data-filter-item
     data-type="{{ include.item.type }}"
     data-year="{{ year }}"
+    data-slug="{{ include.item.slug }}"
     data-tags="{{ tags_str }}">
   <div class="archive-item__meta">
     <time datetime="{{ include.item.date | date: '%Y-%m-%d' }}">{{ include.item.date | date: '%Y-%m' }}</time>

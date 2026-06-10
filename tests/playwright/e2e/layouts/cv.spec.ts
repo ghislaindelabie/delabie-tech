@@ -41,8 +41,14 @@ test.describe("CV — mobile section interleave (UX-10)", () => {
   test("Skills and Education render above Experience at phone width", async ({ page }) => {
     await page.setViewportSize({ width: 600, height: 900 });
     await page.goto("/cv/");
-    const top = async (sel: string) =>
-      (await page.locator(sel).boundingBox())!.y;
+    // boundingBox() returns null for hidden/detached elements; guard with a
+    // named expect so a layout regression fails informatively instead of
+    // throwing an opaque "cannot read .y of null".
+    const top = async (sel: string) => {
+      const box = await page.locator(sel).boundingBox();
+      expect(box, `${sel} should be visible (boundingBox not null)`).not.toBeNull();
+      return box!.y;
+    };
     const skills = await top(".cv-split__card--skills");
     const education = await top(".cv-split__card--education");
     const experience = await top(".cv-split__section--experience");
@@ -55,6 +61,8 @@ test.describe("CV — mobile section interleave (UX-10)", () => {
     await page.goto("/cv/");
     const main = await page.locator(".cv-split__main").boundingBox();
     const skills = await page.locator(".cv-split__card--skills").boundingBox();
+    expect(main, ".cv-split__main should be visible (boundingBox not null)").not.toBeNull();
+    expect(skills, ".cv-split__card--skills should be visible (boundingBox not null)").not.toBeNull();
     // sidebar card sits to the right of the main column, not below it
     expect(skills!.x).toBeGreaterThan(main!.x + main!.width - 1);
   });
