@@ -1,7 +1,8 @@
 {%- comment -%}
   Shared teaching-item partial. Expects `include.t` = one _teaching/*.md entry.
   Renders institution, years range, title, short description, and optional
-  external resources (homepage / PDF / slides / video).
+  external resources: course page (external_url or source_url) / PDF /
+  slides / video.
 {%- endcomment -%}
 
 {%- assign years = include.t.years -%}
@@ -52,9 +53,16 @@
     {%- assign format_label = taxonomy.formats[include.t.format][include.t.lang] -%}
     {%- if format_label -%}<li class="tag tag--format">{{ format_label }}</li>{%- endif -%}
   </ul>
-  {%- if include.t.external_url or include.t.pdf or include.t.slides or include.t.video_url -%}
+  {%- comment -%}
+    [code review 2026-06 #7]: the course link is `external_url` OR `source_url`
+    — content authors use the latter (the 4 entries that declare a course link
+    all use `source_url`), which the template previously ignored, so their
+    links never rendered. Prefer external_url when both are set.
+  {%- endcomment -%}
+  {%- assign course_url = include.t.external_url | default: include.t.source_url -%}
+  {%- if course_url or include.t.pdf or include.t.slides or include.t.video_url -%}
     <ul class="teaching-item__resources">
-      {%- if include.t.external_url -%}<li><a href="{{ include.t.external_url }}" target="_blank" rel="noopener noreferrer">{{ label_course }}</a></li>{%- endif -%}
+      {%- if course_url -%}<li><a href="{{ course_url }}" target="_blank" rel="noopener noreferrer">{{ label_course }}</a></li>{%- endif -%}
       {%- if include.t.pdf -%}<li><a href="{{ include.t.pdf | relative_url }}">{{ label_pdf }}</a></li>{%- endif -%}
       {%- if include.t.slides -%}<li><a href="{{ include.t.slides | relative_url }}">{{ label_slides }}</a></li>{%- endif -%}
       {%- if include.t.video_url -%}<li><a href="{{ include.t.video_url }}" target="_blank" rel="noopener noreferrer">{{ label_video }}</a></li>{%- endif -%}

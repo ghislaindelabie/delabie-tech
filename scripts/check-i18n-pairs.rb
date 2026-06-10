@@ -12,6 +12,10 @@ require_relative "lib/i18n_pairs"
 violations = []
 by_lang_ref = Hash.new { |h, k| h[k] = [] }
 
+# [code review 2026-06 #4]: collections whose permalink template is not
+# language-distinct require an explicit /fr/ permalink on every FR file.
+needs_fr_permalink = I18nPairs.collections_needing_explicit_fr_permalink
+
 I18nPairs.content_files.each do |file|
   fm = I18nPairs.frontmatter(file)
   rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
@@ -36,6 +40,8 @@ I18nPairs.content_files.each do |file|
     elsif fm["lang"] == "en" && fm["permalink"].start_with?("/fr/")
       violations << "#{rel}: lang:en but permalink starts with /fr/"
     end
+  elsif fm["lang"] == "fr" && needs_fr_permalink.include?(I18nPairs.collection_of(file))
+    violations << "#{rel}: lang:fr in collection #{I18nPairs.collection_of(file).inspect} (non-lang-distinct permalink template) but no explicit permalink — it will collide with its EN sibling at build"
   end
 end
 

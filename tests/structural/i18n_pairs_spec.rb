@@ -93,6 +93,32 @@ describe "i18n pair invariants" do
     expect(violations).to be_empty, "FR files with wrong permalinks:\n#{violations.join("\n")}"
   end
 
+  # [code review 2026-06 #4]: the check above only validates the FORMAT of
+  # permalinks that exist — it never enforces the REQUIREMENT. For collections
+  # whose configured permalink template is NOT language-distinct (derived from
+  # _config.yml, not hardcoded), an FR file that omits its explicit permalink
+  # collides with the EN sibling at build time (Jekyll warns, exit 0). Require
+  # the /fr/ permalink for every FR file in such a collection.
+  it "FR files in non-lang-distinct collections carry an explicit /fr/ permalink" do
+    collections = I18nPairs.collections_needing_explicit_fr_permalink
+    expect(collections).not_to be_empty, "expected at least one routed, non-lang-distinct collection in _config.yml"
+
+    violations = []
+    files.each do |file|
+      fm = I18nPairs.frontmatter(file)
+      next unless fm["lang"] == "fr"
+      next unless collections.include?(I18nPairs.collection_of(file))
+      rel = Pathname.new(file).relative_path_from(I18nPairs::ROOT).to_s
+      pl = fm["permalink"]
+      if pl.nil? || pl.to_s.strip.empty?
+        violations << "#{rel}: lang:fr in collection #{I18nPairs.collection_of(file).inspect} with a non-lang-distinct permalink template — must declare an explicit permalink starting with /fr/ (else it collides with its EN sibling at build)"
+      elsif !pl.start_with?("/fr/")
+        violations << "#{rel}: permalink #{pl.inspect} must start with /fr/"
+      end
+    end
+    expect(violations).to be_empty, "FR files missing the required /fr/ permalink:\n#{violations.join("\n")}"
+  end
+
   it "EN files do NOT have /fr/ in their permalink" do
     violations = []
     files.each do |file|

@@ -204,13 +204,20 @@ collections:
     output: false
     sort_by: date
   # Phase 4 — publications: reports, talks, webinars, interviews, papers.
-  # (Plan §3.4 / §5.5.) One file per item. Listed on /publications/, not
-  # individually routed yet (detail pages optional per-item via has_detail_page).
+  # (Plan §3.4 / §5.5.) One file per item. `output: false`, so items render
+  # ONLY inside the /publications/ list page — Jekyll never routes them to
+  # their own URL. A `has_detail_page` flag in some entries is therefore inert
+  # today; honoring it would require flipping `output` to true, a future
+  # decision. [code review 2026-06 #13: comment corrected — no detail pages.]
   publications:
     output: false
     sort_by: date
   # Phase 4 — teaching assignments. (Plan §3.5 / §5.5.) One file per course.
-  # Listed on /teaching/; optional detail pages when has_detail_page: true.
+  # `output: false`, so items render ONLY inside the /teaching/ list page —
+  # Jekyll never routes them to their own URL. The `has_detail_page` flag in
+  # some entries is therefore inert today; honoring it would require flipping
+  # `output` to true, a future decision.
+  # [code review 2026-06 #13: comment corrected — no detail pages today.]
   #
   # Sort by scalar `year_end` (last year of engagement). Sorting directly on
   # the `years` array breaks when a future entry uses a scalar or mixed-length

@@ -25,6 +25,39 @@ module I18nPairs
     end
   end
 
+  # Maps a content file to its collection name (e.g. "_archive/x.md" → "archive",
+  # "_case_studies/y.fr.md" → "case_studies"). Returns nil for loose dirs.
+  def self.collection_of(file)
+    rel = Pathname.new(file).relative_path_from(ROOT).to_s
+    dir = rel.split("/").first
+    return nil unless dir&.start_with?("_")
+    dir.delete_prefix("_")
+  end
+
+  # [code review 2026-06 #4] Collections whose configured permalink template
+  # does NOT vary by language — both the EN and FR sibling resolve to the same
+  # URL unless the FR file carries its own /fr/ permalink. A template is
+  # language-distinct only if it injects the lang into the path (a literal
+  # "/fr" segment or a ":lang"-style variable); the collection defaults in
+  # _config.yml (e.g. archive's "/archive/:year/:slug/") do not, so an FR file
+  # that OMITS an explicit permalink silently collides with its EN sibling at
+  # build time (Jekyll only warns, exit 0 — this incident happened once).
+  #
+  # Derived from _config.yml so adding a collection automatically extends the
+  # rule; nothing is hardcoded to "archive".
+  def self.collections_needing_explicit_fr_permalink
+    config = YAML.safe_load_file(ROOT / "_config.yml", permitted_classes: [Date, Time]) || {}
+    collections = config["collections"] || {}
+    collections.filter_map do |name, settings|
+      next unless settings.is_a?(Hash)
+      next unless settings["output"] # output:false collections are never routed → no collision
+      template = settings["permalink"].to_s
+      # Language-distinct templates encode the lang in the path themselves.
+      next if template.include?("/fr") || template.include?(":lang")
+      name
+    end
+  end
+
   def self.frontmatter(file)
     raw = File.read(file)
     return {} unless raw =~ /\A---\s*\n(.*?)\n---\s*\n/m
