@@ -129,7 +129,8 @@
 ## Execution state (2026-06-10)
 
 - **Batch 1 (SEO hotfix, findings #1–#3): DONE** — PR #40 (`fix/code-review-high-medium`), implemented TDD by an Opus agent, independently verified by the lead reviewer. Sitemap 32 → 52 locs; +4 spec invariants.
-- **Batch 2 (guards & contracts, findings #4, #6–#10, #13 + goatcounter env gate): DEFERRED** (owner budget pause). Ground truth already recon'd for the agent brief: the 4 teaching files carry `source_url:` while the template reads `external_url` (finding #7); FR-permalink rule must require explicit `/fr/` permalinks for collections whose pattern lacks a lang prefix (finding #4).
-- **Batch 3 (test-quality, findings #11, #14, #15 + appendix spec fixes + README): DEFERRED.**
+- **Batch 2 (guards & contracts, findings #4, #6–#10, #13): DONE 2026-06-10** — same protocol (Opus agent TDD + lead verification). Goatcounter env-gate consciously descoped: config-identity gating is cosmetic-only (CI builds aren't browsed) and changing it risks the launch-verified analytics rendering.
+- **Batch 3 (test-quality, findings #11, #14, #15 + appendix spec fixes + README): DONE 2026-06-10** — same protocol.
+- **Sweep phase: still not run** (optional follow-up: one bounded gap-hunt agent over the post-fix tree).
 - **Descoped pending owner decision:** finding #12 (hooks vs CLAUDE.md claims) — touching hook scripts/claims needs explicit owner approval.
 - Each deferred batch is a ~half-day Opus-agent TDD pass + lead-reviewer verification, same protocol as Batch A.
