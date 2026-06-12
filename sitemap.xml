@@ -59,8 +59,8 @@ permalink: /sitemap.xml
     {%- endcomment -%}
     {%- if item.date and item.date != site.time %}
     <lastmod>{{ item.date | date_to_xmlschema }}</lastmod>
-    {%- elsif item.data.last_modified_at %}
-    <lastmod>{{ item.data.last_modified_at | date_to_xmlschema }}</lastmod>
+    {%- elsif item.last_modified_at %}
+    <lastmod>{{ item.last_modified_at | date_to_xmlschema }}</lastmod>
     {%- endif -%}
     {%- if item.ref and item.ref != empty -%}
       {%- assign current_lang = item.lang | default: site.lang -%}
