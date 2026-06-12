@@ -21,7 +21,11 @@ describe "email + phone privacy invariants (built site)" do
   TEL_PATTERN = /tel:[^"'\s>]+/
   # French mobile shapes: 06/07 mobiles + +33 prefixes. Loose enough to
   # catch the formats Ghislain has actually used in past assets.
-  FR_PHONE_PATTERN = /(?:\+33[\s.-]?[1-9](?:[\s.-]?\d{2}){4}|0[6-7](?:[\s.-]?\d{2}){4})/
+  # Digit-boundary lookarounds [sweep 2026-06 #2]: without them the pattern
+  # matches inside longer digit runs (build timestamps, minified-JS number
+  # literals) now that the scan covers JS bundles and sourcemaps — a false
+  # "phone leak" with no privacy issue. Real phone formats keep matching.
+  FR_PHONE_PATTERN = /(?<!\d)(?:\+33[\s.-]?[1-9](?:[\s.-]?\d{2}){4}|0[6-7](?:[\s.-]?\d{2}){4})(?!\d)/
 
   # We scan EVERY text-like served file, not a hand-picked allow-list of
   # extensions. The header invariant is "email/phone never in ANY
