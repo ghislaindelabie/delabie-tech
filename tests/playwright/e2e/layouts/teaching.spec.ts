@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { activateNoMatchCombination } from "../helpers/filters";
+import { activateNoMatchCombination, activatePartialPill } from "../helpers/filters";
 
 test.describe("Teaching index", () => {
   test("EN /teaching/ returns 200 with items", async ({ page }) => {
@@ -45,26 +45,31 @@ test.describe("Teaching index", () => {
   test("filter pill narrows the list and reset restores it", async ({ page }) => {
     await page.goto("/teaching/");
     const items = page.locator('[data-test="teaching-item"]');
-    const total = await items.count();
-    expect(total).toBeGreaterThan(0);
 
-    // Click the `Data & AI` theme pill.
-    await page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]').click();
+    // Derive a pill that matches SOME but not ALL items from the live DOM
+    // instead of hardcoding `data-ai` — adding/retagging content (all-AI or
+    // no-AI) must never break this test. Skip if no partial pill exists.
+    const pick = await activatePartialPill(page, "teaching-filters");
+    test.skip(!pick, "no pill currently narrows the list to a strict subset");
+
     await expect(
-      page.locator('[data-test="teaching-filters"] .filter-pill[data-filter="data-ai"]'),
+      page.locator(
+        `[data-test="teaching-filters"] [data-group="${pick!.axis}"] .filter-pill[data-filter="${pick!.value}"]`,
+      ),
     ).toHaveAttribute("aria-pressed", "true");
     const narrowed = await items.evaluateAll((els) =>
       els.filter((el) => !(el as HTMLElement).hidden).length,
     );
+    expect(narrowed).toBe(pick!.expectedNarrowed);
     expect(narrowed).toBeGreaterThan(0);
-    expect(narrowed).toBeLessThan(total);
+    expect(narrowed).toBeLessThan(pick!.total);
 
     // Reset clears filters and restores full list.
     await page.locator('[data-test="teaching-filter-reset"]').click();
     const restored = await items.evaluateAll((els) =>
       els.filter((el) => !(el as HTMLElement).hidden).length,
     );
-    expect(restored).toBe(total);
+    expect(restored).toBe(pick!.total);
   });
 
   test("empty-state message appears when no item matches", async ({ page }) => {

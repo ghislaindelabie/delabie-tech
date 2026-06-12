@@ -21,7 +21,7 @@ permalink: /teaching/
 
 <div data-filter-list>
 
-  {% include teaching-filters.html lang="en" %}
+  {% include teaching-filters.html lang="en" items=items %}
 
   <ul class="teaching-list" data-filter-items data-test="teaching-list">
   {%- for t in items -%}

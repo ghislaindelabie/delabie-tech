@@ -22,7 +22,7 @@ permalink: /fr/teaching/
 
 <div data-filter-list>
 
-  {% include teaching-filters.html lang="fr" %}
+  {% include teaching-filters.html lang="fr" items=items %}
 
   <ul class="teaching-list" data-filter-items data-test="teaching-list">
   {%- for t in items -%}

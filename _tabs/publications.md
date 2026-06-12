@@ -15,7 +15,7 @@ permalink: /publications/
 
 <div data-filter-list>
 
-  {% include publication-filters.html lang="en" %}
+  {% include publication-filters.html lang="en" items=items %}
 
   <ul class="publications-list" data-filter-items data-test="publications-list">
   {%- for pub in items -%}
