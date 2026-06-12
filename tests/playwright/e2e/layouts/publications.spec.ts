@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { activateNoMatchCombination } from "../helpers/filters";
+import { activateNoMatchCombination, activatePartialPill } from "../helpers/filters";
 
 // Template-level: adding a publication is a pure content operation.
 
@@ -52,24 +52,25 @@ test.describe("Publications index", () => {
   test("filter pill narrows the list and reset restores it", async ({ page }) => {
     await page.goto("/publications/");
     const items = page.locator('[data-test="publication-item"]');
-    const total = await items.count();
-    expect(total).toBeGreaterThan(0);
 
-    // Narrow to "Data & AI" theme.
-    await page
-      .locator('[data-test="publications-filters"] .filter-pill[data-filter="data-ai"]')
-      .click();
+    // Derive a pill that matches SOME but not ALL items from the live DOM
+    // instead of hardcoding `data-ai` — adding/retagging content (all-AI or
+    // no-AI) must never break this test. Skip if no partial pill exists.
+    const pick = await activatePartialPill(page, "publications-filters");
+    test.skip(!pick, "no pill currently narrows the list to a strict subset");
+
     const narrowed = await items.evaluateAll((els) =>
       els.filter((el) => !(el as HTMLElement).hidden).length,
     );
+    expect(narrowed).toBe(pick!.expectedNarrowed);
     expect(narrowed).toBeGreaterThan(0);
-    expect(narrowed).toBeLessThan(total);
+    expect(narrowed).toBeLessThan(pick!.total);
 
     await page.locator('[data-test="publications-filter-reset"]').click();
     const restored = await items.evaluateAll((els) =>
       els.filter((el) => !(el as HTMLElement).hidden).length,
     );
-    expect(restored).toBe(total);
+    expect(restored).toBe(pick!.total);
   });
 
   test("empty-state appears when no item matches", async ({ page }) => {

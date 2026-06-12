@@ -8,22 +8,36 @@
   source of truth also consumed by _includes/teaching-item.html).
   The `data-filter-*` attributes match the contract in
   assets/js/filter-list.js (shared by /teaching/ and /publications/).
+
+  Expects:
+    include.lang  = "en" | "fr"
+    include.items = the page's language-filtered teaching list.
+
+  [code review 2026-06 #8]: a pill renders only when ≥1 item in `items`
+  carries its value (themes contains / format ==), so a taxonomy key with
+  no matching item never produces a dead pill that filters to nothing.
 {%- endcomment -%}
 
 {%- assign i18n = site.data.i18n.strings[include.lang] -%}
 {%- assign taxonomy = site.data.teaching_taxonomy -%}
+{%- assign present_formats = include.items | map: 'format' | uniq -%}
 
 <section class="list-filters" data-filter-controls data-test="teaching-filters" aria-label="{{ i18n.teaching_filter_theme_label }} / {{ i18n.teaching_filter_format_label }}">
   <div class="filter-group" data-group="themes" role="group" aria-label="{{ i18n.teaching_filter_theme_label }}">
     <span class="filter-group__label">{{ i18n.teaching_filter_theme_label }}</span>
     {%- for entry in taxonomy.themes -%}
-      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+      {%- assign matching = include.items | where_exp: "i", "i.themes contains entry[0]" -%}
+      {%- if matching.size > 0 -%}
+        <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+      {%- endif -%}
     {%- endfor -%}
   </div>
   <div class="filter-group" data-group="format" role="group" aria-label="{{ i18n.teaching_filter_format_label }}">
     <span class="filter-group__label">{{ i18n.teaching_filter_format_label }}</span>
     {%- for entry in taxonomy.formats -%}
-      <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+      {%- if present_formats contains entry[0] -%}
+        <button type="button" class="filter-pill" data-filter="{{ entry[0] }}" aria-pressed="false">{{ entry[1][include.lang] }}</button>
+      {%- endif -%}
     {%- endfor -%}
   </div>
   <button type="button" class="filter-reset" data-filter-reset data-test="teaching-filter-reset" hidden><i class="fas fa-xmark" aria-hidden="true"></i> {{ i18n.teaching_filter_reset }}</button>

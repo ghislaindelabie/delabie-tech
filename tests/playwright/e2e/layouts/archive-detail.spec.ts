@@ -46,7 +46,12 @@ test.describe("Archive item detail", () => {
       if (kind === "detail-true") return "";
     }
     // detail-false (or any, when no detail-true present): find a row
-    // whose row-detail-link is absent, then resolve via sitemap.
+    // whose row-detail-link is absent, then resolve its permalink via
+    // sitemap. We match the row's FULL slug (data-slug), not just the
+    // year prefix — multiple items can share a year (2017 and 2022 each
+    // have two), and a year-only match would return whichever same-year
+    // URL appears first in the sitemap, i.e. potentially a DIFFERENT
+    // document than the row we started from.
     const rows = page.locator('[data-test="archive-row"]');
     const n = await rows.count();
     for (let i = 0; i < n; i++) {
@@ -54,8 +59,11 @@ test.describe("Archive item detail", () => {
       const dl = await row.locator('[data-test="archive-row-detail-link"]').count();
       if (dl === 0) {
         const year = await row.getAttribute("data-year");
+        const slug = await row.getAttribute("data-slug");
+        if (!year || !slug) continue;
         const sitemap = await (await page.request.get("/sitemap.xml")).text();
-        const re = new RegExp(`(/archive/${year}/[^/<]+/)`);
+        const escaped = slug.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const re = new RegExp(`(/archive/${year}/${escaped}/)`);
         const match = sitemap.match(re);
         if (match) return match[1];
       }

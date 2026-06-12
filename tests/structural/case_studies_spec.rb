@@ -12,7 +12,15 @@ describe "case-study collection invariants" do
   # need the linkage fields so the pair invariant and switcher behave.
   REQUIRED_FIELDS_FR = %w[title lang ref slug permalink].freeze
 
-  ALLOWED_CATEGORIES = %w[mobility mobilité ai-data-infrastructure media-culture science].freeze
+  # [code review 2026-06 #9]: the allowed set is DERIVED from
+  # _data/case_study_categories.yml — that data file is the single source of
+  # truth. The old hardcoded list included `science`, which has no entry in
+  # the data file, so a `category: science` doc passed the suite yet rendered
+  # a raw slug (case_study.html / archive_item.html fall back to the bare
+  # category when the key is missing). Deriving the set means a category is
+  # allowed only once it is actually mapped to a label + icon.
+  CATEGORY_DATA = YAML.safe_load_file(I18nPairs::ROOT / "_data" / "case_study_categories.yml")
+  ALLOWED_CATEGORIES = CATEGORY_DATA.keys.freeze
 
   it "directory exists with at least one EN + one FR file" do
     expect(CASE_STUDY_DIR.exist?).to be(true)
@@ -57,6 +65,24 @@ describe "case-study collection invariants" do
       end
     end
     expect(violations).to be_empty, "Unknown categories:\n#{violations.join("\n")}"
+  end
+
+  # [code review 2026-06 #9]: every category key must map to a renderable
+  # entry — label.en, label.fr and icon — so the allowed set can never admit
+  # a slug that would surface raw on the page.
+  it "every category in the data file has label.en + label.fr + icon" do
+    violations = []
+    CATEGORY_DATA.each do |key, entry|
+      unless entry.is_a?(Hash)
+        violations << "#{key}: not a mapping"
+        next
+      end
+      violations << "#{key}: missing icon" if entry["icon"].to_s.strip.empty?
+      label = entry["label"] || {}
+      violations << "#{key}: missing label.en" if label["en"].to_s.strip.empty?
+      violations << "#{key}: missing label.fr" if label["fr"].to_s.strip.empty?
+    end
+    expect(violations).to be_empty, "Incomplete category entries:\n#{violations.join("\n")}"
   end
 
   it "date_start is a 4-digit year" do

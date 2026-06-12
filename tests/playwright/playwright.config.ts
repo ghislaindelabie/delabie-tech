@@ -5,8 +5,10 @@ import { defineConfig, devices } from "@playwright/test";
  *
  * TEST_ENV selects the base URL:
  *  - local (default): jekyll-built _site served at 127.0.0.1:4000
- *  - preview: https://v2.delabie.tech
- *  - prod: https://www.delabie.tech  (only after cutover)
+ *  - preview: https://v2.delabie.tech  (opt-in v2 staging)
+ *  - prod: https://delabie.tech  (live production, apex; cutover 2026-06-09).
+ *    The canonical host is the apex — www.delabie.tech 301-redirects to it,
+ *    so prod must target the apex to hit 200s without following redirects.
  *
  * Projects (current):
  *  - chromium-en only.
@@ -29,7 +31,7 @@ const TEST_ENV: Env = (process.env.TEST_ENV as Env) || "local";
 const baseURLs: Record<Env, string> = {
   local: "http://127.0.0.1:4000",
   preview: "https://v2.delabie.tech",
-  prod: "https://www.delabie.tech",
+  prod: "https://delabie.tech",
 };
 const baseURL = baseURLs[TEST_ENV];
 

@@ -36,7 +36,7 @@ layout: page
       {%- endcomment -%}
       <img
         src="{{ page.cover | relative_url }}"
-        alt="{{ page.cover_alt | default: page.title }}"
+        alt="{{ page.cover_alt | default: page.title | escape }}"
         {% if page.cover_width and page.cover_height %}width="{{ page.cover_width }}" height="{{ page.cover_height }}"{% endif %}
         loading="lazy"
       >

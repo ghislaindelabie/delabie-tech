@@ -26,7 +26,14 @@
 {%- unless skip_switcher -%}
 {%- assign current_lang = page.lang | default: site.lang -%}
 {%- assign default_lang = site.data.i18n.languages | where: "default", true | first -%}
-{%- assign fallback_lang = default_lang.code | default: site.data.i18n.languages | first.code -%}
+{%- comment -%}
+  [code review 2026-06 #6]: `... | default: site.data.i18n.languages | first.code`
+  parsed `first.code` as a filter argument (not property access), so the
+  fallback path yielded garbage. Resolve `first` into a variable first, then
+  read its `.code` on the default chain.
+{%- endcomment -%}
+{%- assign first_lang = site.data.i18n.languages | first -%}
+{%- assign fallback_lang = default_lang.code | default: first_lang.code -%}
 {%- assign strings = site.data.i18n.strings[current_lang] | default: site.data.i18n.strings[fallback_lang] -%}
 
 <nav class="lang-switcher-compact" data-test="lang-switcher" aria-label="{{ strings.lang_switcher_label }}">
