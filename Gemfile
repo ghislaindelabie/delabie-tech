@@ -5,7 +5,7 @@ gem "jekyll", "~> 4.3"
 # and _data/locales/fr.yml from v7.5.x. A minor bump (7.6+) can ship
 # sidebar/locale changes that silently diverge from our fork; bumping
 # is an intentional re-diff operation. [REVIEW-29] / [REVIEW-8 @ 07:01].
-gem "jekyll-theme-chirpy", "~> 7.5.0"
+gem "jekyll-theme-chirpy", "~> 7.6.0"
 
 # Plugin pins match current Gemfile.lock versions so a cache-miss resolve
 # can't silently pull future majors that change canonical/sitemap semantics
