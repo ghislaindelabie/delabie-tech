@@ -62,18 +62,24 @@ sections:
       en: OpenClassrooms — AI Engineering
       fr: OpenClassrooms — Ingénierie IA
     blurb:
-      en: "Coursework from the OpenClassrooms AI Engineer path — graduating in 2026: the formal engineering credential behind the practice above."
-      fr: "Projets du parcours Ingénieur IA d'OpenClassrooms — diplôme en 2026 : le socle formel derrière la pratique ci-dessus."
+      en: "The OpenClassrooms AI Engineer path (graduating 2026) — the formal credential behind the practice above. Each project is an end-to-end engineering exercise (need → data → architecture → industrialisation → evaluation), not a model-training demo. Start with LexFR-Embed, the capstone."
+      fr: "Le parcours Ingénieur IA d'OpenClassrooms (diplôme en 2026) — le socle formel derrière la pratique ci-dessus. Chaque projet est un exercice d'ingénierie de bout en bout (besoin → données → architecture → industrialisation → évaluation), pas une démo d'entraînement de modèle. Commencez par LexFR-Embed, le projet fil rouge."
     repos:
+      - name: lexfr-embed
+        url: https://github.com/ghislaindelabie/lexfr-embed
+        description: "Capstone — French legal-domain text embedder (sentence-transformers + LoRA), evaluated on BSARD: NDCG@10 0.240 → 0.292 (+0.052; 95% CI excludes zero; reproduced ×3). Open-source (Apache-2.0) with a soutenance report; open model release to follow."
+      - name: oc14-medical-triage-llm
+        url: https://github.com/ghislaindelabie/oc14-medical-triage-llm
+        description: "Bilingual FR/EN LLM fine-tuned (SFT + LoRA, then DPO) into a human-in-the-loop emergency-triage decision-support agent — vLLM/FastAPI serving on RunPod, GDPR-scoped anonymisation, leakage-audited evaluation."
       - name: oc12-checkit-pipeline
         url: https://github.com/ghislaindelabie/oc12-checkit-pipeline
-        description: Multimodal fake-news detection data pipeline (capstone).
+        description: "Multimodal (text + image) data pipeline for fake-news detection — extraction, corpus-building, and a normalise / load-to-PostgreSQL layer (Airflow-orchestrated)."
       - name: oc11-rl-eagle1
         url: https://github.com/ghislaindelabie/oc11-rl-eagle1
-        description: Reinforcement learning — DQN agents through to a LunarLander-v3 mission.
+        description: "Reinforcement learning — from tabular / DQN agents to a PPO LunarLander-v3 landing mission, with a hyperparameter sweep."
       - name: OC10-brainscan-ai-semi-supervised
         url: https://github.com/ghislaindelabie/OC10-brainscan-ai-semi-supervised
-        description: Semi-supervised brain-tumour detection from MRI.
+        description: "Semi-supervised brain-tumour detection from MRI — using unlabelled scans to cut labelling cost."
       - name: OC7-RAG
         url: https://github.com/ghislaindelabie/OC7-RAG
         description: RAG system for cultural-event recommendations (Savoie, Haute-Savoie, Isère).
