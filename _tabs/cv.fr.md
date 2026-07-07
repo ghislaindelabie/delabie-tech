@@ -175,7 +175,7 @@ permalink: /fr/cv/
 
       <section class="cv-split__card cv-split__card--speaking">
         <h2 class="cv-split__h3">Conférences &amp; interventions</h2>
-        <p class="cv-split__card-body">Interventions publiques à l'intersection IA × mobilité × science ouverte — DSS26 (Madrid), Tech &amp; Fest (Grenoble), GFII et d'autres. Voir <a href="/fr/publications/">Publications</a> pour le catalogue.</p>
+        <p class="cv-split__card-body">Interventions publiques à l'intersection IA × mobilité × science ouverte — DSS26 (Madrid), Tech &amp; Fest (Grenoble), GFII et d'autres.</p>
       </section>
 
       <section class="cv-split__card cv-split__card--credentials">
