@@ -175,7 +175,7 @@ permalink: /cv/
 
       <section class="cv-split__card cv-split__card--speaking">
         <h2 class="cv-split__h3">Speaking</h2>
-        <p class="cv-split__card-body">Public talks and webinars at the intersection of AI, mobility and open science — DSS26 (Madrid), Tech &amp; Fest (Grenoble), GFII and others. See <a href="/publications/">Publications</a> for the catalogue.</p>
+        <p class="cv-split__card-body">Public talks and webinars at the intersection of AI, mobility and open science — DSS26 (Madrid), Tech &amp; Fest (Grenoble), GFII, and others.</p>
       </section>
 
       <section class="cv-split__card cv-split__card--credentials">
