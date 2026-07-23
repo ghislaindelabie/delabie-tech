@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Checkout
         # [SEC-7] Third-party actions pinned by commit SHA (not tag).
-        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@89f90524b88a01fe6e0b732220432cc6142926af # v1
