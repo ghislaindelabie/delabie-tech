@@ -20,7 +20,7 @@ end
 
 group :test do
   gem "rspec", "~> 3.13"
-  gem "html-proofer", "~> 5.0"
+  gem "html-proofer", "~> 5.2"
 end
 
 gem "tzinfo-data", platforms: [:mingw, :mswin, :x64_mingw, :jruby]
